@@ -8,8 +8,6 @@ function App() {
       <Routes>
        <Route path='/' element={<Home/>}></Route>
        <Route path='/React-Project1' element={<Home/>} ></Route>
-       <Route path='https://jangjeonghun1004.github.io/React-Project1/' element={<Home/>} ></Route>
-       
       </Routes>
     </BrowserRouter>
   )
