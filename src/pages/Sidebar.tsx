@@ -7,11 +7,9 @@ import Search from "../widgets/search/Search";
 
 function Sidebar() {
     const [isMenuOpen, setIsMenuOpen] = useState(true);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const handleResize = () => {
         const width = window.innerWidth;
-        setWindowWidth(width);
 
         if(width < 768) {
             setIsMenuOpen(false);
