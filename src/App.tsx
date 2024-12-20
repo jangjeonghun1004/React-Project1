@@ -7,6 +7,7 @@ function App() {
     <BrowserRouter>
       <Routes>
        <Route path='/' element={<Home/>}></Route>
+       <Route path='/React-Project1/' element={<Home/>} ></Route>
       </Routes>
     </BrowserRouter>
   )
