@@ -6,8 +6,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-       <Route path='/' element={<Home/>}></Route>
-       <Route path='/React-Project1' element={<Home/>} ></Route>
+       <Route path={process.env.NODE_ENV === 'production' ? '/React-Project1' : '/'} element={<Home/>}></Route>
       </Routes>
     </BrowserRouter>
   )

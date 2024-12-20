@@ -21,3 +21,9 @@ function App() {
 
 **useState & React.ReactNode**
 
+
+
+npm i --save-dev @types/node
+
+base: process.env.NODE_ENV === 'production' ? '/React-Project1' : '/', 
+
