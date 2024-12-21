@@ -2,7 +2,7 @@
 function Header() {
     return (
         <header id="header">
-            <a href="index.html" className="logo"><strong>Editorial</strong> by HTML5 UP</a>
+            <a href="/" className="logo"><strong>React + Vite + TypeScript</strong></a>
             <ul className="icons">
                 <li><a href="#" className="icon brands fa-twitter"><span className="label">Twitter</span></a></li>
                 <li><a href="#" className="icon brands fa-facebook-f"><span className="label">Facebook</span></a></li>

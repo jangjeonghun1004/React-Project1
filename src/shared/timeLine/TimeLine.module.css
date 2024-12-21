@@ -1,0 +1,42 @@
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-left: 20px;
+  border-left: 2px solid #f56a6a; /* 라인 색상 */
+}
+
+.timelineitem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.circle {
+  width: 12px;
+  height: 12px;
+  background-color: #f56a6a; /* 원 색상 */
+  border-radius: 50%;
+  margin-right: 10px;
+  position: absolute;
+  left: -27px; /* 라인과 원 정렬 */
+  top: 0px;
+}
+
+.content {
+  padding-left: 20px;
+}
+
+.message {
+  color:#3d4449;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.author {
+  font-size: 15px;
+  color: gray;
+  margin: 0;
+}

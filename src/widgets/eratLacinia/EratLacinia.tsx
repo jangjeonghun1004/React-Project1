@@ -4,17 +4,17 @@ function EratLacinia() {
     return (
         <section>
             <header className="major">
-                <h2>Erat lacinia</h2>
+                <h2>React 학습 내용</h2>
             </header>
             <div className="features">
                 <CardStyle1 
                     icon="icon fa-gem" 
-                    title="Portitor ullamcorper"
+                    title="useState"
                     text="Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam."
                 />
                 <CardStyle1
                     icon="icon solid fa-paper-plane"
-                    title="Sapien veroeros"
+                    title="useReducer"
                     text="Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam."
                 />
                 <CardStyle1
