@@ -9,12 +9,13 @@ function Sidebar() {
     const [isMenuOpen, setIsMenuOpen] = useState(true);
     const [windowWidth, setWindowWidth] = useState<number>(0);
 
-    const handleResize = () => {
-        //setWindowWidth(window.innerWidth);
-
+    const handleResize = (isInit: boolean) => {
         if(window.innerWidth < 768) {
-            setIsMenuOpen(windowWidth != window.innerWidth ? false : true);
-            setWindowWidth(n => n+1);
+            if(isInit) {
+                setIsMenuOpen(false);
+            } else {
+                setIsMenuOpen(windowWidth == window.innerWidth ? isMenuOpen : false);
+            }
         } else {
             setIsMenuOpen(true);
         }
@@ -25,21 +26,21 @@ function Sidebar() {
     };
 
     useEffect(() => {
-        handleResize();
+        setWindowWidth(window.innerWidth);
+        handleResize(true);
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize',  () => handleResize(false));
 
         // 클린업: 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
-            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', () => handleResize(false));
         };
     }, []);
 
     return (
-        <div id="sidebar" className={isMenuOpen ? '' : ''}>
+        <div id="sidebar" className={isMenuOpen ? '' : 'inactive'}>
             <div className="inner">
                 <Search />
-                {windowWidth}, {window.innerWidth}, {String(isMenuOpen)}
                 <Menu />
                 <AnteInterdum />
                 <GetInTouch />
