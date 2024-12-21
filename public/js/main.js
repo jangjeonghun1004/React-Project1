@@ -76,13 +76,13 @@
 			
 
 		// Inactive by default on <= large.
-			breakpoints.on('<=large', function() {
-				$sidebar.addClass('inactive');
-			});
+			// breakpoints.on('<=large', function() {
+			// 	$sidebar.addClass('inactive');
+			// });
 
-			breakpoints.on('>large', function() {
-				$sidebar.removeClass('inactive');
-			});
+			// breakpoints.on('>large', function() {
+			// 	$sidebar.removeClass('inactive');
+			// });
 
 		// Hack: Workaround for Chrome/Android scrollbar position bug.
 			if (browser.os == 'android'
@@ -100,7 +100,7 @@
 						event.stopPropagation();
 
 					// Toggle.
-						$sidebar.toggleClass('inactive');
+						//$sidebar.toggleClass('inactive');
 
 				});
 
@@ -127,7 +127,7 @@
 							return;
 
 					// Hide sidebar.
-						$sidebar.addClass('inactive');
+						//$sidebar.addClass('inactive');
 
 					// Redirect to href.
 						setTimeout(function() {
@@ -161,7 +161,7 @@
 							return;
 
 					// Deactivate.
-						$sidebar.addClass('inactive');
+						//$sidebar.addClass('inactive');
 
 				});
 
