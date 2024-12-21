@@ -25,11 +25,11 @@ function Sidebar() {
     useEffect(() => {
         handleResize();
 
-        window.addEventListener('resize', handleResize);
+        //window.addEventListener('resize', handleResize);
 
         // 클린업: 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
-            window.removeEventListener('resize', handleResize);
+            //window.removeEventListener('resize', handleResize);
         };
     }, []);
 
