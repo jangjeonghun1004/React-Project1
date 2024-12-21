@@ -10,10 +10,11 @@ function Sidebar() {
     const [windowWidth, setWindowWidth] = useState<number>(0);
 
     const handleResize = () => {
-        setWindowWidth(window.innerWidth);
+        //setWindowWidth(window.innerWidth);
 
         if(window.innerWidth < 768) {
             setIsMenuOpen(windowWidth != window.innerWidth ? false : true);
+            setWindowWidth(n => n+1);
         } else {
             setIsMenuOpen(true);
         }
@@ -35,10 +36,10 @@ function Sidebar() {
     }, []);
 
     return (
-        <div id="sidebar" className={isMenuOpen ? '' : 'inactive'}>
+        <div id="sidebar" className={isMenuOpen ? '' : ''}>
             <div className="inner">
                 <Search />
-                {windowWidth}, {window.innerWidth}
+                {windowWidth}, {window.innerWidth}, {String(isMenuOpen)}
                 <Menu />
                 <AnteInterdum />
                 <GetInTouch />
