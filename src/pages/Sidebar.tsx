@@ -7,18 +7,13 @@ import Search from "../widgets/search/Search";
 
 function Sidebar() {
     const [isMenuOpen, setIsMenuOpen] = useState(true);
-    const [windowWidth, setWindowWidth] = useState<number>(0);
+    //const [windowWidth, setWindowWidth] = useState<number>(0);
 
-    const handleResize = (isInit: boolean) => {
-        if(window.innerWidth < 768) {
-            if(isInit) {
-                setIsMenuOpen(false);
-            } 
-            if(!isInit && windowWidth != window.innerWidth) {
-                setIsMenuOpen(false);
-            }
-        } else {
+    const handleResize = () => {
+        if(window.innerWidth > 768) {
             setIsMenuOpen(true);
+        } else {
+            //setIsMenuOpen(true);
         }
     };
 
@@ -27,14 +22,17 @@ function Sidebar() {
     };
 
     useEffect(() => {
-        setWindowWidth(window.innerWidth);
-        handleResize(true);
+        //setWindowWidth(window.innerWidth);
+        //handleResize(true);
+        if(window.innerWidth < 768) {
+            setIsMenuOpen(false);
+        }
 
-        window.addEventListener('resize',  () => handleResize(false));
+        window.addEventListener('resize', handleResize);
 
         // 클린업: 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
-            window.removeEventListener('resize', () => handleResize(false));
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
 
