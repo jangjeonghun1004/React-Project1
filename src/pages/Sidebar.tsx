@@ -7,9 +7,11 @@ import Search from "../widgets/search/Search";
 
 function Sidebar() {
     const [isMenuOpen, setIsMenuOpen] = useState(true);
+    const [windowHeight, setWindowHeight] = useState<number>(0);
 
     const handleResize = () => {
         const width = window.innerWidth;
+        setWindowHeight(window.innerHeight);
 
         if(width < 768) {
             setIsMenuOpen(false);
@@ -34,9 +36,10 @@ function Sidebar() {
     }, []);
 
     return (
-        <div id="sidebar" className={isMenuOpen ? '' : 'inactive'}>
+        <div id="sidebar" className={isMenuOpen ? '' : ''}>
             <div className="inner">
                 <Search />
+                {windowHeight}
                 <Menu />
                 <AnteInterdum />
                 <GetInTouch />
