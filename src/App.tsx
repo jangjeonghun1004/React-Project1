@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
        <Route path={process.env.NODE_ENV === 'production' ? '/React-Project1' : '/'} element={<Home/>}></Route>
-       <Route path={process.env.NODE_ENV === 'production' ? '/React-Project1' : '/career'} element={<Career/>}></Route>
+       <Route path={process.env.NODE_ENV === 'production' ? '/React-Project1/career' : '/career'} element={<Career/>}></Route>
        <Route path='*' element={<NotFound404/>}></Route>
       </Routes>
     </BrowserRouter>
