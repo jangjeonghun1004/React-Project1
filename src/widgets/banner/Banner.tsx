@@ -16,7 +16,7 @@ function Banner() {
                     이 사이트가 저의 첫번째 String Boot & React 포트폴리오입니다.
                 </p>
                 <ul className="actions">
-                    <li><Link to='/career'className="button big">Learn More</Link></li>
+                    <li><Link to={process.env.NODE_ENV === 'production' ? '/React-Project1/career' : '/career'} className="button big">Learn More</Link></li>
                 </ul>
             </div>
             <span className="image object">
