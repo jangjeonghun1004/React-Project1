@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import AnteInterdum from "../widgets/anteInterdum/AnteInterdum";
 import CopyRight from "../widgets/copyRight/CopyRight";
 import GetInTouch from "../widgets/getInTouch/GetInTouch";
+import Menu from "../widgets/menu/Menu";
 import Search from "../widgets/search/Search";
 
 function Sidebar() {
     const [isMenuOpen, setIsMenuOpen] = useState(true);
-    const [windowWidth, setWindowWidth] = useState<number>(0);
 
     const handleResize = () => {
         const width = window.innerWidth;
-        setWindowWidth(width);
 
         if(width < 768) {
             setIsMenuOpen(false);
@@ -38,8 +37,7 @@ function Sidebar() {
         <div id="sidebar" className={isMenuOpen ? '' : ''}>
             <div className="inner">
                 <Search />
-                <h1>{String(isMenuOpen)}, {windowWidth}</h1>
-               
+                <Menu />
                 <AnteInterdum />
                 <GetInTouch />
                 <CopyRight />
