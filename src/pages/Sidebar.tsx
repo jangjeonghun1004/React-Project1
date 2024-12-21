@@ -10,10 +10,9 @@ function Sidebar() {
     const [windowHeight, setWindowHeight] = useState<number>(0);
 
     const handleResize = () => {
-        const width = window.innerWidth;
         setWindowHeight(window.innerHeight);
 
-        if(width < 768) {
+        if(window.innerWidth < 768) {
             setIsMenuOpen(false);
         } else {
             setIsMenuOpen(true);
@@ -33,7 +32,7 @@ function Sidebar() {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [windowHeight]);
 
     return (
         <div id="sidebar" className={isMenuOpen ? '' : ''}>
