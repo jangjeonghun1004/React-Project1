@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import AnteInterdum from "../widgets/anteInterdum/AnteInterdum";
 import CopyRight from "../widgets/copyRight/CopyRight";
 import GetInTouch from "../widgets/getInTouch/GetInTouch";
-import Menu from "../widgets/menu/Menu";
 import Search from "../widgets/search/Search";
 
 function Sidebar() {
