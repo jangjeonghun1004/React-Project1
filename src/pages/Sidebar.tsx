@@ -35,7 +35,7 @@ function Sidebar() {
     }, []);
 
     return (
-        <div id="sidebar" className={isMenuOpen ? '' : ''}>
+        <div id="sidebar" className={isMenuOpen ? '' : 'inactive'}>
             <div className="inner">
                 <Search />
                 {windowWidth}, {window.innerWidth}
