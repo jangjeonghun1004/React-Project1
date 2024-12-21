@@ -34,10 +34,10 @@ function Sidebar() {
     }, []);
 
     return (
-        <div id="sidebar" >
-            <h1>{String(isMenuOpen)}</h1>
+        <div id="sidebar" className={isMenuOpen ? '' : ''}>
             <div className="inner">
                 <Search />
+                <h1>{String(isMenuOpen)}</h1>
                 <Menu />
                 <AnteInterdum />
                 <GetInTouch />
