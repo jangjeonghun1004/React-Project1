@@ -34,7 +34,8 @@ function Sidebar() {
     }, []);
 
     return (
-        <div id="sidebar" className={isMenuOpen ? '' : 'inactive'}>
+        <div id="sidebar" >
+            <h1>{String(isMenuOpen)}</h1>
             <div className="inner">
                 <Search />
                 <Menu />
