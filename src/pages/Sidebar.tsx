@@ -12,10 +12,6 @@ function Sidebar() {
         if(window.innerWidth > 1280) {
             setIsMenuOpen(true);
         }
-
-        if(window.innerWidth < 1280) {
-            setIsMenuOpen(isMenuOpen);
-        }
     };
 
     const handleToggleMenu = () => {
