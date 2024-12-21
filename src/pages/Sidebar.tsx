@@ -10,7 +10,7 @@ function Sidebar() {
     const [windowWidth, setWindowWidth] = useState<number>(0);
 
     const handleResize = () => {
-        setWindowWidth(window.innerHeight);
+        setWindowWidth(window.innerWidth);
 
         if(window.innerWidth < 768) {
             setIsMenuOpen(windowWidth != window.innerWidth ? false : true);
