@@ -7,13 +7,14 @@ import Search from "../widgets/search/Search";
 
 function Sidebar() {
     const [isMenuOpen, setIsMenuOpen] = useState(true);
-    //const [windowWidth, setWindowWidth] = useState<number>(0);
 
     const handleResize = () => {
-        if(window.innerWidth > 768) {
+        if(window.innerWidth > 1280) {
             setIsMenuOpen(true);
-        } else {
-            //setIsMenuOpen(true);
+        }
+
+        if(window.innerWidth < 1280) {
+            setIsMenuOpen(false);
         }
     };
 
@@ -22,9 +23,7 @@ function Sidebar() {
     };
 
     useEffect(() => {
-        //setWindowWidth(window.innerWidth);
-        //handleResize(true);
-        if(window.innerWidth < 768) {
+        if(window.innerWidth < 1280) {
             setIsMenuOpen(false);
         }
 
