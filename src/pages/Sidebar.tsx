@@ -40,7 +40,7 @@ function Sidebar() {
             <div className="inner">
                 <Search />
                 <h1>{String(isMenuOpen)}, {windowWidth}</h1>
-                <Menu />
+               
                 <AnteInterdum />
                 <GetInTouch />
                 <CopyRight />
