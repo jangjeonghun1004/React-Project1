@@ -14,7 +14,7 @@ function Sidebar() {
         }
 
         if(window.innerWidth < 1280) {
-            setIsMenuOpen(false);
+            setIsMenuOpen(isMenuOpen);
         }
     };
 
