@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 
 function Header() {
     return (
         <header id="header">
-            <a href="/" className="logo"><strong>React + Vite + TypeScript</strong></a>
+            <Link to={process.env.NODE_ENV === 'production' ? '/React-Project1' : '/'} className="logo"><strong>React + Vite + TypeScript</strong></Link>
             <ul className="icons">
                 <li><a href="#" className="icon brands fa-twitter"><span className="label">Twitter</span></a></li>
                 <li><a href="#" className="icon brands fa-facebook-f"><span className="label">Facebook</span></a></li>

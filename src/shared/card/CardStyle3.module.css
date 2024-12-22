@@ -1,0 +1,8 @@
+.animateBefor {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.animateAfter {
+    transform: scale(1.2) rotate(45deg);
+}
