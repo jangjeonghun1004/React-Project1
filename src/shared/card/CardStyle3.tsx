@@ -8,7 +8,7 @@ interface Props {
     text?: string
 }
 
-function CardStyle3({ icon='icon fa-gem', title='title', text='some text' }: Props) {
+function CardStyle3({ icon = 'icon fa-gem', title = 'title', text = 'some text' }: Props) {
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
 
@@ -19,9 +19,6 @@ function CardStyle3({ icon='icon fa-gem', title='title', text='some text' }: Pro
     const handleMouseLeave = () => {
         setIsHovered(false);
     };
-
-    console.log(`${import.meta.env.BASE_URL}`)
-
 
     return (
         <article onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={() => navigate(`${import.meta.env.BASE_URL}career`)} style={{ cursor: "pointer" }}>
