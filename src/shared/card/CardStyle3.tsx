@@ -21,7 +21,7 @@ function CardStyle3({ icon='icon fa-gem', title='title', text='some text' }: Pro
     };
 
     return (
-        <article onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={() => navigate(`${process.env.NODE_ENV === 'production' ? '/React_Project1/career' : '/career'}`)} style={{ cursor: "pointer" }}>
+        <article onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={() => navigate(`${process.env.NODE_ENV === 'production' ? '/React-Project1/career' : '/career'}`)} style={{ cursor: "pointer" }}>
             <span className={`${styles.animateBefor} ${isHovered ? styles.animateAfter : ''} ${icon}`}></span>
             <div className="content">
                 <h3>{title}</h3>
