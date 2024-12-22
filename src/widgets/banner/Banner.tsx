@@ -20,7 +20,7 @@ function Banner() {
                 </ul>
             </div>
             <span className="image object">
-                <img src={process.env.NODE_ENV === 'production' ? '/React-Project1/images/rvt.webp' : '/images/rvt.webp'} alt="" />
+                <img src={process.env.NODE_ENV === 'production' ? '/React-Project1/images/rvt.png' : '/images/rvt.png'} alt="" />
             </span>
         </section>
 

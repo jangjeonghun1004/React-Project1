@@ -2,19 +2,13 @@ import { useState } from "react";
 import styles from './CardStyle3.module.css'
 import { useNavigate } from "react-router-dom";
 
-CardStyle3.defaultProps = {
-    icon: 'icon fa-gem',
-    title: 'title',
-    text: 'some text',
-};
-
 interface Props {
-    icon: string,
-    title: string,
-    text: string
+    icon?: string,
+    title?: string,
+    text?: string
 }
 
-function CardStyle3({ icon, title, text }: Props) {
+function CardStyle3({ icon='icon fa-gem', title='title', text='some text' }: Props) {
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
 
