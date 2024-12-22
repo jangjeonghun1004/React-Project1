@@ -3,6 +3,8 @@
 **Route 설치**
 ```console
 > npm install react-router-dom
+
+// type script에서 Node 사용
 > npm i --save-dev @types/node
 ```
 

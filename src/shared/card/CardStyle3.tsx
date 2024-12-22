@@ -20,8 +20,11 @@ function CardStyle3({ icon='icon fa-gem', title='title', text='some text' }: Pro
         setIsHovered(false);
     };
 
+    console.log(`${import.meta.env.BASE_URL}`)
+
+
     return (
-        <article onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={() => navigate(`${process.env.NODE_ENV === 'production' ? '/React-Project1/career' : '/career'}`)} style={{ cursor: "pointer" }}>
+        <article onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={() => navigate(`${import.meta.env.BASE_URL}career`)} style={{ cursor: "pointer" }}>
             <span className={`${styles.animateBefor} ${isHovered ? styles.animateAfter : ''} ${icon}`}></span>
             <div className="content">
                 <h3>{title}</h3>
