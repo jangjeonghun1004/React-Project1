@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import NotFound404 from './widgets/pageError/NotFound404'
 import Career from './pages/Career'
 import ScrollToTop from './shared/ScrollToUp'
+import UseState from './pages/UseState'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
       <Routes>
        <Route path={process.env.NODE_ENV === 'production' ? '/React-Project1' : '/'} element={<Home/>}></Route>
        <Route path={process.env.NODE_ENV === 'production' ? '/React-Project1/career' : '/career'} element={<Career/>}></Route>
+       <Route path={`${import.meta.env.BASE_URL}useState`} element={<UseState/>}></Route>
        <Route path='*' element={<NotFound404/>}></Route>
       </Routes>
     </BrowserRouter>
