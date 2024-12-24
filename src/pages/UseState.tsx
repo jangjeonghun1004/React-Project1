@@ -1,4 +1,3 @@
-import { count } from "console";
 import Header from "../widgets/header/Header";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
