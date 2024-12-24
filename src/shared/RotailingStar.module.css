@@ -1,0 +1,39 @@
+  .rotating_star {
+    display: inline-block;
+    font-size: 1rem;
+    animation: rotate 4s linear infinite;
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .walking_person_container {
+    position: relative;
+    width: 50%;
+    height: 4.2vh;
+    display: inline-block;
+    align-items: center;
+    overflow: hidden;
+    /* background-color: #f0f0f0; */
+  }
+
+  .walking_person {
+    position: absolute;
+    font-size: 2rem;
+    animation: walk 3s linear infinite;
+  }
+  
+  @keyframes walk {
+    0% {
+      left: -10%;
+    }
+    100% {
+      left: 110%;
+    }
+  }

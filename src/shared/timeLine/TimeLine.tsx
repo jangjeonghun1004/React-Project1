@@ -1,27 +1,40 @@
+interface ITimeLine {
+  id: number,
+  title: string,
+  subTitle: string,
+  details: ITimeLineDetail[]
+}
 
-import styles from './TimeLine.module.css';
+interface ITimeLineDetail {
+  id: number,
+  text: string
+}
 
-const timelineData = [
-  { id: 1, title: "현재(개발 역량 확장)", careerDetails: [{id:1, title: 'Spring Boot'},{id:1, title: 'React + Vite + TS'}] },
-  { id: 2, title: "2018 ~ 2020 호주 유학", careerDetails: [{id:1, title: '어학 연수'}] },
-  { id: 3, title: "init", careerDetails: [{id:1, title: '입출고 시스템'},{id:1, title: '고객 관리 시스템'}] },
-  { id: 4, title: "init", careerDetails: [{id:1, title: '입출고 시스템'},{id:1, title: '고객 관리 시스템'}] },
-  { id: 5, title: "init", careerDetails: [{id:1, title: '입출고 시스템'},{id:1, title: '고객 관리 시스템'},{id:1, title: '입출고 시스템'},{id:1, title: '고객 관리 시스템'}] },
-];
+interface Props {
+  data: ITimeLine[]
+}
 
-function TimeLine() {
+function TimeLine({data}: Props) {
   return (
-    <div className={styles.timeline}>
-      {timelineData.map((item) => (
-        <div key={item.id} className={styles.timelineitem }>
-          <div className={styles.circle} />
-          <div className={styles.content}>
-            <p className={styles.message}>{item.title}</p>
-            {item.careerDetails.map((i) => <p key={i.id} className={styles.author}>{i.title}</p>)}
+    <>
+      {data.map((timeLine => {
+        return (
+          <div className="row" key={timeLine.id}>
+            <div>
+              <h2>{timeLine.id <= 1 && <img src="/images/edit_document.gif" style={{marginBottom:-20}} />} {timeLine.title}</h2>
+              <blockquote>
+                <div>
+                  <h4>{timeLine.subTitle}</h4>
+                  <ul style={{marginBottom:0}}>
+                    {timeLine.details.map(item => <li key={item.id}>{item.text}</li>)}
+                  </ul>
+                </div>
+              </blockquote>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        )
+      }))}
+    </>
   );
 }
 

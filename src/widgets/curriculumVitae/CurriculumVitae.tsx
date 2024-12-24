@@ -23,7 +23,6 @@ function CurriculumVitae() {
                 <img src={`${import.meta.env.BASE_URL}images/rvt.png`} />
             </span>
         </section>
-
     );
 }
 
