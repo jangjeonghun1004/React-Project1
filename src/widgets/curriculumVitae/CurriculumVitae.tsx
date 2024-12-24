@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Banner() {
+function CurriculumVitae() {
     return (
         <section id="banner">
             <div className="content">
@@ -16,15 +16,15 @@ function Banner() {
                     이 사이트가 저의 첫번째 String Boot & React 포트폴리오입니다.
                 </p>
                 <ul className="actions">
-                    <li><Link to={process.env.NODE_ENV === 'production' ? '/React-Project1/career' : '/career'} className="button big">Learn More</Link></li>
+                    <li><Link to={`${import.meta.env.BASE_URL}career`} className="button primary large icon solid fa-search">이력서 연람하기</Link></li>
                 </ul>
             </div>
             <span className="image object">
-                <img src={process.env.NODE_ENV === 'production' ? '/React-Project1/images/rvt.png' : '/images/rvt.png'} alt="" />
+                <img src={`${import.meta.env.BASE_URL}images/rvt.png`} />
             </span>
         </section>
 
     );
 }
 
-export default Banner
+export default CurriculumVitae

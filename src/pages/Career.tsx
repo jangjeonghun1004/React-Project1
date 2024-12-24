@@ -1,6 +1,7 @@
 import TimeLine from "../shared/timeLine/TimeLine";
 import Header from "../widgets/header/Header";
 import Sidebar from "./Sidebar";
+import BounceEmoji from "../shared/BounceEmoji";
 
 function Career() {
     return (
@@ -10,11 +11,12 @@ function Career() {
                     <Header />
                     <section>
                         <header className="main">
-                            <h1>경력(Career)</h1>
+                            <h1>이력서</h1>
                         </header>
 
                         {/* contents */}
                         <TimeLine />
+                        <BounceEmoji />
                     </section>
                 </div>
             </div>

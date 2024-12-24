@@ -6,11 +6,11 @@ import Menu from "../widgets/menu/Menu";
 import Search from "../widgets/search/Search";
 
 function Sidebar() {
-    const [isMenuOpen, setIsMenuOpen] = useState(true);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleResize = () => {
-        if(window.innerWidth > 1280) {
-            setIsMenuOpen(true);
+        if(window.innerWidth <= 1280) {
+            setIsMenuOpen(false);
         }
     };
 
@@ -19,8 +19,8 @@ function Sidebar() {
     };
 
     useEffect(() => {
-        if(window.innerWidth < 1280) {
-            setIsMenuOpen(false);
+        if(window.innerWidth >= 1280) {
+            setIsMenuOpen(true);
         }
 
         window.addEventListener('resize', handleResize);
