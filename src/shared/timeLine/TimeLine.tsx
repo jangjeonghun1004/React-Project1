@@ -21,7 +21,7 @@ function TimeLine({data}: Props) {
         return (
           <div className="row" key={timeLine.id}>
             <div>
-              <h2>{timeLine.id <= 1 && <img src="/images/edit_document.gif" style={{marginBottom:-20}} />} {timeLine.title}</h2>
+              <h2>{timeLine.id <= 1 && <img src={`${import.meta.env.BASE_URL}images/edit_document.gif`} style={{marginBottom:-20}} />} {timeLine.title}</h2>
               <blockquote>
                 <div>
                   <h4>{timeLine.subTitle}</h4>

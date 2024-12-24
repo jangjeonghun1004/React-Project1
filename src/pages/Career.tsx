@@ -19,7 +19,7 @@ function Career() {
                             <h1>이력서</h1>
                         </header>
 
-                        <span className="image main"><img src="/images/img03.jpeg" style={{ height: 300 }} alt="진화" /></span>
+                        <span className="image main"><img src={`${import.meta.env.BASE_URL}images/img03.jpeg`} style={{ height: 300 }} alt="진화" /></span>
                         <TimeLine data={timeLineData} />
                     </section>
                 </div>
