@@ -33,7 +33,7 @@ function UseState() {
 
                         <div className="row">
                             <div className="col-6 col-12-small">
-                                <h3>샘플 코드</h3>
+                                <h3>예제 코드</h3>
                                 <pre>
                             <code>
                                 {`
@@ -62,7 +62,7 @@ export default Counter;
                         </pre>
                             </div>
                             <div className="col-6 col-12-small">
-                                <h3>샘플 코드 테스트</h3>
+                                <h3>예제 코드 테스트</h3>
                                 <div className="box">
                                     <h1>Count: {count}</h1>
 

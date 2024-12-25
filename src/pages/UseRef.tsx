@@ -68,7 +68,7 @@ export default function UseRef() {
 
                         <div className="row">
                             <div className="col-6 col-12-small">
-                                <h3>샘플 코드(DOM 요소 접근)</h3>
+                                <h3>예제 코드(DOM 요소 접근)</h3>
                                 <pre>
                             <code>
                                 {`
@@ -97,7 +97,7 @@ export default FocusInput;
                         </pre>
                             </div>
                             <div className="col-6 col-12-small">
-                                <h3>샘플 코드 테스트</h3>
+                                <h3>예제 코드 테스트</h3>
                                 <div className="box">
                                     <input ref={inputRef} type="text" placeholder="Click the button to focus" />
                                     <br />
@@ -108,7 +108,7 @@ export default FocusInput;
 
                         <div className="row">
                             <div className="col-6 col-12-small">
-                                <h3>값 저장</h3>
+                                <h3>예제 코드(값 저장)</h3>
                                 <pre>
                             <code>
                                 {`
@@ -139,7 +139,7 @@ export default Counter;
                         </pre>
                             </div>
                             <div className="col-6 col-12-small">
-                                <h3>샘플 코드 테스트</h3>
+                                <h3>예제 코드 테스트</h3>
                                 <div className="box">
                                     <h1>Count: {count}</h1>
                                     <p>Component rendered {renderCount.current} times</p>
@@ -151,7 +151,7 @@ export default Counter;
 
                         <div className="row">
                             <div className="col-6 col-12-small">
-                                <h3>예제 코드(값 기억)</h3>
+                                <h3>예제 코드(상태 기억)</h3>
                                 <pre>
                             <code>
                                 {`
@@ -205,7 +205,14 @@ export default Timer;
                             </div>
                         </div>
 
-                    <p>useRef는 useState와 동일하게 값을 저장하지만 useRef는 리렌더링이 발생하지 않는다.</p>
+                        <h2 id="content">추가 활용 사례</h2>
+                        <ul>
+                            <li>스크롤 이동: scrollIntoView로 부드러운 스크롤 이동을 제어합니다.</li>
+                            <li>크기 측정: offsetWidth, offsetHeight로 요소 크기를 계산합니다.</li>
+                            <li>CSS 클래스 조작: classList.toggle로 동적 스타일 변경을 처리합니다.</li>
+                            <li>미디어 제어: 비디오/오디오의 play, pause 같은 동작을 관리합니다.</li>
+                            <li>텍스트 변경: DOM 요소의 textContent를 조작합니다.</li>
+                        </ul>
                     </section>
                 </div>
             </div>
