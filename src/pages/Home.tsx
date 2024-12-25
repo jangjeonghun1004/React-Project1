@@ -23,8 +23,6 @@ function Home() {
                                 text="useState는 React에서 함수형 컴포넌트의 상태 관리를 간단하고 직관적으로 처리하기 위한 Hook입니다."
                                 linkPath='useState' 
                             />
-
-
                             <CardStyle3 icon="icon solid fa-paper-plane" title="useReducer" />
                             <CardStyle3 icon="icon solid fa-rocket" title="useContext" />
                             <CardStyle3 icon="icon solid fa-signal" title="useEffect" />
