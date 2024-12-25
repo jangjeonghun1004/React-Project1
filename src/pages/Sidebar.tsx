@@ -27,9 +27,7 @@ function Sidebar() {
                 <GetInTouch />
                 <CopyRight />
             </div>
-            <a href="#sidebar" className="toggle" onClick={handleToggleMenu}>
-                Toggle
-            </a>
+            <a href="#sidebar" className="toggle" onClick={handleToggleMenu}>Toggle</a>
         </div>
     );
 }

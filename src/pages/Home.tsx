@@ -26,7 +26,12 @@ function Home() {
                             <CardStyle3 icon="icon solid fa-paper-plane" title="useReducer" />
                             <CardStyle3 icon="icon solid fa-rocket" title="useContext" />
                             <CardStyle3 icon="icon solid fa-signal" title="useEffect" />
-                            <CardStyle3 icon="icon fa-gem" title="useRef" />
+                            <CardStyle3 
+                                icon="icon fa-gem" 
+                                title="useRef"
+                                text="useRef는 DOM 조작이나 값 저장에 유용하며, 렌더링을 발생시키지 않고 값을 유지할 때 자주 사용됩니다."
+                                linkPath="useRef" 
+                            />
                             <CardStyle3 icon="icon solid fa-paper-plane" title="BrowserRouter" />
                             <CardStyle3 icon="icon solid fa-rocket" title="Props" />
                             <CardStyle3 icon="icon solid fa-signal" title="Recoil" />

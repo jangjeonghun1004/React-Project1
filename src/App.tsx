@@ -5,6 +5,7 @@ import Career from './pages/Career'
 import ScrollToTop from './shared/ScrollToUp'
 import UseState from './pages/UseState'
 import { ScreenSizeProvider } from './app/ScreenSizeProvider'
+import UseRef from './pages/UseRef'
 
 function App() {
 
@@ -13,9 +14,10 @@ function App() {
       <BrowserRouter>
         <ScrollToTop /> {/* 라우트 변경 시 상단으로 스크롤 */}
         <Routes>
-          <Route path={process.env.NODE_ENV === 'production' ? '/React-Project1' : '/'} element={<Home />}></Route>
-          <Route path={process.env.NODE_ENV === 'production' ? '/React-Project1/career' : '/career'} element={<Career />}></Route>
+          <Route path={`${import.meta.env.BASE_URL}`} element={<Home />}></Route>
+          <Route path={`${import.meta.env.BASE_URL}career`} element={<Career />}></Route>
           <Route path={`${import.meta.env.BASE_URL}useState`} element={<UseState />}></Route>
+          <Route path={`${import.meta.env.BASE_URL}useRef`} element={<UseRef />}></Route>
           <Route path='*' element={<NotFound404 />}></Route>
         </Routes>
       </BrowserRouter>

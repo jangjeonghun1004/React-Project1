@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from './CardStyle3.module.css'
 import { useNavigate } from "react-router-dom";
+import { useScreenSize } from "../../app/ScreenSizeProvider";
 
 interface Props {
     icon?: string,
@@ -12,6 +13,7 @@ interface Props {
 function CardStyle3({ icon = 'icon fa-gem', title = 'title', text = 'some text', linkPath = '' }: Props) {
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
+    const screenType = useScreenSize();
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -22,11 +24,16 @@ function CardStyle3({ icon = 'icon fa-gem', title = 'title', text = 'some text',
     };
 
     return (
-        <article onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={() => navigate(`${import.meta.env.BASE_URL}${linkPath}`)} style={{ cursor: "pointer" }}>
-            <span className={`${styles.animateBefor} ${isHovered ? styles.animateAfter : ''} ${icon}`}></span>
+        <article 
+            onMouseEnter={handleMouseEnter} 
+            onMouseLeave={handleMouseLeave} 
+            onClick={() => navigate(`${import.meta.env.BASE_URL}${linkPath}`)} 
+            style={{ cursor: "pointer" }}
+        >
+            {(screenType === 'pc' || screenType === 'tablet') && <span className={`${styles.animateBefor} ${isHovered ? styles.animateAfter : ''} ${icon}`}></span>}
             <div className="content">
                 <h3>{title}</h3>
-                <p>{text}</p>
+                <p>{text} &nbsp; <a href="#">예제 코드</a></p>
             </div>
         </article>
     );
