@@ -18,7 +18,7 @@ function UseState() {
                             <h1>useState</h1>
                         </header>
 
-                        <span className="image main"><img src={`${import.meta.env.BASE_URL}images/img01.jpeg`} style={{ height: 300 }} alt="useState" /></span>
+                        <span className="image main"><img src={`${import.meta.env.BASE_URL}images/img01.jpeg`} style={{ height: 300 }} alt="image" /></span>
 
                         {/* contents */}
                         <h2 id="content">useState란?</h2>
@@ -35,8 +35,8 @@ function UseState() {
                             <div className="col-6 col-12-small">
                                 <h3>예제 코드</h3>
                                 <pre>
-                            <code>
-                                {`
+                                    <code>
+{`
 import { useState } from "react";
 
 function Counter() {
@@ -57,9 +57,9 @@ function Counter() {
 }
 
 export default Counter;
-                                `}
-                            </code>
-                        </pre>
+`}
+                                    </code>
+                                </pre>
                             </div>
                             <div className="col-6 col-12-small">
                                 <h3>예제 코드 테스트</h3>

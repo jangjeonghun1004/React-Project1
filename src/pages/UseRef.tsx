@@ -66,6 +66,15 @@ export default function UseRef() {
                             <li>useRef로 생성된 객체의 속성은 {`{ current: <value> }`} 형태입니다.</li>
                         </ol>
 
+                        <h2 id="content">언제 사용하나요?</h2>
+                        <ul>
+                            <li>스크롤 이동: scrollIntoView로 부드러운 스크롤 이동을 제어합니다.</li>
+                            <li>크기 측정: offsetWidth, offsetHeight로 요소 크기를 계산합니다.</li>
+                            <li>CSS 클래스 조작: classList.toggle로 동적 스타일 변경을 처리합니다.</li>
+                            <li>미디어 제어: 비디오/오디오의 play, pause 같은 동작을 관리합니다.</li>
+                            <li>텍스트 변경: DOM 요소의 textContent를 조작합니다.</li>
+                        </ul>
+
                         <div className="row">
                             <div className="col-6 col-12-small">
                                 <h3>예제 코드(DOM 요소 접근)</h3>
@@ -205,14 +214,7 @@ export default Timer;
                             </div>
                         </div>
 
-                        <h2 id="content">추가 활용 사례</h2>
-                        <ul>
-                            <li>스크롤 이동: scrollIntoView로 부드러운 스크롤 이동을 제어합니다.</li>
-                            <li>크기 측정: offsetWidth, offsetHeight로 요소 크기를 계산합니다.</li>
-                            <li>CSS 클래스 조작: classList.toggle로 동적 스타일 변경을 처리합니다.</li>
-                            <li>미디어 제어: 비디오/오디오의 play, pause 같은 동작을 관리합니다.</li>
-                            <li>텍스트 변경: DOM 요소의 textContent를 조작합니다.</li>
-                        </ul>
+                        
                     </section>
                 </div>
             </div>
