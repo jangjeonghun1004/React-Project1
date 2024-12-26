@@ -23,15 +23,23 @@ function Home() {
                                 text="useState는 React에서 함수형 컴포넌트의 상태 관리를 간단하고 직관적으로 처리하기 위한 Hook입니다."
                                 linkPath='useState' 
                             />
-                            <CardStyle3 icon="icon solid fa-paper-plane" title="useReducer" />
-                            <CardStyle3 icon="icon solid fa-rocket" title="useContext" />
-                            <CardStyle3 icon="icon solid fa-signal" title="useEffect" />
+                            <CardStyle3 
+                                icon="icon solid fa-paper-plane" 
+                                title="useReducer" 
+                                text="useReducer는 React의 상태 관리 훅으로, 복잡한 상태 변경 로직을 관리할 때 유용합니다."
+                                linkPath="useReducer"
+                            />
                             <CardStyle3 
                                 icon="icon fa-gem" 
                                 title="useRef"
                                 text="useRef는 DOM 조작이나 값 저장에 유용하며, 렌더링을 발생시키지 않고 값을 유지할 때 자주 사용됩니다."
                                 linkPath="useRef" 
                             />
+                            
+
+                            <CardStyle3 icon="icon solid fa-rocket" title="useContext" />
+                            <CardStyle3 icon="icon solid fa-signal" title="useEffect" />
+                            
                             <CardStyle3 icon="icon solid fa-paper-plane" title="BrowserRouter" />
                             <CardStyle3 icon="icon solid fa-rocket" title="Props" />
                             <CardStyle3 icon="icon solid fa-signal" title="Recoil" />

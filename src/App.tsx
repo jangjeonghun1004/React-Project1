@@ -6,6 +6,7 @@ import ScrollToTop from './shared/ScrollToUp'
 import UseState from './pages/UseState'
 import { ScreenSizeProvider } from './app/ScreenSizeProvider'
 import UseRef from './pages/UseRef'
+import UseReducer from './pages/UseReducer'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path={`${import.meta.env.BASE_URL}career`} element={<Career />}></Route>
           <Route path={`${import.meta.env.BASE_URL}useState`} element={<UseState />}></Route>
           <Route path={`${import.meta.env.BASE_URL}useRef`} element={<UseRef />}></Route>
+          <Route path={`${import.meta.env.BASE_URL}useReducer`} element={<UseReducer />}></Route>
           <Route path='*' element={<NotFound404 />}></Route>
         </Routes>
       </BrowserRouter>
