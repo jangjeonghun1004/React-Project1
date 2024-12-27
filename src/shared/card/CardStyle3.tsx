@@ -33,7 +33,7 @@ function CardStyle3({ icon = 'icon fa-gem', title = 'title', text = 'some text',
             {(screenType === 'pc' || screenType === 'tablet') && <span className={`${styles.animateBefor} ${isHovered ? styles.animateAfter : ''} ${icon}`}></span>}
             <div className="content">
                 <h3>{title}</h3>
-                <p>{text} &nbsp; <a href="">예제 코드</a></p>
+                <p>{text} &nbsp; <a>예제 코드</a></p>
             </div>
         </article>
     );

@@ -6,7 +6,7 @@ function NotFound404() {
     <div style={containerStyle}>
       <h1 style={titleStyle}>404</h1>
       <p style={messageStyle}>Oops! The page you're looking for doesn't exist.</p>
-      <Link to="/" style={linkStyle}>
+      <Link to={`${import.meta.env.BASE_URL}`} style={linkStyle}>
         Go Back to Home
       </Link>
     </div>
