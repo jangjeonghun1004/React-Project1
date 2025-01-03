@@ -28,6 +28,8 @@ function App() {
 **className**
 ```console
 > npm install classnames
+> npm install recoil
+> npm install axios
 ```
 
 

@@ -40,7 +40,7 @@ export default function SpringSecurityJwt() {
                         </ol>
 
                         <div>
-                            <h3>예제 코드(1. 의존성 추가)</h3>
+                            <h3>1. 의존성 추가</h3>
                             <pre>
                                 <code>
 {`
@@ -72,7 +72,7 @@ export default function SpringSecurityJwt() {
                         </div>
 
                         <div>
-                            <h3>예제 코드(2. JWT 유틸 클래스)</h3>
+                            <h3>2. JWT 유틸 클래스</h3>
                             <pre>
                                 <code>
 {`
@@ -118,7 +118,7 @@ public class JwtUtil {
                         </div>
 
                         <div>
-                            <h3>예제 코드(3. JWT 필터)</h3>
+                            <h3>3. JWT 필터</h3>
                             <pre>
                                 <code>
 {`
@@ -176,7 +176,7 @@ public class JwtFilter extends OncePerRequestFilter {
                         </div>
 
                         <div>
-                            <h3>예제 코드(4. Spring Security 설정)</h3>
+                            <h3>4. Spring Security 설정</h3>
                             <pre>
                                 <code>
 {`
@@ -237,7 +237,7 @@ public class SecurityConfig {
                         </div>
 
                         <div>
-                            <h3>예제 코드(5. JWT 토큰 발급)</h3>
+                            <h3>5. JWT 토큰 발급</h3>
                             <pre>
                                 <code>
 {`

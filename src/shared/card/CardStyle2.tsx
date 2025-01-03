@@ -1,18 +1,20 @@
+import { Link, Links } from "react-router-dom";
 
 interface Props {
     image: string,
     title: string,
-    text: string
+    text: string,
+    linkPath?: string
 }
 
-function CardStyle2({image, title, text}:Props) {
+function CardStyle2({image, title, text, linkPath}:Props) {
     return (
         <article>
             <a href="#" className="image"><img src={image} alt="" /></a>
             <h3>{title}</h3>
             <p>{text}</p>
             <ul className="actions">
-                <li><a href="#" className="button">More</a></li>
+                <li><Link to={`${import.meta.env.BASE_URL}${linkPath}`} className="button">More</Link></li>
             </ul>
         </article>
     );

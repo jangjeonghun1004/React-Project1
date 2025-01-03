@@ -1,0 +1,38 @@
+
+
+
+
+/* const [isModalOpen,setIsModalOpen]=useState(false);
+
+const handleOpenModal=()=>setIsModalOpen(true);
+const handleCloseModal=()=>setIsModalOpen(false);
+
+const handleConfirm=()=> {
+    console.log("Confirmed!");
+    setIsModalOpen(false);
+}
+
+
+<div style={{ padding: "20px" }}>
+                        <h1>React Confirm Modal Example</h1>
+                        <button
+                            onClick={handleOpenModal}
+                            style={{
+                                padding: "10px 20px",
+                                backgroundColor: "#007BFF",
+                                color: "white",
+                                border: "none",
+                                borderRadius: "4px",
+                                cursor: "pointer",
+                            }}
+                        >
+                            Show Confirm Modal
+                        </button>
+
+                        <ConfirmModal
+                            isOpen={isModalOpen}
+                            onClose={handleCloseModal}
+                            onConfirm={handleConfirm}
+                            message="Are you sure you want to proceed?"
+                        />
+                    </div> */

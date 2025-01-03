@@ -22,38 +22,43 @@ import SpringSecurityJwt from './pages/springBootCurriculum/SpringSecurityJwt'
 import SpringJpa from './pages/springBootCurriculum/SpringJpa'
 import SpringDataJdbc from './pages/springBootCurriculum/SpringDataJdbc'
 import SpringFrameworkAsync from './pages/springBootCurriculum/SpringFrameworkAsync'
+import ToDo from './pages/ToDo'
+import { RecoilRoot } from 'recoil'
 
 function App() {
 
   return (
-    <ScreenSizeProvider>
-      <BrowserRouter>
-        <ScrollToTop /> {/* 라우트 변경 시 상단으로 스크롤 */}
-        <Routes>
-          <Route path={`${import.meta.env.BASE_URL}`} element={<Home />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}career`} element={<Career />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}useState`} element={<UseState />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}useRef`} element={<UseRef />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}useReducer`} element={<UseReducer />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}useContext`} element={<UseContext />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}props`} element={<Props />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}useEffect`} element={<UseEffect />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}browserRouter`} element={<BrowserRoute />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}recoil`} element={<Recoil />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}useMemo`} element={<UseMemo />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}lombok`} element={<Lombok />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}springMvc`} element={<SpringMvc />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}springRest`} element={<SpringRest />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}springSecurity`} element={<SpringSecurity />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}oauth2Client`} element={<Oauth2Client />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}springSecurityJwt`} element={<SpringSecurityJwt />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}springJpa`} element={<SpringJpa />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}springDataJdbc`} element={<SpringDataJdbc />}></Route>
-          <Route path={`${import.meta.env.BASE_URL}springFrameworkAsync`} element={<SpringFrameworkAsync />}></Route>
-          <Route path='*' element={<NotFound404 />}></Route>
-        </Routes>
-      </BrowserRouter>
-    </ScreenSizeProvider>
+    <RecoilRoot>
+      <ScreenSizeProvider>
+        <BrowserRouter>
+          <ScrollToTop /> {/* 라우트 변경 시 상단으로 스크롤 */}
+          <Routes>
+            <Route path={`${import.meta.env.BASE_URL}`} element={<Home />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}career`} element={<Career />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}useState`} element={<UseState />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}useRef`} element={<UseRef />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}useReducer`} element={<UseReducer />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}useContext`} element={<UseContext />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}props`} element={<Props />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}useEffect`} element={<UseEffect />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}browserRouter`} element={<BrowserRoute />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}recoil`} element={<Recoil />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}useMemo`} element={<UseMemo />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}lombok`} element={<Lombok />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}springMvc`} element={<SpringMvc />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}springRest`} element={<SpringRest />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}springSecurity`} element={<SpringSecurity />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}oauth2Client`} element={<Oauth2Client />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}springSecurityJwt`} element={<SpringSecurityJwt />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}springJpa`} element={<SpringJpa />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}springDataJdbc`} element={<SpringDataJdbc />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}springFrameworkAsync`} element={<SpringFrameworkAsync />}></Route>
+            <Route path={`${import.meta.env.BASE_URL}toDo`} element={<ToDo />} />
+            <Route path='*' element={<NotFound404 />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </ScreenSizeProvider>
+    </RecoilRoot>
   )
 }
 
