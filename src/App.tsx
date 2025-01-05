@@ -24,7 +24,6 @@ import SpringDataJdbc from './pages/springBootCurriculum/SpringDataJdbc'
 import SpringFrameworkAsync from './pages/springBootCurriculum/SpringFrameworkAsync'
 import ToDo from './pages/ToDo'
 import { RecoilRoot } from 'recoil'
-import Ui from './pages/Ui'
 
 function App() {
 
@@ -55,9 +54,6 @@ function App() {
             <Route path={`${import.meta.env.BASE_URL}springDataJdbc`} element={<SpringDataJdbc />}></Route>
             <Route path={`${import.meta.env.BASE_URL}springFrameworkAsync`} element={<SpringFrameworkAsync />}></Route>
             <Route path={`${import.meta.env.BASE_URL}toDo`} element={<ToDo />} />
-
-
-            <Route path={`${import.meta.env.BASE_URL}ui`} element={<Ui />} />
             <Route path='*' element={<NotFound404 />}></Route>
           </Routes>
         </BrowserRouter>
