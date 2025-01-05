@@ -9,11 +9,6 @@ export default function ToDo() {
                 <div className="inner">
                     <Header />
                     <ToDoList />
-
-
-                    
-
-
                 </div>
             </div>
 
