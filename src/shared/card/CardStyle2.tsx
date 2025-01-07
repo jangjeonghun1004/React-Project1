@@ -10,7 +10,7 @@ interface Props {
 function CardStyle2({image, title, text, linkPath}:Props) {
     return (
         <article>
-            <a href="#" className="image"><img src={image} alt="" /></a>
+            <a href={`${import.meta.env.BASE_URL}${linkPath}`} className="image"><img src={image} alt="" /></a>
             <h3>{title}</h3>
             <p>{text}</p>
             <ul className="actions">

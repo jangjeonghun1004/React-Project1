@@ -1,5 +1,5 @@
-import Header from "../widgets/header/Header";
-import Sidebar from "./Sidebar";
+import Header from "../../widgets/header/Header";
+import Sidebar from "../Sidebar";
 import { useState } from "react";
 
 function UseState() {

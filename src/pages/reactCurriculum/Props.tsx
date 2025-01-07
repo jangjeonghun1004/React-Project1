@@ -1,6 +1,6 @@
-import ComponentD from "../shared/useContextExample/ComponentD";
-import Header from "../widgets/header/Header";
-import Sidebar from "./Sidebar";
+import ComponentD from "../../shared/useContextExample/ComponentD";
+import Header from "../../widgets/header/Header";
+import Sidebar from "../Sidebar";
 
 export default function Props() {
     return (

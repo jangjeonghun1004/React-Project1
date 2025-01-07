@@ -3,7 +3,7 @@ import Header from "../widgets/header/Header";
 import Sidebar from "./Sidebar";
 
 const timeLineData = [
-    { id: 1, title: "현재", subTitle: '개발 역량 강화', details: [{ id: 1, text: 'Spring Boot' }, { id: 2, text: 'React + Vite + TS' }] },
+    { id: 1, title: "현재", subTitle: '개발 역량 확장', details: [{ id: 1, text: 'Spring Boot' }, { id: 2, text: 'React + Vite + TS' }] },
     { id: 2, title: "2020 ~ 2024", subTitle: '큐익스프레스', details: [{ id: 1, text: '입출고 시스템' }, { id: 2, text: '셀러 관리 시스템' }] }
 ];
 

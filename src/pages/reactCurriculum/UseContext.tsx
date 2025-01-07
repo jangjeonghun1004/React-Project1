@@ -1,6 +1,6 @@
-import ComponentA from "../shared/useContextExample/ComponentA";
-import Header from "../widgets/header/Header";
-import Sidebar from "./Sidebar";
+import ComponentA from "../../shared/useContextExample/ComponentA";
+import Header from "../../widgets/header/Header";
+import Sidebar from "../Sidebar";
 
 export default function UseContext() {
     return (

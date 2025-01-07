@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import Header from "../widgets/header/Header";
-import Sidebar from "./Sidebar";
+import Header from "../../widgets/header/Header";
+import Sidebar from "../Sidebar";
 
 export default function UseMemo() {
     const [items, _] = useState<string[]>(['Apple', 'Banana', 'Cherry', 'Date']);

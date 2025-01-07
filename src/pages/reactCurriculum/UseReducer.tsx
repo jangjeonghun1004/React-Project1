@@ -1,6 +1,6 @@
 import { useReducer } from "react";
-import Header from "../widgets/header/Header";
-import Sidebar from "./Sidebar";
+import Header from "../../widgets/header/Header";
+import Sidebar from "../Sidebar";
 
 export default function UseReducer() {
     const initialState = {count: 0};
