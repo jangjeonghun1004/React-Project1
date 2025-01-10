@@ -54,3 +54,10 @@ export default defineConfig({
 ```console
 > npm install classnames
 ```
+
+
+# scrollCue
+```console
+> npm install scrollcue
+```
+
