@@ -12,7 +12,7 @@ export default function ToDoList() {
     const [loading, setLoading] = useState<boolean>(true);
 
     //const API_BASE_URL = 'http://localhost:8080/todos';
-    const API_BASE_URL = 'https://43.201.218.59/todos';
+    const API_BASE_URL = 'https://43.201.218.59:8080/todos';
     
     
     const initFormData = { id: Date.now(), title: '', completed: false };

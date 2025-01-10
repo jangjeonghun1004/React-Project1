@@ -19,7 +19,7 @@ const todosSelector = selector<ToDo[]>({
     get: async () => {
         try {
             //const response = await axios.get('http://localhost:8080/todos');
-            const response = await axios.get('https://43.201.218.59/todos');
+            const response = await axios.get('https://43.201.218.59:8080/todos');
             console.log(response);
             return response.data.contents;
         } catch (error) {
