@@ -20,7 +20,7 @@ const todosSelector = selector<ToDo[]>({
         try {
             //const response = await axios.get('http://localhost:8080/todos');
             const response = await axios.get('http://43.201.218.59/todos');
-            
+            console.log(response);
             return response.data.contents;
         } catch (error) {
             console.log('Failed to fetch todos: ', error);
