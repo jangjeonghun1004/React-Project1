@@ -29,7 +29,7 @@ import SpringJpa from "./pages/springBootCurriculum/SpringJpa";
 import SpringDataJdbc from "./pages/springBootCurriculum/SpringDataJdbc";
 import SpringFrameworkAsync from "./pages/springBootCurriculum/SpringFrameworkAsync";
 import ToDo from "./pages/ToDo";
-import Ubuntu from "./pages/amazonEC2/ubuntu";
+import Ubuntu from "./pages/amazonEC2/Ubuntu";
 
 // Create the router
 const router = createBrowserRouter([
