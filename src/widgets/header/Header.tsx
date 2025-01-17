@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 
-function Header() {
+type Props = {
+    title?: string
+}
+function Header({title="React + Vite + TypeScript"}: Props) {
     return (
         <header id="header">
-            <Link to={`${import.meta.env.BASE_URL}`} className="logo"><strong>React + Vite + TypeScript</strong></Link>
+            <Link to={`${import.meta.env.BASE_URL}`} className="logo"><strong>{title}</strong></Link>
             <ul className="icons">
                 <li><a href="#" className="icon brands fa-twitter"><span className="label">Twitter</span></a></li>
                 <li><a href="#" className="icon brands fa-facebook-f"><span className="label">Facebook</span></a></li>

@@ -181,7 +181,7 @@ function Home() {
                                         icon="icon solid fa-sink"
                                         title="Ubuntu Server"
                                         text="Ubuntu Server는 Linux 기반 운영 체제로, 서버 환경에 최적화된 버전입니다."
-                                        linkPath=""
+                                        linkPath="ubuntu"
                                     />
                                     <CardStyle3
                                         icon="icon solid fa-ghost"
