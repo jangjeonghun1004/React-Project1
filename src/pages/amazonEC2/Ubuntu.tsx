@@ -5,7 +5,7 @@ import PageTemplate from "../PageTemplate";
 
 export default function Ubuntu() {
     return (
-        <PageTemplate title="Deploying" subTitle="Ubunt Server" imageSrc={`${import.meta.env.BASE_URL}images/img01.jpeg`}>
+        <PageTemplate title="Deploying" subTitle="Ubunt Server" imageSrc="img01.jpeg">
             <h2 id="content">Ubuntu Server란?</h2>
             <p>
                 Ubuntu Server는 Canonical Ltd.에서 개발한 인기 있는 Linux 기반 운영 체제로, 서버 환경에 최적화된 버전입니다.

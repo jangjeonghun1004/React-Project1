@@ -30,6 +30,14 @@ import SpringDataJdbc from "./pages/springBootCurriculum/SpringDataJdbc";
 import SpringFrameworkAsync from "./pages/springBootCurriculum/SpringFrameworkAsync";
 import ToDo from "./pages/ToDo";
 import Ubuntu from "./pages/amazonEC2/Ubuntu";
+import Nginx from "./pages/amazonEC2/Nginx";
+import Certbot from "./pages/amazonEC2/Certbot";
+import Docker from "./pages/docker/Docker";
+import DockerImage from "./pages/docker/DockerImage";
+import DockerContainer from "./pages/docker/DockerContainer";
+import DockerCompose from "./pages/docker/DockerCompose";
+import GitHub from "./pages/github/GitHub";
+import GitHubActions from "./pages/github/GitHubActions";
 
 // Create the router
 const router = createBrowserRouter([
@@ -230,6 +238,78 @@ const router = createBrowserRouter([
         <ScrollRestoration />
       </>
     ),
+  },
+  {
+    path: `${import.meta.env.BASE_URL}nginx`,
+    element: (
+      <>
+        <Nginx />
+        <ScrollRestoration />
+      </>
+    )
+  },
+  {
+    path: `${import.meta.env.BASE_URL}certbot`,
+    element: (
+      <>
+        <Certbot />
+        <ScrollRestoration />
+      </>
+    )
+  },
+  {
+    path: `${import.meta.env.BASE_URL}docker`,
+    element: (
+      <>
+        <Docker />
+        <ScrollRestoration />
+      </>
+    )
+  },
+  {
+    path: `${import.meta.env.BASE_URL}dockerImage`,
+    element: (
+      <>
+        <DockerImage />
+        <ScrollRestoration />
+      </>
+    )
+  },
+  {
+    path: `${import.meta.env.BASE_URL}dockerContainer`,
+    element: (
+      <>
+        <DockerContainer />
+        <ScrollRestoration />
+      </>
+    )
+  },
+  {
+    path: `${import.meta.env.BASE_URL}dockerCompose`,
+    element: (
+      <>
+        <DockerCompose />
+        <ScrollRestoration />
+      </>
+    )
+  },
+  {
+    path: `${import.meta.env.BASE_URL}gitHub`,
+    element: (
+      <>
+        <GitHub />
+        <ScrollRestoration />
+      </>
+    )
+  },
+  {
+    path: `${import.meta.env.BASE_URL}gitHubActions`,
+    element: (
+      <>
+        <GitHubActions />
+        <ScrollRestoration />
+      </>
+    )
   },
   {
     path: "*",

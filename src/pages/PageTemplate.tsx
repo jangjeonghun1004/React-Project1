@@ -21,7 +21,7 @@ export default function PageTemplate({ title, subTitle, imageSrc, children }: Pr
             </header>
 
             <span className="image main">
-              <img src={imageSrc} style={{ height: 300 }} alt="section image" />
+              <img src={`${import.meta.env.BASE_URL}images/${imageSrc}`} style={{ height: 300 }} alt="section image" />
             </span>
 
             {children}
