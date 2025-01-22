@@ -25,7 +25,7 @@ const ScrollAnimation: React.FC<ScrollAnimationProps> = ({
           observer.disconnect(); // 한 번만 실행되도록 옵저버 해제
         }
       },
-      { threshold: 0.05 } // 5%가 뷰포트에 들어오면 트리거
+      { threshold: 0.03 } // 3%가 뷰포트에 들어오면 트리거
     );
 
     if (ref.current) {
