@@ -1,7 +1,7 @@
 import Header from "../widgets/header/Header";
 import Sidebar from "./Sidebar";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import { useRecoilState, useRecoilValueLoadable, useRecoilRefresher_UNSTABLE } from "recoil";
 import { ToDo, todosRecoilState, todosSelector } from "../recoil/ToDoRecoil";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
@@ -9,9 +9,10 @@ import axios from "axios";
 export default function ToDoList() {
     const [todos, setTodos] = useRecoilState(todosRecoilState);
     const todosRecoilValueLoadable = useRecoilValueLoadable(todosSelector);
+    const refreshTodos = useRecoilRefresher_UNSTABLE(todosSelector);
+
     const [loading, setLoading] = useState<boolean>(true);
 
-    //const API_BASE_URL = 'http://localhost:8080/todos';
     const API_BASE_URL = 'https://newallsoft.shop/todos';
     
     
@@ -19,6 +20,8 @@ export default function ToDoList() {
 
     const [time, setTime] = useState<Date>(new Date());
     useEffect(() => {
+        refreshTodos();
+
         const intervalId = setInterval(() => {
             setTime(new Date());
         }, 1000);
