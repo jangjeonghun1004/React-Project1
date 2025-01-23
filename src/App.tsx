@@ -3,7 +3,6 @@ import {
   RouterProvider,
   ScrollRestoration,
 } from "react-router-dom";
-import { RecoilRoot } from "recoil";
 import { ScreenSizeProvider } from "./app/ScreenSizeProvider";
 
 // Import pages
