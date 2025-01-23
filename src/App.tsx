@@ -38,6 +38,8 @@ import DockerContainer from "./pages/docker/DockerContainer";
 import DockerCompose from "./pages/docker/DockerCompose";
 import GitHub from "./pages/github/GitHub";
 import GitHubActions from "./pages/github/GitHubActions";
+import { Provider } from 'react-redux'; // Provider를 import
+import { store } from './store/store'; // Redux Store를 import
 
 // Create the router
 const router = createBrowserRouter([
@@ -324,11 +326,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <RecoilRoot>
+    <Provider store={store}>
       <ScreenSizeProvider>
         <RouterProvider router={router} />
       </ScreenSizeProvider>
-    </RecoilRoot>
+    </Provider>
   );
 }
 
