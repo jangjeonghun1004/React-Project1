@@ -29,14 +29,14 @@ export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
 
 export const addTodo = createAsyncThunk('todos/addTodo', async (todo: Todo) => {
     const response = await axios.post(API_URL, todo);
-    return response.data;
+    return response.data.contents;
 });
 
 export const updateTodo = createAsyncThunk(
     'todos/updateTodo',
     async ({ id, title, completed }: Todo) => {
         const response = await axios.patch(API_URL, {id, title, completed });
-        return response.data;
+        return response.data.contents;
     }
 );
 
