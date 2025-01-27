@@ -3,10 +3,11 @@ import Sidebar from "./Sidebar";
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store/store';
-import { fetchTodos, addTodo, updateTodo, deleteTodo, Todo } from '../features/todo/todoSlice';
+import { fetchTodos, addTodo, updateTodo, deleteTodo } from '../store/slices/todoSlice';
 import Timer from "../shared/Timer";
 import SubmitButton from "../shared/buttons/SubmitBtn";
 import Loader1 from "../shared/loaders/Loader1";
+import { TodoType } from "../types/TodoType";
 
 
 export default function ToDoList() {
@@ -43,9 +44,9 @@ export default function ToDoList() {
     };
 
     // 유효성 검사(formData)
-    const [validateFormDataErrors, setValidateFormDataErrors] = useState<Partial<Todo>>({});
+    const [validateFormDataErrors, setValidateFormDataErrors] = useState<Partial<TodoType>>({});
     const validateFormData = (formData: FormData): boolean => {
-        const newErrors: Partial<Todo> = {};
+        const newErrors: Partial<TodoType> = {};
 
         formData.forEach((value, key) => {
             if (key === 'title' && !value) {
@@ -75,7 +76,6 @@ export default function ToDoList() {
                             <table >
                                 <tbody>
                                     {todos.map((todo, index) => {
-                                        console.log(todo);
                                         return (
                                             <tr key={index}>
                                                 <td style={{ verticalAlign: "middle" }}>

@@ -1,16 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { TodoType } from '../../types/TodoType';
 
 const API_URL = 'https://newallsoft.shop/todos';
 
-export interface Todo {
-    id: number;
-    title: string;
-    completed: boolean;
-}
-
 interface TodoState {
-    todos: Todo[];
+    todos: TodoType[];
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 }
@@ -27,18 +22,15 @@ export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
     return response.data.contents;
 });
 
-export const addTodo = createAsyncThunk('todos/addTodo', async (todo: Todo) => {
+export const addTodo = createAsyncThunk('todos/addTodo', async (todo: TodoType) => {
     const response = await axios.post(API_URL, todo);
     return response.data.contents;
 });
 
-export const updateTodo = createAsyncThunk(
-    'todos/updateTodo',
-    async ({ id, title, completed }: Todo) => {
-        const response = await axios.patch(API_URL, {id, title, completed });
-        return response.data.contents;
-    }
-);
+export const updateTodo = createAsyncThunk('todos/updateTodo', async ({ id, title, completed }: TodoType) => {
+    const response = await axios.patch(API_URL, { id, title, completed });
+    return response.data.contents;
+});
 
 export const deleteTodo = createAsyncThunk('todos/deleteTodo', async (id: number) => {
     await axios.delete(`${API_URL}/${id}`);
@@ -55,7 +47,7 @@ const todoSlice = createSlice({
             .addCase(fetchTodos.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(fetchTodos.fulfilled, (state, action: PayloadAction<Todo[]>) => {
+            .addCase(fetchTodos.fulfilled, (state, action: PayloadAction<TodoType[]>) => {
                 state.status = 'succeeded';
                 state.todos = action.payload;
             })
@@ -65,12 +57,12 @@ const todoSlice = createSlice({
             })
 
             // Add Todo
-            .addCase(addTodo.fulfilled, (state, action: PayloadAction<Todo>) => {
+            .addCase(addTodo.fulfilled, (state, action: PayloadAction<TodoType>) => {
                 state.todos.push(action.payload);
             })
 
             // Update Todo
-            .addCase(updateTodo.fulfilled, (state, action: PayloadAction<Todo>) => {
+            .addCase(updateTodo.fulfilled, (state, action: PayloadAction<TodoType>) => {
                 const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
                 if (index !== -1) {
                     state.todos[index] = action.payload;

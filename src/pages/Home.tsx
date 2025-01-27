@@ -63,15 +63,21 @@ function Home() {
                                 />
                                 <CardStyle3
                                     icon="icon solid fa-signal"
-                                    title="Recoil"
-                                    text="Recoil은 Facebook에서 개발한 상태 관리 라이브러리로, React 애플리케이션에서 전역 상태를 효율적으로 관리할 수 있게 해줍니다."
-                                    linkPath="recoil"
+                                    title="Redux ToolKit"
+                                    text="Redux Toolkit은 Redux를 사용하여 상태 관리를 효율적으로 처리하기 위한 라이브러리입니다."
+                                    linkPath="reduxToolKit"
                                 />
                                 <CardStyle3
                                     icon="icon solid fa-gavel"
                                     title="Optimization"
                                     text="React의 useMemo는 컴포넌트의 렌더링 성능을 최적화하기 위해 사용되는 훅입니다."
                                     linkPath="useMemo"
+                                />
+                                <CardStyle3
+                                    icon="icon solid fa-lock"
+                                    title="Axios"
+                                    text="axios는 JavaScript 기반의 HTTP 클라이언트 라이브러리로, 프론트엔드/백엔드 환경에서 API 통신을 간편하게 처리하는 도구입니다."
+                                    linkPath="axios"
                                 />
                             </div>
                         </section>

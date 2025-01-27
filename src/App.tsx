@@ -16,7 +16,6 @@ import UseContext from "./pages/reactCurriculum/UseContext";
 import Props from "./pages/reactCurriculum/Props";
 import UseEffect from "./pages/reactCurriculum/UseEffect";
 import BrowserRoute from "./pages/reactCurriculum/BrowserRoute";
-import Recoil from "./pages/reactCurriculum/Recoil";
 import UseMemo from "./pages/reactCurriculum/UseMemo";
 import Lombok from "./pages/springBootCurriculum/Lombok";
 import SpringMvc from "./pages/springBootCurriculum/SpringMvc";
@@ -39,6 +38,8 @@ import GitHub from "./pages/github/GitHub";
 import GitHubActions from "./pages/github/GitHubActions";
 import { Provider } from 'react-redux'; // Provider를 import
 import { store } from './store/store'; // Redux Store를 import
+import ReduxToolKit from "./pages/reactCurriculum/ReduxToolKit";
+import Axios from "./pages/reactCurriculum/Axios";
 
 // Create the router
 const router = createBrowserRouter([
@@ -124,10 +125,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: `${import.meta.env.BASE_URL}recoil`,
+    path: `${import.meta.env.BASE_URL}reduxToolkit`,
     element: (
       <>
-        <Recoil />
+        <ReduxToolKit />
         <ScrollRestoration />
       </>
     ),
@@ -137,6 +138,15 @@ const router = createBrowserRouter([
     element: (
       <>
         <UseMemo />
+        <ScrollRestoration />
+      </>
+    ),
+  },
+  {
+    path: `${import.meta.env.BASE_URL}axios`,
+    element: (
+      <>
+        <Axios />
         <ScrollRestoration />
       </>
     ),
