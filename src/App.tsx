@@ -40,6 +40,8 @@ import { Provider } from 'react-redux'; // Provider를 import
 import { store } from './store/store'; // Redux Store를 import
 import ReduxToolKit from "./pages/reactCurriculum/ReduxToolKit";
 import Axios from "./pages/reactCurriculum/Axios";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 
 // Create the router
 const router = createBrowserRouter([
@@ -303,8 +305,7 @@ const router = createBrowserRouter([
         <ScrollRestoration />
       </>
     )
-  },
-  {
+  },{
     path: `${import.meta.env.BASE_URL}gitHub`,
     element: (
       <>
@@ -312,8 +313,7 @@ const router = createBrowserRouter([
         <ScrollRestoration />
       </>
     )
-  },
-  {
+  },{
     path: `${import.meta.env.BASE_URL}gitHubActions`,
     element: (
       <>
@@ -321,8 +321,23 @@ const router = createBrowserRouter([
         <ScrollRestoration />
       </>
     )
-  },
-  {
+  },{
+    path: `${import.meta.env.BASE_URL}signUp`,
+    element: (
+      <>
+        <SignUp/>
+        <ScrollRestoration />
+      </>
+    )
+  },{
+    path: `${import.meta.env.BASE_URL}signIn`,
+    element: (
+      <>
+        <SignIn/>
+        <ScrollRestoration />
+      </>
+    )
+  },{
     path: "*",
     element: (
       <>

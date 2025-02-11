@@ -279,7 +279,7 @@ function Home() {
                                     image="https://html5up.net/uploads/demos/editorial/images/pic01.jpg"
                                     title="회원 가입"
                                     text="사용자가 간단하고 직관적인 방식으로 할 일을 추가, 관리, 수정 및 삭제할 수 있는 React 기반 애플리케이션을 개발한다."
-                                    linkPath="toDo"
+                                    linkPath="signIn"
                                 />
                             </div>
                         </section>

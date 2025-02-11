@@ -7,7 +7,12 @@ export default function SpringSecurity() {
             <div id="main">
                 <div className="inner">
                     <Header />
-
+                    {/* 
+                    
+                    SecurityFilterChain
+                    PasswordEncoder 
+                    
+                    */}
                     <section>
                         <header className="main">
                             <h1>Spring Security</h1>
