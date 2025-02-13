@@ -1,14 +1,13 @@
 import PageTemplate from "./PageTemplate";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../store/store";
-import { signIn, signOut, clearError } from "../store/slices/authSlice";
+import { signIn, clearError } from "../store/slices/authSlice";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
 export default function SignIn() {
     const [signInSuccessMessage, setSignInSuccessMessage] = useState<string>(''); // 로그인 성공 시 메시지
-    const [signOutSuccessMessage, setSignOutSuccessMessage] = useState<string>(''); // 로그아웃 성공 시 메시지
 
     const dispatch = useDispatch<AppDispatch>();
     const { error } = useSelector((state: RootState) => state.auth);
@@ -35,18 +34,6 @@ export default function SignIn() {
         }
     };
 
-    const handleSignOut = async () => {
-        try {
-            const response = await dispatch(signOut()).unwrap();
-            if (response) {
-                setSignOutSuccessMessage(`로그아웃 성공 및 JWT 토큰이 제거되었습니다.`);
-                localStorage.removeItem('jwtToken');
-            }
-        } catch (rejectWithValueMessage) { // dispatch(signOut())에서 rejectWithValue로 전달한 에러 메시지
-            console.error('로그아웃 실패:', rejectWithValueMessage);
-        }
-    };
-
     return (
         <PageTemplate title="Authentication" subTitle="" imageSrc="">
             <div className="row" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -55,7 +42,6 @@ export default function SignIn() {
 
                     <div>
                         {signInSuccessMessage && <p style={{ color: 'green', textAlign: 'center' }}>{signInSuccessMessage}</p>}
-                        {signOutSuccessMessage && <p style={{ color: 'green', textAlign: 'center' }}>{signOutSuccessMessage}</p>}
                         {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
                     </div>
 
@@ -80,12 +66,6 @@ export default function SignIn() {
                         Don't have an account? <Link to={`${import.meta.env.BASE_URL}signUp`} replace>Sign up</Link>
                     </div>
                     <br />
-
-                    <div>
-                        <h4>JWT Toke 기반 서비스</h4>
-                        <Link to={`${import.meta.env.BASE_URL}toDo`} className="button">To Do List →</Link>&nbsp;
-                        <button onClick={handleSignOut} >Sign Out →</button>
-                    </div>
                 </div>
             </div>
         </PageTemplate>

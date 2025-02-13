@@ -272,13 +272,19 @@ function Home() {
                                 <CardStyle2
                                     image="./images/todo-screenshot.png"
                                     title="TO DO List"
-                                    text="사용자가 간단하고 직관적인 방식으로 할 일을 추가, 관리, 수정 및 삭제할 수 있는 React 기반 애플리케이션을 개발했습니다."
+                                    text="사용자가 간단하고 직관적인 방식으로 할 일을 추가, 관리, 수정 및 삭제할 수 있는 React 기반 애플리케이션 기능입니다."
                                     linkPath="toDo"
                                 />
                                 <CardStyle2
-                                    image="https://html5up.net/uploads/demos/editorial/images/pic01.jpg"
-                                    title="회원 가입"
-                                    text="사용자가 간단하고 직관적인 방식으로 할 일을 추가, 관리, 수정 및 삭제할 수 있는 React 기반 애플리케이션을 개발한다."
+                                    image="./images/signIn.png"
+                                    title="회원 인증"
+                                    text="회원 가입, 로그 인 및 로그 아웃을 할 수 있는 React 기반 애플리케이션 기능입니다."
+                                    linkPath="signIn"
+                                />
+                                <CardStyle2
+                                    image="./images/signIn.png"
+                                    title="자유 게시판"
+                                    text="회원 가입, 로그 인 및 로그 아웃을 할 수 있는 React 기반 애플리케이션 기능입니다."
                                     linkPath="signIn"
                                 />
                             </div>

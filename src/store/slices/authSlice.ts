@@ -47,6 +47,7 @@ interface SignUpResponse {
 interface AuthState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
+  jwtToken: string | null;
   signUpResponse: SignUpResponse | null;
   signInResponse: SignInResponse | null;
 }
@@ -57,6 +58,7 @@ interface AuthState {
 const initialState: AuthState = {
   status: 'idle',
   error: null,
+  jwtToken: null,
   signUpResponse: null,
   signInResponse: null,
 };
@@ -187,9 +189,11 @@ const authSlice = createSlice({
         state.error = null;
         // 로그인 성공 시, 서버로부터 받은 토큰 저장
         state.signInResponse = { token: action.payload.token };
+        state.jwtToken = action.payload.token;
       })
       .addCase(signIn.rejected, (state, action) => {
         state.status = 'failed';
+        state.jwtToken = null;
         // action.payload가 있을 경우 우선 사용, 없으면 action.error.message 사용
         state.error = action.payload || action.error.message || '로그인 실패';
       })
@@ -222,6 +226,7 @@ const authSlice = createSlice({
         state.status = 'succeeded';
         state.error = null;
         // 로그아웃 성공 시, 인증 관련 상태를 초기화합니다.
+        state.jwtToken = null;
         state.signInResponse = null;
         state.signUpResponse = null;
       })
