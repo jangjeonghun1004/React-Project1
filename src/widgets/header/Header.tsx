@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { signOut } from "../../store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
+import { STORAGE_KEYS } from "../../app/storageKeys";
+import { useEffect } from "react";
+
 
 type Props = {
     title?: string
@@ -13,8 +16,12 @@ function Header({ title = "React + Vite + TypeScript" }: Props) {
     const token = useSelector((state: RootState) => state.auth.jwtToken);
     const handleSignOut = async () => {
         await dispatch(signOut());
-        localStorage.removeItem('jwtToken');
+        localStorage.removeItem(STORAGE_KEYS.JWT_TOKEN);
     }
+
+    useEffect(() => {
+
+    }, [dispatch]);
 
     return (
         <header id="header">

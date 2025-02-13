@@ -44,7 +44,7 @@ interface SignUpResponse {
  * - signUpResponse: 회원가입 응답 데이터 (없으면 null)
  * - signInResponse: 로그인 응답 데이터 (없으면 null)
  */
-interface AuthState {
+export interface AuthState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
   jwtToken: string | null;

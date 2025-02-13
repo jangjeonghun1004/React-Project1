@@ -62,7 +62,7 @@ export default function SignUp() {
                         </form>
 
                         <div style={{ textAlign: 'center' }}>
-                            Have an account? <Link to={`${import.meta.env.BASE_URL}signIn`} replace>Sign in</Link>
+                            Have an account? <Link to={`${import.meta.env.BASE_URL}signIn`} replace>Sign In</Link>
                         </div>
                     </div>
                 </div>
