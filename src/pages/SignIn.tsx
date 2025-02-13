@@ -81,11 +81,11 @@ export default function SignIn() {
                     </div>
                     <br />
 
-                    {/* <div>
+                    <div>
                         <h4>JWT Toke 기반 서비스</h4>
                         <Link to={`${import.meta.env.BASE_URL}toDo`} className="button">To Do List →</Link>&nbsp;
                         <button onClick={handleSignOut} >Sign Out →</button>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </PageTemplate>
