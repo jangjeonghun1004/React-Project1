@@ -1,13 +1,20 @@
 import PageTemplate from "./PageTemplate";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../store/store";
-import { signUp } from "../store/slices/authSlice";
+import { signUp, clearError } from "../store/slices/authSlice";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function SignUp() {
     const [signUpSuccessMessage, setSignUpSuccessMessage] = useState<string>(''); // 회원가입 성공 시 메시지
     const dispatch = useDispatch<AppDispatch>();
     const { error } = useSelector((state: RootState) => state.auth);
+
+    // 컴포넌트 마운트 시 에러 상태를 초기화
+    useEffect(() => {
+        dispatch(clearError());
+    }, [dispatch]);
 
     const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -30,10 +37,13 @@ export default function SignUp() {
             <>
                 <div className="row" style={{ display: 'flex', justifyContent: 'center' }}>
                     <div className="col-6 col-12-medium" style={{ maxWidth: 500, width: '100%', padding: 20 }}>
+                        <h2 style={{ textAlign: "center" }}>Sign Up</h2>
+
                         <div>
                             {signUpSuccessMessage && <p style={{ color: 'green', textAlign: 'center' }}>{signUpSuccessMessage}</p>}
                             {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
                         </div>
+
                         <form onSubmit={handleSignUp}>
                             <div className="row gtr-uniform">
                                 <div className="col-12">
@@ -46,11 +56,14 @@ export default function SignUp() {
                             <br />
                             <div className="col-12">
                                 <ul className="actions fit">
-                                    <li><input type="submit" value="Sign Up" className="primary" /></li>
-                                    <li><input type="button" value="Sign In" className={signUpSuccessMessage ? "" : "disabled"} /></li>
+                                    <li><input type="submit" value="Sign Up" className="primary fit" /></li>
                                 </ul>
                             </div>
                         </form>
+
+                        <div style={{ textAlign: 'center' }}>
+                            Have an account? <Link to={`${import.meta.env.BASE_URL}signIn`} replace>Sign in</Link>
+                        </div>
                     </div>
                 </div>
             </>

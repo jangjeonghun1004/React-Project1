@@ -170,6 +170,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     // 필요 시 동기 액션 (예: 토큰 초기화, 사용자 정보 리셋 등)을 추가할 수 있습니다.
+    // 에러 상태를 초기화하는 액션
+    clearError: (state) => {
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -229,7 +233,7 @@ const authSlice = createSlice({
 });
 
 // 필요에 따라 동기 액션을 export 할 수 있습니다.
-// export const { resetAuth } = authSlice.actions;
+export const { clearError } = authSlice.actions;
 
 // slice의 reducer를 export하여 store에 포함시킵니다.
 export default authSlice.reducer;

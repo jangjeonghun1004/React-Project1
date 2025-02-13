@@ -1,9 +1,10 @@
 import PageTemplate from "./PageTemplate";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../store/store";
-import { signIn, signOut } from "../store/slices/authSlice";
+import { signIn, signOut, clearError } from "../store/slices/authSlice";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function SignIn() {
     const [signInSuccessMessage, setSignInSuccessMessage] = useState<string>(''); // 로그인 성공 시 메시지
@@ -11,6 +12,11 @@ export default function SignIn() {
 
     const dispatch = useDispatch<AppDispatch>();
     const { error } = useSelector((state: RootState) => state.auth);
+
+    // 컴포넌트 마운트 시 에러 상태를 초기화
+    useEffect(() => {
+        dispatch(clearError());
+    }, [dispatch]);
 
     const handleSignIn = async (formData: FormData) => {
         const email = formData.get("email") as string;
@@ -45,6 +51,8 @@ export default function SignIn() {
         <PageTemplate title="Authentication" subTitle="" imageSrc="">
             <div className="row" style={{ display: 'flex', justifyContent: 'center' }}>
                 <div className="col-6 col-12-medium" style={{ maxWidth: 500, width: '100%', padding: 20 }}>
+                    <h2 style={{ textAlign: "center" }}>Sign In</h2>
+
                     <div>
                         {signInSuccessMessage && <p style={{ color: 'green', textAlign: 'center' }}>{signInSuccessMessage}</p>}
                         {signOutSuccessMessage && <p style={{ color: 'green', textAlign: 'center' }}>{signOutSuccessMessage}</p>}
@@ -63,17 +71,21 @@ export default function SignIn() {
                         <br />
                         <div className="col-12">
                             <ul className="actions fit">
-                                <li><input type="submit" value="Sign In" className="primary" /></li>
-                                <li><input type="reset" value="Reset" /></li>
+                                <li><input type="submit" value="Sign In" className="primary fit" /></li>
                             </ul>
                         </div>
                     </form>
 
-                    <div>
+                    <div style={{ textAlign: 'center' }}>
+                        Don't have an account? <Link to={`${import.meta.env.BASE_URL}signUp`} replace>Sign up</Link>
+                    </div>
+                    <br />
+
+                    {/* <div>
                         <h4>JWT Toke 기반 서비스</h4>
                         <Link to={`${import.meta.env.BASE_URL}toDo`} className="button">To Do List →</Link>&nbsp;
                         <button onClick={handleSignOut} >Sign Out →</button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </PageTemplate>
