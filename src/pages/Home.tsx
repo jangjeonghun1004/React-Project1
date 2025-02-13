@@ -262,7 +262,7 @@ function Home() {
                             </dl>
                         </section>
                     </ScrollAnimation>
-                    
+
                     <ScrollAnimation>
                         <section>
                             <header className="major">

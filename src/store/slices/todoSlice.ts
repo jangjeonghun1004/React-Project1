@@ -1,169 +1,248 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { TodoType } from '../../types/TodoType';
-import axiosClient from '../axiosClient';
+import axiosClient from '../axiosClient'; // 공통 설정(인터셉터, 기본 URL 등)이 적용된 axios 인스턴스
+import { Todo } from '../../types/Todo';
 
-// 보안을 위해 API URL은 환경변수로 관리하는 것이 좋습니다.
-// 예를 들어, .env 파일에 REACT_APP_API_URL='https://newallsoft.shop/api/todo'와 같이 설정 후 사용합니다.
-// const API_URL = process.env.REACT_APP_API_URL || 'https://newallsoft.shop/api/todo';
-const API_URL = 'https://newallsoft.shop/api/todo';
-
-// Todo 상태 인터페이스 정의
-interface TodoState {
-  todos: TodoType[];
+/* ============================================================================
+   Todo 상태 인터페이스 정의
+   ----------------------------------------------------------------------------
+   - status: 현재 API 호출 상태 ('idle' | 'loading' | 'succeeded' | 'failed')
+   - error: 에러 메시지 (없을 경우 null)
+   - todos: Todo 객체 배열
+============================================================================ */
+interface ToDoState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
+  todos: Todo[];
 }
 
-// 초기 상태 설정
-const initialState: TodoState = {
-  todos: [],
+/* ============================================================================
+   초기 상태 설정
+============================================================================ */
+const initialState: ToDoState = {
   status: 'idle',
   error: null,
+  todos: [],
 };
 
-/*
-  각 createAsyncThunk 함수는 API 호출을 수행합니다.
-  제네릭 타입을 사용하여 반환되는 데이터, 인자, 그리고 에러 메시지 타입을 명시합니다.
-*/
-
-// 1. 모든 Todo 항목 가져오기
-export const fetchTodos = createAsyncThunk<TodoType[], void, { rejectValue: string }>(
-  'todos/fetchTodos',
+/* ============================================================================
+   비동기 액션: fetchTodo (Todo 목록 조회)
+   ----------------------------------------------------------------------------
+   - 서버에서 Todo 목록을 불러옵니다.
+   - API 응답의 result 필드가 true이면 contents를 반환,
+     그렇지 않으면 서버의 에러 메시지를 rejectWithValue로 반환합니다.
+============================================================================ */
+export const fetchTodo = createAsyncThunk<Todo[], void, { rejectValue: string }>(
+  'todo/fetch',
   async (_, thunkAPI) => {
     try {
-      const response = await axiosClient.get(`todo/fetch`);
-      // API 응답 데이터 형식에 따라 필요한 데이터를 반환하세요.
-      return response.data;
-    } catch (error) {
+      const response = await axiosClient.get('todo/fetch');
+      if (response.data.result) {
+        // 성공: contents (Todo 배열) 반환
+        return response.data.contents;
+      } else {
+        // 실패: 서버에서 전달받은 에러 메시지를 반환
+        return thunkAPI.rejectWithValue(response.data.message);
+      }
+    } catch (ex) {
+      // 기본 에러 메시지 정의
       let message = 'Todo 목록을 불러오는데 실패했습니다.';
-      if (axios.isAxiosError(error) && error.response) {
-        // 서버에서 제공하는 에러 메시지가 있다면 해당 메시지를 사용
-        message = error.response.data.message || message;
+      // axios 에러일 경우, 서버 응답 메시지 사용 (optional chaining 활용)
+      if (axios.isAxiosError(ex) && ex.response) {
+        message = ex.response.data?.message || message;
       }
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-// 2. 새로운 Todo 추가
-export const addTodo = createAsyncThunk<TodoType, TodoType, { rejectValue: string }>(
-  'todos/addTodo',
-  async (todo, thunkAPI) => {
+/* ============================================================================
+   비동기 액션: addTodo (Todo 추가)
+   ----------------------------------------------------------------------------
+   - title을 인자로 받아 Todo 추가 API를 호출합니다.
+   - 서버 응답의 result가 true이면 contents (추가된 Todo)를 반환,
+     실패 시 에러 메시지를 rejectWithValue로 반환합니다.
+============================================================================ */
+export const addTodo = createAsyncThunk<Todo, string, { rejectValue: string }>(
+  'todo/save',
+  async (title, thunkAPI) => {
     try {
-      const response = await axios.post(API_URL, todo);
-      // 응답 데이터가 { contents: TodoType } 형태라고 가정합니다.
-      return response.data.contents;
-    } catch (error) {
+      const response = await axiosClient.post('todo/save', { title });
+      if (response.data.result) {
+        return response.data.contents;
+      } else {
+        return thunkAPI.rejectWithValue(response.data.message);
+      }
+    } catch (ex) {
       let message = 'Todo 추가에 실패했습니다.';
-      if (axios.isAxiosError(error) && error.response) {
-        message = error.response.data.message || message;
+      if (axios.isAxiosError(ex) && ex.response) {
+        message = ex.response.data?.message || message;
       }
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-// 3. 기존 Todo 업데이트
-export const updateTodo = createAsyncThunk<TodoType, TodoType, { rejectValue: string }>(
-  'todos/updateTodo',
+/* ============================================================================
+   비동기 액션: updateTodoTitle (Todo 제목 업데이트)
+   ----------------------------------------------------------------------------
+   - Todo 객체를 인자로 받아 제목 및 상태를 업데이트합니다.
+   - 서버 응답의 contents를 반환하며,
+     실패 시 에러 메시지를 rejectWithValue로 반환합니다.
+============================================================================ */
+export const updateTodoTitle = createAsyncThunk<Todo, Todo, { rejectValue: string }>(
+  'todo/updateTitle',
   async (todo, thunkAPI) => {
     try {
-      const response = await axios.patch(API_URL, {
+      const response = await axiosClient.patch('todo/updateTitle', {
         id: todo.id,
         title: todo.title,
         completed: todo.completed,
       });
-      // 응답 데이터가 { contents: TodoType } 형태라고 가정합니다.
+      // API 응답에 result 체크를 추가할 수 있다면 아래와 같이 적용 가능
+      // if (response.data.result) { return response.data.contents; } else { ... }
       return response.data.contents;
-    } catch (error) {
+    } catch (ex) {
       let message = 'Todo 업데이트에 실패했습니다.';
-      if (axios.isAxiosError(error) && error.response) {
-        message = error.response.data.message || message;
+      if (axios.isAxiosError(ex) && ex.response) {
+        message = ex.response.data?.message || message;
       }
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-// 4. Todo 삭제
+/* ============================================================================
+   비동기 액션: deleteTodo (Todo 삭제)
+   ----------------------------------------------------------------------------
+   - Todo id를 인자로 받아 해당 Todo를 삭제합니다.
+   - 삭제 성공 시 id를 반환하며,
+     실패 시 에러 메시지를 rejectWithValue로 반환합니다.
+============================================================================ */
 export const deleteTodo = createAsyncThunk<number, number, { rejectValue: string }>(
-  'todos/deleteTodo',
+  'todo/delete',
   async (id, thunkAPI) => {
     try {
-      await axios.delete(`${API_URL}/${id}`);
-      // 삭제된 Todo의 id를 반환합니다.
+      await axiosClient.delete(`todo/delete/${id}`);
+      // 삭제 성공 시 삭제된 Todo의 id 반환
       return id;
-    } catch (error) {
+    } catch (ex) {
       let message = 'Todo 삭제에 실패했습니다.';
-      if (axios.isAxiosError(error) && error.response) {
-        message = error.response.data.message || message;
+      if (axios.isAxiosError(ex) && ex.response) {
+        message = ex.response.data?.message || message;
       }
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-// Redux Slice 정의
+/* ============================================================================
+   비동기 액션: updateTodoCompleted (Todo 완료 상태 업데이트)
+   ----------------------------------------------------------------------------
+   - Todo id와 completed 상태를 인자로 받아 해당 Todo의 완료 상태를 업데이트합니다.
+   - 성공 시 서버의 응답 데이터를 반환하며,
+     실패 시 에러 메시지를 rejectWithValue로 반환합니다.
+============================================================================ */
+export const updateTodoCompleted = createAsyncThunk<
+  Todo,
+  { id: number; completed: boolean },
+  { rejectValue: string }
+>(
+  'todo/updateCompleted',
+  async (todo, thunkAPI) => {
+    try {
+      const response = await axiosClient.patch('todo/updateCompleted', {
+        id: todo.id,
+        completed: todo.completed,
+      });
+      return response.data.contents;
+    } catch (ex) {
+      let message = 'Todo 업데이트에 실패했습니다.';
+      if (axios.isAxiosError(ex) && ex.response) {
+        message = ex.response.data?.message || message;
+      }
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+/* ============================================================================
+   Redux Slice: todoSlice
+   ----------------------------------------------------------------------------
+   - Todo 관련 상태 및 액션을 관리합니다.
+   - 각 비동기 액션의 pending, fulfilled, rejected 상태에 따라 상태를 업데이트합니다.
+============================================================================ */
 const todoSlice = createSlice({
-  name: 'todos',
+  name: 'todo',
   initialState,
   reducers: {
-    // 동기 액션이 필요한 경우 여기에 추가할 수 있습니다.
+    // 필요에 따라 동기 액션(예: Todo 상태 초기화 등)을 여기에 추가할 수 있습니다.
   },
   extraReducers: (builder) => {
     builder
-      /* fetchTodos 처리 */
-      // API 호출 시작 시 로딩 상태로 변경
-      .addCase(fetchTodos.pending, (state) => {
+      /* ===== fetchTodo ===== */
+      .addCase(fetchTodo.pending, (state) => {
         state.status = 'loading';
         state.error = null; // 이전 에러 메시지 초기화
       })
-      // API 호출 성공 시 상태 및 Todo 목록 업데이트
-      .addCase(fetchTodos.fulfilled, (state, action: PayloadAction<TodoType[]>) => {
+      .addCase(fetchTodo.fulfilled, (state, action: PayloadAction<Todo[]>) => {
         state.status = 'succeeded';
         state.todos = action.payload;
       })
-      // API 호출 실패 시 에러 메시지 업데이트
-      .addCase(fetchTodos.rejected, (state, action) => {
+      .addCase(fetchTodo.rejected, (state, action) => {
         state.status = 'failed';
+        // action.payload 우선, 없으면 action.error.message 사용
         state.error = action.payload || action.error.message || 'Todo 목록 불러오기 실패';
       })
 
-      /* addTodo 처리 */
-      // Todo 추가 성공 시 Todo 목록에 새 항목 추가
-      .addCase(addTodo.fulfilled, (state, action: PayloadAction<TodoType>) => {
+      /* ===== addTodo ===== */
+      .addCase(addTodo.fulfilled, (state, action: PayloadAction<Todo>) => {
+        state.status = 'succeeded';
+        // 새로 추가된 Todo를 배열에 추가
         state.todos.push(action.payload);
       })
-      // Todo 추가 실패 시 에러 메시지 업데이트
       .addCase(addTodo.rejected, (state, action) => {
         state.error = action.payload || action.error.message || 'Todo 추가 실패';
       })
 
-      /* updateTodo 처리 */
-      // Todo 업데이트 성공 시 기존 항목을 새 데이터로 교체
-      .addCase(updateTodo.fulfilled, (state, action: PayloadAction<TodoType>) => {
+      /* ===== updateTodoTitle ===== */
+      .addCase(updateTodoTitle.fulfilled, (state, action: PayloadAction<Todo>) => {
+        state.status = 'succeeded';
+        // 업데이트된 Todo 객체를 기존 배열에서 찾아 교체합니다.
         const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
         if (index !== -1) {
           state.todos[index] = action.payload;
         }
       })
-      // Todo 업데이트 실패 시 에러 메시지 업데이트
-      .addCase(updateTodo.rejected, (state, action) => {
+      .addCase(updateTodoTitle.rejected, (state, action) => {
         state.error = action.payload || action.error.message || 'Todo 업데이트 실패';
       })
 
-      /* deleteTodo 처리 */
-      // Todo 삭제 성공 시 해당 항목 제거
+      /* ===== updateTodoCompleted ===== */
+      .addCase(updateTodoCompleted.fulfilled, (state, action: PayloadAction<Todo>) => {
+        state.status = 'succeeded';
+        // 완료 상태가 업데이트된 Todo를 배열에서 찾아 교체합니다.
+        const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
+        if (index !== -1) {
+          state.todos[index] = action.payload;
+        }
+      })
+      .addCase(updateTodoCompleted.rejected, (state, action) => {
+        state.error =
+          action.payload || action.error.message || 'Todo Completed 업데이트 실패';
+      })
+
+      /* ===== deleteTodo ===== */
       .addCase(deleteTodo.fulfilled, (state, action: PayloadAction<number>) => {
+        state.status = 'succeeded';
+        // 삭제된 Todo의 id를 기준으로 배열에서 제거합니다.
         state.todos = state.todos.filter((todo) => todo.id !== action.payload);
       })
-      // Todo 삭제 실패 시 에러 메시지 업데이트
       .addCase(deleteTodo.rejected, (state, action) => {
         state.error = action.payload || action.error.message || 'Todo 삭제 실패';
       });
   },
 });
 
-// 리듀서 내보내기
+// slice의 reducer를 export하여 store에 등록합니다.
 export default todoSlice.reducer;

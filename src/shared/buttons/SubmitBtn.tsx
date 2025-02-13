@@ -8,7 +8,7 @@ export default function SubmitButton({ title }: IProps) {
     const { pending } = useFormStatus();
 
     return (
-        <button type="submit" disabled={pending}>
+        <button type="submit" disabled={pending} className="fit">
             {pending ? 'Submitting...' : title}
         </button>
     );

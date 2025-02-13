@@ -3,26 +3,24 @@ import Sidebar from "./Sidebar";
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store/store';
-import { fetchTodos, addTodo, updateTodo, deleteTodo } from '../store/slices/todoSlice';
+import { fetchTodo, deleteTodo, addTodo, updateTodoCompleted } from '../store/slices/todoSlice';
 import Timer from "../shared/Timer";
 import SubmitButton from "../shared/buttons/SubmitBtn";
 import Loader1 from "../shared/loaders/Loader1";
-import { TodoType } from "../types/TodoType";
 
 
-export default function ToDoList() {
+export default function ToDo() {
     const dispatch = useDispatch<AppDispatch>();
     const { todos, status, error } = useSelector((state: RootState) => state.todos);
     const titleRef = useRef<HTMLInputElement>(null);
 
-
     useEffect(() => {
-        dispatch(fetchTodos());
+        dispatch(fetchTodo());
     }, [dispatch]);
 
 
-    const handleToggleComplete = (todo: { id: number; title: string; completed: boolean }) => {
-        dispatch(updateTodo({ ...todo, completed: !todo.completed }));
+    const handleCompletedTodo = (todo: { id: number; title: string; completed: boolean }) => {
+        dispatch(updateTodoCompleted({ ...todo, completed: !todo.completed }));
     };
 
     const handleDeleteTodo = (id: number) => {
@@ -31,22 +29,21 @@ export default function ToDoList() {
 
     const handleAddTodo = (formData: FormData) => {
         if (validateFormData(formData)) {
-            dispatch(addTodo({
-                id: Date.now(),
-                title: formData.get("title") as string,
-                completed: false
-            }));
+            dispatch(addTodo(formData.get("title") as string));
         } else {
-            if (titleRef.current) {
-                titleRef.current.focus();
-            }
+            if (titleRef.current) { titleRef.current.focus(); }
         }
     };
 
+    // 유효성 검사(formData) 타입 정의
+    interface ValidationFormData {
+        title: string;
+    }
+
     // 유효성 검사(formData)
-    const [validateFormDataErrors, setValidateFormDataErrors] = useState<Partial<TodoType>>({});
+    const [validationFormDataErrors, setValidationFormDataErrors] = useState<Partial<ValidationFormData>>({});
     const validateFormData = (formData: FormData): boolean => {
-        const newErrors: Partial<TodoType> = {};
+        const newErrors: Partial<ValidationFormData> = {};
 
         formData.forEach((value, key) => {
             if (key === 'title' && !value) {
@@ -54,7 +51,7 @@ export default function ToDoList() {
             }
         });
 
-        setValidateFormDataErrors(newErrors);
+        setValidationFormDataErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
@@ -82,7 +79,7 @@ export default function ToDoList() {
                                                     <input type="radio" id={`${todo.id}`} checked={todo.completed} onChange={() => { }} />
                                                     <label
                                                         htmlFor={`${todo.id}`}
-                                                        onClick={() => handleToggleComplete(todo)}
+                                                        onClick={() => handleCompletedTodo(todo)}
                                                         style={{ textDecoration: todo.completed ? 'line-through' : 'none', marginBottom: 0 }}
                                                     > {todo.title}</label>
                                                 </td>
@@ -100,7 +97,7 @@ export default function ToDoList() {
                                     })}
 
                                     {status === 'loading' && <tr><td colSpan={2} style={{ textAlign: "center" }}><Loader1 /></td></tr>}
-                                    {error && <tr><td colSpan={2} style={{ textAlign: "center" }}>Error: {error}</td></tr>}
+                                    {error && <tr><td colSpan={2} style={{ textAlign: "center" }}>{error}</td></tr>}
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -112,7 +109,7 @@ export default function ToDoList() {
                                                             type="text"
                                                             name="title"
                                                             ref={titleRef}
-                                                            placeholder={validateFormDataErrors.title || "메세지를 입력해 주세요."}
+                                                            placeholder={validationFormDataErrors.title || "메세지를 입력해 주세요."}
                                                         />
                                                     </div>
                                                     <div className="col-2 col-12-medium">
