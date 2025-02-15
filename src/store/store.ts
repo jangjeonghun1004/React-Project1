@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import todoReducer from './slices/todoSlice';
 import authReducer, { AuthState } from './slices/authSlice';
 import { STORAGE_KEYS } from '../app/storageKeys';
+import postReducer from './slices/postSlice'
 
 /**
  * 앱 초기화 시 localStorage에 저장된 JWT 토큰을 불러와 preloadedState에 반영합니다.
@@ -28,6 +29,7 @@ export const store = configureStore({
   reducer: {
     todos: todoReducer, // Todo 관련 상태 관리
     auth: authReducer,  // 인증 관련 상태 관리
+    post: postReducer, // Post 관련 상태 관리
   },
   preloadedState,       // 앱 시작 시 preloadedState로 초기 상태 반영
 });

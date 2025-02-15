@@ -4,7 +4,7 @@ import { STORAGE_KEYS } from '../app/storageKeys';
 // 환경변수를 사용하여 민감 정보가 코드에 노출되지 않도록 관리합니다.
 // 예: .env 파일에 REACT_APP_AUTH_URL='https://newallsoft.shop/api/auth' 설정
 const axiosClient = axios.create({
-  baseURL: STORAGE_KEYS.AXIOS_BASE_URL_SERVICE,
+  baseURL: STORAGE_KEYS.AXIOS_BASE_URL_LOCAL,
 });
 
 axiosClient.interceptors.request.use(

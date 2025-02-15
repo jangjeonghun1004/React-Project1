@@ -285,7 +285,7 @@ function Home() {
                                     image="./images/signIn.png"
                                     title="자유 게시판"
                                     text="회원 가입, 로그 인 및 로그 아웃을 할 수 있는 React 기반 애플리케이션 기능입니다."
-                                    linkPath="signIn"
+                                    linkPath="postPage"
                                 />
                             </div>
                         </section>

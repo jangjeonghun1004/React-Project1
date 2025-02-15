@@ -44,6 +44,7 @@ import GitHubActions from "./pages/github/GitHubActions";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import {ProtectedRoute} from "./app/ProtectedRoute";
+import PostPage from "./pages/PostPage";
 
 const basePath = import.meta.env.BASE_URL;
 
@@ -92,6 +93,7 @@ const router = createBrowserRouter([
       { path: "gitHubActions", element: <GitHubActions /> },
       { path: "signUp", element: <SignUp /> },
       { path: "signIn", element: <SignIn /> },
+      { path: "postPage", element: <PostPage />},
       {// 보호가 필요한 페이지
         path: "toDo",
         element: (
