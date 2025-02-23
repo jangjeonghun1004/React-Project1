@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import axiosClient from '../axiosClient'; // 공통 설정(인터셉터, 기본 URL 등)이 적용된 axios 인스턴스
-import { Todo } from '../../types/Todo';
+import { Todo } from '../../models/TodoModel';
 import { PaginatedPostResponse, Post, PostRequest } from '../../models/PostModel';
 
 /* ============================================================================
@@ -168,6 +168,22 @@ export const updateTodoCompleted = createAsyncThunk<
   }
 );
 
+export const toggleLike = createAsyncThunk<void, number,{ rejectValue: string }>(
+  'posts/like',
+  async (id, thunkAPI) => {
+    try {
+      await axiosClient.post(`/posts/${id}/like`);
+    } catch (ex) {
+      let message = 'Like 업데이트에 실패했습니다.';
+      if (axios.isAxiosError(ex) && ex.response) {
+        message = ex.response.data?.message || message;
+      }
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+
 /* ============================================================================
    Redux Slice: postSlice
    ----------------------------------------------------------------------------
@@ -206,42 +222,50 @@ const postSlice = createSlice({
         state.error = action.payload || action.error.message || 'Post 추가 실패';
       })
 
-      // /* ===== updateTodoTitle ===== */
-      // .addCase(updateTodoTitle.fulfilled, (state, action: PayloadAction<Todo>) => {
-      //   state.status = 'succeeded';
-      //   // 업데이트된 Todo 객체를 기존 배열에서 찾아 교체합니다.
-      //   const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
-      //   if (index !== -1) {
-      //     state.todos[index] = action.payload;
-      //   }
-      // })
-      // .addCase(updateTodoTitle.rejected, (state, action) => {
-      //   state.error = action.payload || action.error.message || 'Todo 업데이트 실패';
-      // })
+      /* ===== toglleLike ===== */
+      .addCase(toggleLike.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(toggleLike.rejected, (state, action) => {
+        state.error = action.payload || action.error.message || 'toggleLike 업데이트 실패';
+      })
 
-      // /* ===== updateTodoCompleted ===== */
-      // .addCase(updateTodoCompleted.fulfilled, (state, action: PayloadAction<Todo>) => {
-      //   state.status = 'succeeded';
-      //   // 완료 상태가 업데이트된 Todo를 배열에서 찾아 교체합니다.
-      //   const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
-      //   if (index !== -1) {
-      //     state.todos[index] = action.payload;
-      //   }
-      // })
-      // .addCase(updateTodoCompleted.rejected, (state, action) => {
-      //   state.error =
-      //     action.payload || action.error.message || 'Todo Completed 업데이트 실패';
-      // })
+    // /* ===== updateTodoTitle ===== */
+    // .addCase(updateTodoTitle.fulfilled, (state, action: PayloadAction<Todo>) => {
+    //   state.status = 'succeeded';
+    //   // 업데이트된 Todo 객체를 기존 배열에서 찾아 교체합니다.
+    //   const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
+    //   if (index !== -1) {
+    //     state.todos[index] = action.payload;
+    //   }
+    // })
+    // .addCase(updateTodoTitle.rejected, (state, action) => {
+    //   state.error = action.payload || action.error.message || 'Todo 업데이트 실패';
+    // })
 
-      // /* ===== deleteTodo ===== */
-      // .addCase(deleteTodo.fulfilled, (state, action: PayloadAction<number>) => {
-      //   state.status = 'succeeded';
-      //   // 삭제된 Todo의 id를 기준으로 배열에서 제거합니다.
-      //   state.todos = state.todos.filter((todo) => todo.id !== action.payload);
-      // })
-      // .addCase(deleteTodo.rejected, (state, action) => {
-      //   state.error = action.payload || action.error.message || 'Todo 삭제 실패';
-      // });
+    // /* ===== updateTodoCompleted ===== */
+    // .addCase(updateTodoCompleted.fulfilled, (state, action: PayloadAction<Todo>) => {
+    //   state.status = 'succeeded';
+    //   // 완료 상태가 업데이트된 Todo를 배열에서 찾아 교체합니다.
+    //   const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
+    //   if (index !== -1) {
+    //     state.todos[index] = action.payload;
+    //   }
+    // })
+    // .addCase(updateTodoCompleted.rejected, (state, action) => {
+    //   state.error =
+    //     action.payload || action.error.message || 'Todo Completed 업데이트 실패';
+    // })
+
+    // /* ===== deleteTodo ===== */
+    // .addCase(deleteTodo.fulfilled, (state, action: PayloadAction<number>) => {
+    //   state.status = 'succeeded';
+    //   // 삭제된 Todo의 id를 기준으로 배열에서 제거합니다.
+    //   state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+    // })
+    // .addCase(deleteTodo.rejected, (state, action) => {
+    //   state.error = action.payload || action.error.message || 'Todo 삭제 실패';
+    // });
   },
 });
 

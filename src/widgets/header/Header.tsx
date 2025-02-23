@@ -11,10 +11,14 @@ type Props = {
 function Header({ title = "React + Vite + TypeScript" }: Props) {
     const dispatch = useDispatch<AppDispatch>();
     // Redux store에서 토큰을 읽어와 인증 상태를 결정합니다.
-    const token = useSelector((state: RootState) => state.auth.jwtToken);
+    const token = useSelector((state: RootState) => state.auth.token);
     const handleSignOut = async () => {
-        await dispatch(signOut());
-        localStorage.removeItem(STORAGE_KEYS.JWT_TOKEN);
+        try {
+            await dispatch(signOut()).unwrap();
+            localStorage.removeItem(STORAGE_KEYS.JWT_TOKEN);
+        }catch(rejectWithValueMessage) {
+            console.error('로그 아웃 실패:', rejectWithValueMessage);
+        }
     }
 
     return (

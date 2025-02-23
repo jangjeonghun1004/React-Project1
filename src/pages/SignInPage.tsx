@@ -6,9 +6,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
-export default function SignIn() {
+export default function SignInPage() {
     const [signInSuccessMessage, setSignInSuccessMessage] = useState<string>(''); // 로그인 성공 시 메시지
-
     const dispatch = useDispatch<AppDispatch>();
     const { error } = useSelector((state: RootState) => state.auth);
 
@@ -24,7 +23,7 @@ export default function SignIn() {
         try {
             // dispatch 시 .unwrap()을 사용하면, 성공 시에는 객체(SignInResponse)를 반환하고
             // 실패 시에는 rejectWithValue로 전달한 에러 메시지가 throw됩니다.
-            const { token } = await dispatch(signIn({ email, password })).unwrap();
+            const {token} = await dispatch(signIn({ email, password })).unwrap();
             if (token) {
                 localStorage.setItem('jwtToken', token);
             }

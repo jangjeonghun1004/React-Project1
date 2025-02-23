@@ -14,9 +14,8 @@ const preloadedState: { auth: AuthState } = {
   auth: {
     status: 'idle',                         // 초기 상태는 'idle'
     error: null,                            // 에러 메시지 초기값 null
-    jwtToken: localStorage.getItem(STORAGE_KEYS.JWT_TOKEN), // localStorage에서 JWT 토큰 불러오기
+    token: localStorage.getItem(STORAGE_KEYS.JWT_TOKEN), // localStorage에서 JWT 토큰 불러오기
     signUpResponse: null,                   // 회원가입 응답 초기값 null
-    signInResponse: null,                   // 로그인 응답 초기값 null
   },
 };
 

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
-export default function SignUp() {
+export default function SignUpPage() {
     const [signUpSuccessMessage, setSignUpSuccessMessage] = useState<string>(''); // 회원가입 성공 시 메시지
     const dispatch = useDispatch<AppDispatch>();
     const { error } = useSelector((state: RootState) => state.auth);
@@ -16,9 +16,7 @@ export default function SignUp() {
         dispatch(clearError());
     }, [dispatch]);
 
-    const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
+    const handleSignUp = async (formData: FormData) => {
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
 
@@ -29,6 +27,7 @@ export default function SignUp() {
             setSignUpSuccessMessage(`회원가입 성공`);
         } catch (rejectWithValueMessage) { // dispatch(signUp)에서 rejectWithValue로 전달한 에러 메시지
             console.error('회원가입 실패:', rejectWithValueMessage);
+            setSignUpSuccessMessage('');
         }
     };
 
@@ -44,7 +43,7 @@ export default function SignUp() {
                             {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
                         </div>
 
-                        <form onSubmit={handleSignUp}>
+                        <form action={handleSignUp}>
                             <div className="row gtr-uniform">
                                 <div className="col-12">
                                     <input type="email" name="email" placeholder="Email" />

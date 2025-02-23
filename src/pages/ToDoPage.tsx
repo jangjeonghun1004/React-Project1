@@ -3,33 +3,34 @@ import Sidebar from "./Sidebar";
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store/store';
-import { fetchTodo, deleteTodo, addTodo, updateTodoCompleted } from '../store/slices/todoSlice';
+import { findAllTodos, deleteTodo, createTodo, updateTodoCompleted } from '../store/slices/todoSlice';
 import Timer from "../shared/Timer";
 import SubmitButton from "../shared/buttons/SubmitBtn";
 import Loader1 from "../shared/loaders/Loader1";
 
 
-export default function ToDo() {
+export default function ToDoPage() {
     const dispatch = useDispatch<AppDispatch>();
     const { todos, status, error } = useSelector((state: RootState) => state.todos);
     const titleRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        dispatch(fetchTodo());
+        dispatch(findAllTodos());
     }, [dispatch]);
 
 
-    const handleCompletedTodo = (todo: { id: number; title: string; completed: boolean }) => {
+    const handleUpdateTodoCompleted = (todo: { id: number; completed: boolean }) => {
         dispatch(updateTodoCompleted({ ...todo, completed: !todo.completed }));
     };
 
     const handleDeleteTodo = (id: number) => {
-        dispatch(deleteTodo(id));
+        dispatch(deleteTodo({id}));
     };
 
-    const handleAddTodo = (formData: FormData) => {
+    const handleCreateTodo = (formData: FormData) => {
         if (validateFormData(formData)) {
-            dispatch(addTodo(formData.get("title") as string));
+            const title = formData.get("title") as string;
+            dispatch(createTodo({title}));
         } else {
             if (titleRef.current) { titleRef.current.focus(); }
         }
@@ -72,6 +73,9 @@ export default function ToDo() {
 
                             <table >
                                 <tbody>
+                                    {status === 'loading' && <tr><td colSpan={2} style={{ textAlign: "center" }}><Loader1 /></td></tr>}
+                                    {error && <tr><td colSpan={2} style={{ textAlign: "center" }}>{error}</td></tr>}
+
                                     {todos.map((todo, index) => {
                                         return (
                                             <tr key={index}>
@@ -79,7 +83,7 @@ export default function ToDo() {
                                                     <input type="radio" id={`${todo.id}`} checked={todo.completed} onChange={() => { }} />
                                                     <label
                                                         htmlFor={`${todo.id}`}
-                                                        onClick={() => handleCompletedTodo(todo)}
+                                                        onClick={() => handleUpdateTodoCompleted(todo)}
                                                         style={{ textDecoration: todo.completed ? 'line-through' : 'none', marginBottom: 0 }}
                                                     > {todo.title}</label>
                                                 </td>
@@ -95,14 +99,11 @@ export default function ToDo() {
                                             </tr>
                                         )
                                     })}
-
-                                    {status === 'loading' && <tr><td colSpan={2} style={{ textAlign: "center" }}><Loader1 /></td></tr>}
-                                    {error && <tr><td colSpan={2} style={{ textAlign: "center" }}>{error}</td></tr>}
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td colSpan={2}>
-                                            <form action={handleAddTodo}>
+                                            <form action={handleCreateTodo}>
                                                 <div className="row">
                                                     <div className="col-10 col-12-medium" style={{ marginBottom: 10 }}>
                                                         <input

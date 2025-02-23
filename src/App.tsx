@@ -31,7 +31,7 @@ import SpringSecurityJwt from "./pages/springBootCurriculum/SpringSecurityJwt";
 import SpringJpa from "./pages/springBootCurriculum/SpringJpa";
 import SpringDataJdbc from "./pages/springBootCurriculum/SpringDataJdbc";
 import SpringFrameworkAsync from "./pages/springBootCurriculum/SpringFrameworkAsync";
-import ToDo from "./pages/ToDo";
+import ToDoPage from "./pages/ToDoPage";
 import Ubuntu from "./pages/amazonEC2/Ubuntu";
 import Nginx from "./pages/amazonEC2/Nginx";
 import Certbot from "./pages/amazonEC2/Certbot";
@@ -41,8 +41,8 @@ import DockerContainer from "./pages/docker/DockerContainer";
 import DockerCompose from "./pages/docker/DockerCompose";
 import GitHub from "./pages/github/GitHub";
 import GitHubActions from "./pages/github/GitHubActions";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
+import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
 import {ProtectedRoute} from "./app/ProtectedRoute";
 import PostPage from "./pages/PostPage";
 
@@ -91,14 +91,14 @@ const router = createBrowserRouter([
       { path: "dockerCompose", element: <DockerCompose /> },
       { path: "gitHub", element: <GitHub /> },
       { path: "gitHubActions", element: <GitHubActions /> },
-      { path: "signUp", element: <SignUp /> },
-      { path: "signIn", element: <SignIn /> },
-      { path: "postPage", element: <PostPage />},
+      { path: "signUp", element: <SignUpPage /> },
+      { path: "signIn", element: <SignInPage /> },
+      { path: "post", element: <PostPage />},
       {// 보호가 필요한 페이지
         path: "toDo",
         element: (
           <ProtectedRoute>
-            <ToDo />
+            <ToDoPage />
           </ProtectedRoute>
         ),
       },

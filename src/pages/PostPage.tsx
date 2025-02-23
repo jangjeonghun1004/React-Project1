@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import PageTemplate from "./PageTemplate";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
-import { getAllPosts, createPost } from "../store/slices/postSlice";
+import { getAllPosts, createPost, toggleLike } from "../store/slices/postSlice";
 import { Post } from "../models/PostModel";
+import LikeToggle from "../shared/toggle/LikeToggle";
 
 export default function PostPage() {
     const dispatch = useDispatch<AppDispatch>();
     const { paginatedPostResponse } = useSelector((state: RootState) => state.post);
+
     const [isNewPostShow, setIsNewPostShow] = useState(true);
     const [isCommentShow, setIsCommentShow] = useState(false);
 
@@ -103,6 +105,7 @@ export default function PostPage() {
 
     const paginationItems = getPaginationItems(totalPages, currentPage);
 
+
     return (
         <PageTemplate title="포트포리오" subTitle="" imageSrc="">
             <div style={{ textAlign: "right", display: isNewPostShow ? "block" : "none" }}>
@@ -171,9 +174,22 @@ export default function PostPage() {
                             <div>
                                 <ul className="actions">
                                     <li>
-                                        <a href="#" className="button icon fa-heart small">
-                                            like(100)
-                                        </a>
+                                        <LikeToggle
+                                            initialLiked={post.likedByUser}
+                                            initialCount={post.likeCount}
+                                            onToggle={async () => {
+                                                try {
+                                                    const response = await dispatch(toggleLike(post.id));
+                                                    if (!toggleLike.fulfilled.match(response)) {
+                                                        // 에러 발생 시 강제로 예외를 발생시킵니다.
+                                                        throw new Error("Toggle like failed");
+                                                    }
+                                                } catch (ex) {
+                                                    // 콜백 함수에서 에러 발생 시 이전 상태로 롤백합니다.
+                                                    console.error("Error in onToggle:", ex);
+                                                }
+                                            }}
+                                        />
                                     </li>
                                     <li>
                                         <button type="button"
