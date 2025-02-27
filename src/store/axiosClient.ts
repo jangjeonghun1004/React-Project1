@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode'; // jwt-decode 라이브러리 설치 필
 // 환경변수를 사용하여 민감 정보가 코드에 노출되지 않도록 관리합니다.
 // 예: .env 파일에 REACT_APP_AUTH_URL='https://newallsoft.shop/api/auth' 설정
 const axiosClient = axios.create({
-  baseURL: STORAGE_KEYS.AXIOS_BASE_URL_LOCAL, // 실제 API base URL로 변경
+  baseURL: STORAGE_KEYS.AXIOS_BASE_URL_SERVICE, // 실제 API base URL로 변경
   timeout: 10000,
   headers: {
       'Content-Type': 'application/json',
