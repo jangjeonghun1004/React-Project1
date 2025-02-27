@@ -2,19 +2,25 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import axiosClient from '../axiosClient'; // 공통 설정(인터셉터, 기본 URL 등)이 적용된 axios 인스턴스
 import { Todo } from '../../models/TodoModel';
-import { PaginatedPostResponse, Post, PostRequest } from '../../models/PostModel';
+import { PostWithPaging, Post, CreatePostRequest, PostComment } from '../../models/PostModel';
+
+/* ============================================================================
+   유틸리티 함수: Axios 에러 메시지 추출
+============================================================================ */
+const getErrorMessage = (ex: unknown, defaultMessage: string): string => {
+  if (axios.isAxiosError(ex) && ex.response) {
+    return ex.response.data?.message || defaultMessage;
+  }
+  return defaultMessage;
+};
 
 /* ============================================================================
    Post 상태 인터페이스 정의
-   ----------------------------------------------------------------------------
-   - status: 현재 API 호출 상태 ('idle' | 'loading' | 'succeeded' | 'failed')
-   - error: 에러 메시지 (없을 경우 null)
-   - paginatedPostResponse: PaginatedPostResponse 객체 배열
 ============================================================================ */
 interface PostState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
-  paginatedPostResponse: PaginatedPostResponse;
+  postWithPaging: PostWithPaging;
 }
 
 /* ============================================================================
@@ -23,75 +29,132 @@ interface PostState {
 const initialState: PostState = {
   status: 'idle',
   error: null,
-  paginatedPostResponse: { posts: [], sizePages: 0, totalPages: 0, currentPageNumber: 0 }
+  postWithPaging: { posts: [], sizePages: 0, totalPages: 0, currentPageNumber: 0 },
 };
 
 /* ============================================================================
-   비동기 액션: getAllPosts (Post 목록 조회)
-   ----------------------------------------------------------------------------
-   - 서버에서 Post 목록을 불러옵니다.
-   - API 응답의 result 필드가 true이면 contents를 반환,
-     그렇지 않으면 서버의 에러 메시지를 rejectWithValue로 반환합니다.
+   [Post 관련 Async Actions]
 ============================================================================ */
-export const getAllPosts = createAsyncThunk<PaginatedPostResponse, number, { rejectValue: string }>(
-  'posts/getAllPosts',
+
+/**
+ * Post 목록 조회
+ * @param pageNumber - 요청할 페이지 번호
+ * @returns Paginated Post 데이터
+ */
+export const findAllPosts = createAsyncThunk<PostWithPaging, number, { rejectValue: string }>(
+  'post/findAllPosts',
   async (pageNumber, thunkAPI) => {
     try {
-      const response = await axiosClient.get(`posts?pageNumber=${pageNumber}`);
+      const response = await axiosClient.get(`post?pageNumber=${pageNumber}`);
       if (response.data.result) {
-        // 성공: contents (Post 배열) 반환
         return response.data.contents;
-      } else {
-        // 실패: 서버에서 전달받은 에러 메시지를 반환
-        return thunkAPI.rejectWithValue(response.data.message);
       }
+      return thunkAPI.rejectWithValue(response.data.message);
     } catch (ex) {
-      // 기본 에러 메시지 정의
-      let message = 'Post 목록을 불러오는데 실패했습니다.';
-      // axios 에러일 경우, 서버 응답 메시지 사용 (optional chaining 활용)
-      if (axios.isAxiosError(ex) && ex.response) {
-        message = ex.response.data?.message || message;
-      }
-      return thunkAPI.rejectWithValue(message);
+      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Post 목록을 불러오는데 실패했습니다.'));
     }
   }
 );
 
-/* ============================================================================
-   비동기 액션: createPost (Post 추가)
-   ----------------------------------------------------------------------------
-   - PostRequest를 인자로 받아 Post 추가 API를 호출합니다.
-   - 서버 응답의 result가 true이면 contents (추가된 Post)를 반환,
-     실패 시 에러 메시지를 rejectWithValue로 반환합니다.
-============================================================================ */
-export const createPost = createAsyncThunk<Post, PostRequest, { rejectValue: string }>(
-  'posts/createPost',
-  async (postRequest, thunkAPI) => {
+/**
+ * Post 추가
+ * @param createPostRequest - 생성할 Post 데이터
+ * @returns 생성된 Post 객체
+ */
+export const createPost = createAsyncThunk<Post, CreatePostRequest, { rejectValue: string }>(
+  'post/createPost',
+  async (createPostRequest, thunkAPI) => {
     try {
-      console.log("called");
-      const response = await axiosClient.post('posts', postRequest);
+      const response = await axiosClient.post('post', createPostRequest);
       if (response.data.result) {
         return response.data.contents;
-      } else {
-        return thunkAPI.rejectWithValue(response.data.message);
       }
+      return thunkAPI.rejectWithValue(response.data.message);
     } catch (ex) {
-      let message = 'Post 추가에 실패했습니다.';
-      if (axios.isAxiosError(ex) && ex.response) {
-        message = ex.response.data?.message || message;
+      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Post 추가에 실패했습니다.'));
+    }
+  }
+);
+
+/**
+ * Post 삭제
+ * @param id - 삭제할 Post의 id
+ * @returns 삭제 성공 시 true 반환
+ */
+export const deletePost = createAsyncThunk<boolean, number, { rejectValue: string }>(
+  'post/deletePost',
+  async (id, thunkAPI) => {
+    try {
+      await axiosClient.delete(`post/${id}`);
+      return true;
+    } catch (ex) {
+      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Post 삭제에 실패했습니다.'));
+    }
+  }
+);
+
+/**
+ * Post Comment 추가
+ * @param request - { postId, content } 형식의 요청 데이터
+ * @returns 생성된 Post Comment 객체
+ */
+export const createPostComment = createAsyncThunk<PostComment, { postId: number; content: string }, { rejectValue: string }>(
+  'postComment/createPostComment',
+  async (request, thunkAPI) => {
+    try {
+      const response = await axiosClient.post('postComment', request);
+      if (response.data.result) {
+        return response.data.contents;
       }
-      return thunkAPI.rejectWithValue(message);
+      return thunkAPI.rejectWithValue(response.data.message);
+    } catch (ex) {
+      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Post Comment 추가에 실패했습니다.'));
+    }
+  }
+);
+
+/**
+ * Post Comment 삭제
+ * @param id - 삭제할 Post Comment의 id
+ * @returns 삭제 성공 시 true 반환
+ */
+export const deletePostComment = createAsyncThunk<boolean, number, { rejectValue: string }>(
+  'postComment/deletePostComment',
+  async (id, thunkAPI) => {
+    try {
+      await axiosClient.delete(`postComment/${id}`);
+      return true;
+    } catch (ex) {
+      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Post Comment 삭제에 실패했습니다.'));
+    }
+  }
+);
+
+/**
+ * Post 좋아요 토글
+ * @param id - 좋아요 토글할 Post의 id
+ */
+export const toggleLike = createAsyncThunk<void, number, { rejectValue: string }>(
+  'post/toggleLike',
+  async (id, thunkAPI) => {
+    try {
+      await axiosClient.post(`post/${id}/like`);
+    } catch (ex) {
+      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Like 업데이트에 실패했습니다.'));
     }
   }
 );
 
 /* ============================================================================
-   비동기 액션: updateTodoTitle (Todo 제목 업데이트)
-   ----------------------------------------------------------------------------
-   - Todo 객체를 인자로 받아 제목 및 상태를 업데이트합니다.
-   - 서버 응답의 contents를 반환하며,
-     실패 시 에러 메시지를 rejectWithValue로 반환합니다.
+   [Todo 관련 Async Actions]
+   (Post Slice에서 사용하지 않는다면 별도 Slice로 분리하는 것을 고려)
 ============================================================================ */
+
+/**
+ * Todo 제목 업데이트
+ * @param todo - 업데이트할 Todo 객체
+ * @returns 업데이트된 Todo 객체
+ */
 export const updateTodoTitle = createAsyncThunk<Todo, Todo, { rejectValue: string }>(
   'todo/updateTitle',
   async (todo, thunkAPI) => {
@@ -101,119 +164,77 @@ export const updateTodoTitle = createAsyncThunk<Todo, Todo, { rejectValue: strin
         title: todo.title,
         completed: todo.completed,
       });
-      // API 응답에 result 체크를 추가할 수 있다면 아래와 같이 적용 가능
-      // if (response.data.result) { return response.data.contents; } else { ... }
       return response.data.contents;
     } catch (ex) {
-      let message = 'Todo 업데이트에 실패했습니다.';
-      if (axios.isAxiosError(ex) && ex.response) {
-        message = ex.response.data?.message || message;
-      }
-      return thunkAPI.rejectWithValue(message);
+      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Todo 업데이트에 실패했습니다.'));
     }
   }
 );
 
-/* ============================================================================
-   비동기 액션: deleteTodo (Todo 삭제)
-   ----------------------------------------------------------------------------
-   - Todo id를 인자로 받아 해당 Todo를 삭제합니다.
-   - 삭제 성공 시 id를 반환하며,
-     실패 시 에러 메시지를 rejectWithValue로 반환합니다.
-============================================================================ */
+/**
+ * Todo 삭제
+ * @param id - 삭제할 Todo의 id
+ * @returns 삭제된 Todo의 id
+ */
 export const deleteTodo = createAsyncThunk<number, number, { rejectValue: string }>(
   'todo/delete',
   async (id, thunkAPI) => {
     try {
       await axiosClient.delete(`todo/delete/${id}`);
-      // 삭제 성공 시 삭제된 Todo의 id 반환
       return id;
     } catch (ex) {
-      let message = 'Todo 삭제에 실패했습니다.';
-      if (axios.isAxiosError(ex) && ex.response) {
-        message = ex.response.data?.message || message;
-      }
-      return thunkAPI.rejectWithValue(message);
+      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Todo 삭제에 실패했습니다.'));
     }
   }
 );
 
-/* ============================================================================
-   비동기 액션: updateTodoCompleted (Todo 완료 상태 업데이트)
-   ----------------------------------------------------------------------------
-   - Todo id와 completed 상태를 인자로 받아 해당 Todo의 완료 상태를 업데이트합니다.
-   - 성공 시 서버의 응답 데이터를 반환하며,
-     실패 시 에러 메시지를 rejectWithValue로 반환합니다.
-============================================================================ */
-export const updateTodoCompleted = createAsyncThunk<
-  Todo,
-  { id: number; completed: boolean },
-  { rejectValue: string }
->(
+/**
+ * Todo 완료 상태 업데이트
+ * @param param0 - { id, completed } 형식의 요청 데이터
+ * @returns 업데이트된 Todo 객체
+ */
+export const updateTodoCompleted = createAsyncThunk<Todo, { id: number; completed: boolean }, { rejectValue: string }>(
   'todo/updateCompleted',
-  async (todo, thunkAPI) => {
+  async ({ id, completed }, thunkAPI) => {
     try {
-      const response = await axiosClient.patch('todo/updateCompleted', {
-        id: todo.id,
-        completed: todo.completed,
-      });
+      const response = await axiosClient.patch('todo/updateCompleted', { id, completed });
       return response.data.contents;
     } catch (ex) {
-      let message = 'Todo 업데이트에 실패했습니다.';
-      if (axios.isAxiosError(ex) && ex.response) {
-        message = ex.response.data?.message || message;
-      }
-      return thunkAPI.rejectWithValue(message);
+      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Todo 업데이트에 실패했습니다.'));
     }
   }
 );
-
-export const toggleLike = createAsyncThunk<void, number,{ rejectValue: string }>(
-  'posts/like',
-  async (id, thunkAPI) => {
-    try {
-      await axiosClient.post(`/posts/${id}/like`);
-    } catch (ex) {
-      let message = 'Like 업데이트에 실패했습니다.';
-      if (axios.isAxiosError(ex) && ex.response) {
-        message = ex.response.data?.message || message;
-      }
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
 
 /* ============================================================================
    Redux Slice: postSlice
-   ----------------------------------------------------------------------------
-   - Post 관련 상태 및 액션을 관리합니다.
-   - 각 비동기 액션의 pending, fulfilled, rejected 상태에 따라 상태를 업데이트합니다.
 ============================================================================ */
 const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
-    // 필요에 따라 동기 액션(예: Todo 상태 초기화 등)을 여기에 추가할 수 있습니다.
+    // 필요한 동기 액션 추가 가능 (예: 상태 초기화 등)
   },
   extraReducers: (builder) => {
     builder
-      /* ===== fetchTodo ===== */
-      .addCase(getAllPosts.pending, (state) => {
+      // findAllPosts
+      .addCase(findAllPosts.pending, (state) => {
         state.status = 'loading';
-        state.error = null; // 이전 에러 메시지 초기화
+        state.error = null;
       })
-      .addCase(getAllPosts.fulfilled, (state, action: PayloadAction<PaginatedPostResponse>) => {
+      .addCase(findAllPosts.fulfilled, (state, action: PayloadAction<PostWithPaging>) => {
         state.status = 'succeeded';
-        state.paginatedPostResponse = action.payload;
+        state.postWithPaging = action.payload;
       })
-      .addCase(getAllPosts.rejected, (state, action) => {
+      .addCase(findAllPosts.rejected, (state, action) => {
         state.status = 'failed';
-        // action.payload 우선, 없으면 action.error.message 사용
         state.error = action.payload || action.error.message || 'Post 목록 불러오기 실패';
       })
 
-      /* ===== createPost ===== */
+      // createPost
+      .addCase(createPost.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
       .addCase(createPost.fulfilled, (state) => {
         state.status = 'succeeded';
         state.error = null;
@@ -222,52 +243,93 @@ const postSlice = createSlice({
         state.error = action.payload || action.error.message || 'Post 추가 실패';
       })
 
-      /* ===== toglleLike ===== */
+        /* ===== createPostComment ===== */
+      // pending 단계: 임시 댓글을 추가하여 UI에 즉시 반영
+      .addCase(createPostComment.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      // fulfilled 단계: 서버에서 반환한 실제 댓글 객체로 임시 댓글 대체
+      .addCase(createPostComment.fulfilled, (state, action: PayloadAction<PostComment>) => {
+        state.status = 'succeeded';
+        state.error = null;
+        let actualComment = action.payload;
+        // 실제 댓글이 추가될 Post를 찾습니다.
+        const post = state.postWithPaging.posts.find((p) => p.id === actualComment.postId);
+        if (post && post.postComments) {
+          // 임시 댓글(음수 id)을 제거하고, 실제 댓글을 추가합니다.
+          post.postComments = [
+            ...post.postComments.filter((comment) => comment.id > 0),
+            actualComment,
+          ];
+        }
+      })
+      // rejected 단계: 삭제한 임시 댓글을 복구하는 등 추가 복구 로직 구현 가능
+      .addCase(createPostComment.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error =
+          action.payload || action.error.message || 'Post Comment 추가 실패';
+        // 삭제 실패 시, 임시 댓글 제거 혹은 전체 댓글 재조회 로직을 추가할 수 있습니다.
+        // 예시로 현재 페이지를 재조회하도록 처리할 수 있습니다.
+      })
+
+      // toggleLike
+      .addCase(toggleLike.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
       .addCase(toggleLike.fulfilled, (state) => {
         state.status = 'succeeded';
       })
       .addCase(toggleLike.rejected, (state, action) => {
-        state.error = action.payload || action.error.message || 'toggleLike 업데이트 실패';
+        state.error = action.payload || action.error.message || 'Like 업데이트 실패';
       })
 
-    // /* ===== updateTodoTitle ===== */
-    // .addCase(updateTodoTitle.fulfilled, (state, action: PayloadAction<Todo>) => {
-    //   state.status = 'succeeded';
-    //   // 업데이트된 Todo 객체를 기존 배열에서 찾아 교체합니다.
-    //   const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
-    //   if (index !== -1) {
-    //     state.todos[index] = action.payload;
-    //   }
-    // })
-    // .addCase(updateTodoTitle.rejected, (state, action) => {
-    //   state.error = action.payload || action.error.message || 'Todo 업데이트 실패';
-    // })
 
-    // /* ===== updateTodoCompleted ===== */
-    // .addCase(updateTodoCompleted.fulfilled, (state, action: PayloadAction<Todo>) => {
-    //   state.status = 'succeeded';
-    //   // 완료 상태가 업데이트된 Todo를 배열에서 찾아 교체합니다.
-    //   const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
-    //   if (index !== -1) {
-    //     state.todos[index] = action.payload;
-    //   }
-    // })
-    // .addCase(updateTodoCompleted.rejected, (state, action) => {
-    //   state.error =
-    //     action.payload || action.error.message || 'Todo Completed 업데이트 실패';
-    // })
+      // deletePost (이미 낙관적 UI 적용)
+      .addCase(deletePost.pending, (state, action) => {
+        state.status = 'loading';
+        state.error = null;
+        state.postWithPaging.posts = state.postWithPaging.posts.filter(
+          (post) => post.id !== action.meta.arg
+        );
+      })
+      .addCase(deletePost.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(deletePost.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload || action.error.message || 'Post 삭제 실패';
+        // 삭제 실패 시, 현재 페이지를 재조회하여 UI 복구를 고려할 수 있음
+      })
 
-    // /* ===== deleteTodo ===== */
-    // .addCase(deleteTodo.fulfilled, (state, action: PayloadAction<number>) => {
-    //   state.status = 'succeeded';
-    //   // 삭제된 Todo의 id를 기준으로 배열에서 제거합니다.
-    //   state.todos = state.todos.filter((todo) => todo.id !== action.payload);
-    // })
-    // .addCase(deleteTodo.rejected, (state, action) => {
-    //   state.error = action.payload || action.error.message || 'Todo 삭제 실패';
-    // });
+      // deletePostComment: 낙관적 UI 구현
+      .addCase(deletePostComment.pending, (state, action) => {
+        state.status = 'loading';
+        state.error = null;
+        const commentId = action.meta.arg;
+        // 각 게시글에서 해당 댓글을 제거합니다.
+        state.postWithPaging.posts.forEach((post) => {
+          if (post.postComments) {
+            post.postComments = post.postComments.filter(
+              (comment) => comment.id !== commentId
+            );
+          }
+        });
+      })
+      .addCase(deletePostComment.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(deletePostComment.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error =
+          action.payload || action.error.message || 'Post Comment 삭제 실패';
+        // 삭제 실패 시, 현재 페이지를 재조회하여 UI 복구를 고려할 수 있음
+      });
+
+
+
   },
 });
 
-// slice의 reducer를 export하여 store에 등록합니다.
 export default postSlice.reducer;

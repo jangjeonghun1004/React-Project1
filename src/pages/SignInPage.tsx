@@ -5,6 +5,7 @@ import { signIn, clearError } from "../store/slices/authSlice";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { STORAGE_KEYS } from "../app/storageKeys";
 
 export default function SignInPage() {
     const [signInSuccessMessage, setSignInSuccessMessage] = useState<string>(''); // 로그인 성공 시 메시지
@@ -25,10 +26,11 @@ export default function SignInPage() {
             // 실패 시에는 rejectWithValue로 전달한 에러 메시지가 throw됩니다.
             const {token} = await dispatch(signIn({ email, password })).unwrap();
             if (token) {
-                localStorage.setItem('jwtToken', token);
+                localStorage.setItem(STORAGE_KEYS.JWT_TOKEN, token);
             }
             setSignInSuccessMessage(`로그인 성공 및 JWT 토큰이 설정되었습니다.`);
         } catch (rejectWithValueMessage) { // dispatch(signIn())에서 rejectWithValue로 전달한 에러 메시지
+            localStorage.removeItem(STORAGE_KEYS.JWT_TOKEN)
             console.error('로그인 실패:', rejectWithValueMessage);
         }
     };

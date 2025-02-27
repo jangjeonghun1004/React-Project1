@@ -271,20 +271,20 @@ function Home() {
                             <div className="posts">
                                 <CardStyle2
                                     image="./images/todo-screenshot.png"
-                                    title="TO DO List"
-                                    text="사용자가 간단하고 직관적인 방식으로 할 일을 추가, 관리, 수정 및 삭제할 수 있는 React 기반 애플리케이션 기능입니다."
+                                    title="TO DO"
+                                    text="할 일을 추가, 관리, 수정 및 삭제 기능을 테스트 할 수 있는 React 기반 애플리케이션입니다."
                                     linkPath="toDo"
                                 />
                                 <CardStyle2
                                     image="./images/signIn.png"
                                     title="회원 인증"
-                                    text="회원 가입, 로그 인 및 로그 아웃을 할 수 있는 React 기반 애플리케이션 기능입니다."
+                                    text="회원 가입, 로그 인 및 로그 아웃 기능을 테스트 할 수 있는 React 기반 애플리케이션입니다."
                                     linkPath="signIn"
                                 />
                                 <CardStyle2
-                                    image="./images/signIn.png"
+                                    image="./images/post.png"
                                     title="자유 게시판"
-                                    text="회원 가입, 로그 인 및 로그 아웃을 할 수 있는 React 기반 애플리케이션 기능입니다."
+                                    text="게시물 작성, 수정, 삭제, 댓글 작성, 삭제 및 좋아요 기능을 테스트 할 수 있는 React 기반 애플리케이션입니다."
                                     linkPath="post"
                                 />
                             </div>

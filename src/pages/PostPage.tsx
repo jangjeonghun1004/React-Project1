@@ -1,289 +1,336 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent } from "react";
 import PageTemplate from "./PageTemplate";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
-import { getAllPosts, createPost, toggleLike } from "../store/slices/postSlice";
-import { Post } from "../models/PostModel";
+import {
+  findAllPosts,
+  createPost,
+  toggleLike,
+  createPostComment,
+  deletePostComment,
+  deletePost,
+} from "../store/slices/postSlice";
+import { Post, PostComment } from "../models/PostModel";
 import LikeToggle from "../shared/toggle/LikeToggle";
 
+/**
+ * 페이지네이션 아이템 생성 함수
+ */
+const getPaginationItems = (
+  totalPages: number,
+  currentPage: number
+): (number | "ellipsis")[] => {
+  const items: (number | "ellipsis")[] = [];
+  if (totalPages <= 7) {
+    for (let i = 0; i < totalPages; i++) {
+      items.push(i);
+    }
+  } else if (currentPage <= 3) {
+    for (let i = 0; i < 5; i++) items.push(i);
+    items.push("ellipsis");
+    items.push(totalPages - 1);
+  } else if (currentPage >= totalPages - 4) {
+    items.push(0);
+    items.push("ellipsis");
+    for (let i = totalPages - 5; i < totalPages; i++) items.push(i);
+  } else {
+    items.push(0);
+    items.push("ellipsis");
+    items.push(currentPage - 1, currentPage, currentPage + 1);
+    items.push("ellipsis");
+    items.push(totalPages - 1);
+  }
+  return items;
+};
+
+/**
+ * 개별 게시글 렌더링 컴포넌트
+ */
+function PostItem({
+  post,
+  onDeletePost,
+  onDeletePostComment,
+  onToggleLike,
+  onCreateComment,
+}: {
+  post: Post;
+  onDeletePost: (id: number) => void;
+  onDeletePostComment: (id: number) => void;
+  onToggleLike: () => void;
+  onCreateComment: (formData: FormData) => void;
+}) {
+  // 각 게시글마다 댓글 표시 여부를 로컬 상태로 관리
+  const [showComments, setShowComments] = useState(false);
+
+  return (
+    <div key={post.id} className="box">
+      <h3>{post.title}</h3>
+      <h5 style={{ color: "silver" }}>
+        Nicname(
+        <span style={{ fontSize: "10px" }}>
+          {new Date(post.createdAt).toLocaleString()}
+        </span>
+        )
+        <a
+          onClick={() => onDeletePost(post.id)}
+          style={{
+            marginLeft: "10px",
+            display: post.isEnabledDelete ? "inline" : "none",
+          }}
+        >
+          삭제
+        </a>
+      </h5>
+      <p>{post.content}</p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <ul className="actions">
+          <li>
+            <LikeToggle
+              initialLiked={post.likedByUser}
+              initialCount={post.likeCount}
+              onToggle={onToggleLike}
+            />
+          </li>
+          <li>
+            <button
+              type="button"
+              onClick={() => setShowComments(!showComments)}
+              className="icon solid fa-spell-check small"
+            >
+              comment({post.postComments.length})
+            </button>
+          </li>
+        </ul>
+      </div>
+      <form
+        onSubmit={(e: FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          onCreateComment(formData);
+          setShowComments(true);
+          e.currentTarget.reset();
+        }}
+      >
+        <input type="hidden" name="postId" value={post.id} />
+        <div className="row">
+          <div className="col-10 col-12-xsmall" style={{ marginBottom: "10px" }}>
+            <input type="text" name="comment" placeholder="댓글을 작성해 주세요." />
+          </div>
+          <div className="col-2 col-12-xsmall">
+            <button type="submit" className="icon fa-pen solid fit">
+              save
+            </button>
+          </div>
+        </div>
+      </form>
+      <div style={{ display: showComments ? "block" : "none" }}>
+        {post.postComments.map((postComment: PostComment) => (
+          <div key={postComment.id}>
+            <hr className="major" />
+            <div style={{ paddingLeft: "20px" }}>
+              <h4 style={{ display: "inline-block", paddingRight: "10px" }}>
+                {postComment.memberEmail}
+              </h4>
+              <span>{new Date(postComment.createdAt).toLocaleString()}</span>
+              <a
+                onClick={() => onDeletePostComment(postComment.id)}
+                style={{
+                  marginLeft: "10px",
+                  display: postComment.isEnabledDelete ? "inline" : "none",
+                }}
+              >
+                삭제
+              </a>
+              <p>{postComment.content}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function PostPage() {
-    const dispatch = useDispatch<AppDispatch>();
-    const { paginatedPostResponse } = useSelector((state: RootState) => state.post);
+  const dispatch = useDispatch<AppDispatch>();
+  const { postWithPaging } = useSelector((state: RootState) => state.post);
 
-    const [isNewPostShow, setIsNewPostShow] = useState(true);
-    const [isCommentShow, setIsCommentShow] = useState(false);
+  const [isNewPostShow, setIsNewPostShow] = useState(true);
 
-    // 게시글 목록을 불러오기 위한 초기 로딩
-    useEffect(() => {
-        // 0번째 페이지(첫 페이지)를 로드
-        dispatch(getAllPosts(0));
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(findAllPosts(0));
+  }, [dispatch]);
 
-    // 새 글 작성 폼 표시 토글 함수
-    const handlePostFormToggle = () => {
-        setIsNewPostShow(!isNewPostShow);
-    };
+  /* [게시글 추가 및 폼 토글] */
+  const handlePostFormToggle = () => setIsNewPostShow(!isNewPostShow);
+  const handleCancel = () => setIsNewPostShow(!isNewPostShow);
+  const handleNewPostSave = async (formData: FormData) => {
+    const title = formData.get("title") as string;
+    const content = formData.get("contents") as string;
+    const resultAction = await dispatch(createPost({ title, content }));
+    if (createPost.fulfilled.match(resultAction)) {
+      dispatch(findAllPosts(0));
+      setIsNewPostShow(true);
+    }
+  };
 
-    // 작성 폼 취소 시 호출
-    const handleCancel = () => {
-        setIsNewPostShow(!isNewPostShow);
-    };
+  /* [댓글 작성 핸들러] */
+  const handleCreateComment = async (formData: FormData) => {
+    const postId = Number(formData.get("postId"));
+    const content = formData.get("comment") as string;
+    try {
+      await dispatch(createPostComment({ postId, content })).unwrap();
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
 
-    // 댓글 토글 함수
-    const handleCommentToggle = () => {
-        setIsCommentShow(!isCommentShow);
-    };
-
-    // 폼 제출 시 호출되는 이벤트 핸들러
-    const handleNewPostSave = async (formData: FormData) => {
-        // FormData 객체를 통해 폼 데이터 추출
-        const title = formData.get("title") as string;
-        const content = formData.get("contents") as string;
-
-        // 게시글 추가 액션 디스패치
-        const resultAction = await dispatch(createPost({ title, content }));
-
-        // 추가 성공 시 전체 게시글 목록 다시 불러오기
-        if (createPost.fulfilled.match(resultAction)) {
-            dispatch(getAllPosts(0));
-            // 게시글 추가 후 폼을 닫음 (필요에 따라 처리)
-            setIsNewPostShow(true);
+  /* [삭제 핸들러 - 낙관적 UI 구현] */
+  const handleDeletePost = async (postId: number) => {
+    // Redux slice의 pending 단계에서 해당 게시글을 미리 제거하도록 구현되어 있습니다.
+    try {
+        const response = await dispatch(deletePost(postId)).unwrap();
+        if (!response) throw new Error("게시글 삭제 실패");
+        // 현재 페이지 번호와 게시글 수를 가져옵니다.
+        let currentPage = postWithPaging.currentPageNumber;
+        const postsOnPage = postWithPaging.posts.length;
+        // 만약 현재 페이지의 게시글이 삭제되어 0개가 된다면(즉, 삭제한 게시글이 유일한 항목)
+        // 그리고 현재 페이지가 0보다 크다면, 이전 페이지로 이동합니다.
+        if (postsOnPage === 1 && currentPage > 0) {
+          currentPage = currentPage - 1;
         }
-    };
+        // 삭제 후 해당 페이지를 재조회하여 paginationItems도 업데이트되도록 합니다.
+        await dispatch(findAllPosts(currentPage));
+      } catch (error) {
+        alert(error);
+        // 삭제 실패 시 현재 페이지를 재조회하여 UI를 복구합니다.
+        dispatch(findAllPosts(postWithPaging.currentPageNumber));
+      }
+  };
 
-    // ----------------------------
-    // 페이지네이션 영역 코드
-    // ----------------------------
+  const handleDeletePostComment = async (postCommentId: number) => {
+    // Redux slice의 pending 단계에서 댓글 제거 로직(구현 가능)이 있다면 해당 부분이 실행됩니다.
+    try {
+      const response = await dispatch(deletePostComment(postCommentId)).unwrap();
+      if (!response) throw new Error("댓글 삭제 실패");
+    } catch (error) {
+      alert(error);
+      // 삭제 실패 시, 현재 페이지를 재조회하여 UI를 복구할 수 있습니다.
+      dispatch(findAllPosts(postWithPaging.currentPageNumber));
+    }
+  };
 
-    // Redux 스토어에서 제공하는 페이징 정보
-    const totalPages = paginatedPostResponse.totalPages;
-    const currentPage = paginatedPostResponse.currentPageNumber;
+  /* [좋아요 및 토글 핸들러] */
+  const handleToggleLike = async (postId: number) => {
+    try {
+      const response = await dispatch(toggleLike(postId));
+      if (!toggleLike.fulfilled.match(response)) {
+        throw new Error("Toggle like failed");
+      }
+    } catch (error) {
+      console.error("Error in onToggle:", error);
+    }
+  };
 
-    /**
-     * 총 페이지 수와 현재 페이지를 기반으로 페이지네이션 아이템을 생성합니다.
-     * - 전체 페이지가 7 이하이면 모든 페이지 번호를 출력합니다.
-     * - 7개 초과인 경우, 시작/끝 페이지와 현재 페이지 주변을 표시하고 중간에 ellipsis(…)를 추가합니다.
-     */
-    const getPaginationItems = (
-        totalPages: number,
-        currentPage: number
-    ): (number | "ellipsis")[] => {
-        const items: (number | "ellipsis")[] = [];
-        if (totalPages <= 7) {
-            for (let i = 0; i < totalPages; i++) {
-                items.push(i);
-            }
-        } else {
-            // 전체 페이지가 7개 초과인 경우
-            // 현재 페이지가 앞쪽에 가까운 경우: [0, 1, 2, 3, 4, ellipsis, last]
-            if (currentPage <= 3) {
-                for (let i = 0; i < 5; i++) {
-                    items.push(i);
-                }
-                items.push("ellipsis");
-                items.push(totalPages - 1);
-            }
-            // 현재 페이지가 뒤쪽에 가까운 경우: [0, ellipsis, totalPages-5, totalPages-4, totalPages-3, totalPages-2, last]
-            else if (currentPage >= totalPages - 4) {
-                items.push(0);
-                items.push("ellipsis");
-                for (let i = totalPages - 5; i < totalPages; i++) {
-                    items.push(i);
-                }
-            }
-            // 중간에 있는 경우: [0, ellipsis, currentPage-1, currentPage, currentPage+1, ellipsis, last]
-            else {
-                items.push(0);
-                items.push("ellipsis");
-                items.push(currentPage - 1, currentPage, currentPage + 1);
-                items.push("ellipsis");
-                items.push(totalPages - 1);
-            }
-        }
-        return items;
-    };
+  /* [페이지네이션 처리] */
+  const totalPages = postWithPaging.totalPages;
+  const currentPage = postWithPaging.currentPageNumber;
+  const paginationItems = getPaginationItems(totalPages, currentPage);
 
-    const paginationItems = getPaginationItems(totalPages, currentPage);
-
-
-    return (
-        <PageTemplate title="포트포리오" subTitle="" imageSrc="">
-            <div style={{ textAlign: "right", display: isNewPostShow ? "block" : "none" }}>
-                <button type="button" onClick={handlePostFormToggle} className="primary icon solid fa-pen">
-                    new post
-                </button>
-            </div>
+  return (
+    <PageTemplate title="포트포리오" subTitle="" imageSrc="">
+      <div style={{ textAlign: "right", display: isNewPostShow ? "block" : "none" }}>
+        <button type="button" onClick={handlePostFormToggle} className="primary icon solid fa-pen">
+          new post
+        </button>
+      </div>
+      <br />
+      <div style={{ display: isNewPostShow ? "none" : "inline" }}>
+        <div className="box">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              handleNewPostSave(formData);
+              e.currentTarget.reset();
+            }}
+          >
+            <h2>새 글 작성</h2>
+            <h3>제목</h3>
+            <input type="text" name="title" placeholder="제목을 입력하세요." />
             <br />
-
-            {/* 새 글 작성 폼 영역 */}
-            <div style={{ display: isNewPostShow ? "none" : "inline" }}>
-                <div className="box">
-                    {/* action 이벤트 핸들러를 사용하여 폼 제출 처리 */}
-                    <form action={handleNewPostSave}>
-                        <h2>새 글 작성</h2>
-                        <h3>제목</h3>
-                        <input type="text" name="title" placeholder="제목을 입력하세요." />
-                        <br />
-
-                        <h3>내용</h3>
-                        <textarea
-                            name="contents"
-                            placeholder="내용을 입력하세요."
-                            rows={6}
-                        ></textarea>
-                        <br />
-
-                        <div style={{ textAlign: "right" }}>
-                            <button type="button"
-                                onClick={handleCancel}
-                                className="icon solid fa-remove-format"
-                            >
-                                cancel
-                            </button>
-                            &nbsp;
-                            <button type="submit" className="primary icon solid fa-pen">
-                                save
-                            </button>
-                        </div>
-                    </form>
-                </div>
+            <h3>내용</h3>
+            <textarea name="contents" placeholder="내용을 입력하세요." rows={6}></textarea>
+            <br />
+            <div style={{ textAlign: "right" }}>
+              <button type="button" onClick={handleCancel} className="icon solid fa-remove-format">
+                cancel
+              </button>
+              &nbsp;
+              <button type="submit" className="primary icon solid fa-pen">
+                save
+              </button>
             </div>
-
-            {/* 게시글 목록 렌더링 */}
-            {paginatedPostResponse.posts.map((post: Post) => {
-                return (
-                    <div key={post.id} className="box">
-                        <h3>{post.title}</h3>
-                        <h5 style={{ color: "silver" }}>
-                            Nicname(
-                            <span style={{ fontSize: "10px" }}>
-                                {new Date(post.createdAt).toLocaleString()}
-                            </span>
-                            )
-                        </h5>
-                        <p>{post.content}</p>
-
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                            }}
-                        >
-                            <div></div>
-                            <div>
-                                <ul className="actions">
-                                    <li>
-                                        <LikeToggle
-                                            initialLiked={post.likedByUser}
-                                            initialCount={post.likeCount}
-                                            onToggle={async () => {
-                                                try {
-                                                    const response = await dispatch(toggleLike(post.id));
-                                                    if (!toggleLike.fulfilled.match(response)) {
-                                                        // 에러 발생 시 강제로 예외를 발생시킵니다.
-                                                        throw new Error("Toggle like failed");
-                                                    }
-                                                } catch (ex) {
-                                                    // 콜백 함수에서 에러 발생 시 이전 상태로 롤백합니다.
-                                                    console.error("Error in onToggle:", ex);
-                                                }
-                                            }}
-                                        />
-                                    </li>
-                                    <li>
-                                        <button type="button"
-                                            onClick={handleCommentToggle}
-                                            className="icon solid fa-spell-check small"
-                                        >
-                                            comment(1200)
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div
-                                className="col-10 col-12-xsmall"
-                                style={{ marginBottom: "10px" }}
-                            >
-                                <input
-                                    type="text"
-                                    name="demo-name"
-                                    placeholder="댓글을 작성해 주세요."
-                                />
-                            </div>
-                            <div className="col-2 col-12-xsmall">
-                                <button type="button" className="icon fa-pen solid fit">save</button>
-                            </div>
-                        </div>
-
-                        <div style={{ display: isCommentShow ? "inline" : "none" }}>
-                            <hr className="major" />
-                            <div style={{ paddingLeft: "20px" }}>
-                                <h4 style={{ display: "inline-block", paddingRight: "10px" }}>
-                                    Nicname
-                                </h4>
-                                <span>2025-02-14</span>
-                                <p>누군가 작성한 댓글이 되겠습니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                );
-            })}
-
-            {/* ----------------------------페이지네이션 영역---------------------------- */}
-            <div className="row" style={{ display: "flex", justifyContent: "center" }}>
-                <div
-                    className="col-6 col-12-medium"
-                    style={{ maxWidth: 500, width: "100%", padding: 20, textAlign: "center" }}
-                >
-                    <ul className="pagination">
-                        {/* Prev 버튼 */}
-                        <li>
-                            <button type="button"
-                                disabled={currentPage === 0}
-                                onClick={() => dispatch(getAllPosts(currentPage - 1))}
-                            >
-                                Prev
-                            </button>
-                        </li>
-
-                        {/* 동적으로 생성된 페이지 번호 버튼 */}
-                        {paginationItems.map((item, index) => {
-                            if (item === "ellipsis") {
-                                return (
-                                    <li key={`ellipsis-${index}`}>
-                                        <span>…</span>
-                                    </li>
-                                );
-                            } else {
-                                return (
-                                    <li key={item}>
-                                        <button type="button"
-                                            className={`page ${currentPage === item ? "active" : ""}`}
-                                            onClick={() => dispatch(getAllPosts(item))}
-                                        >
-                                            {item + 1}
-                                        </button>
-                                    </li>
-                                );
-                            }
-                        })}
-
-                        {/* Next 버튼 */}
-                        <li>
-                            <button type="button"
-                                disabled={currentPage === totalPages - 1}
-                                onClick={() => dispatch(getAllPosts(currentPage + 1))}
-                            >
-                                Next
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </PageTemplate>
-    );
+          </form>
+        </div>
+      </div>
+      {postWithPaging.posts.map((post: Post) => (
+        <PostItem
+          key={post.id}
+          post={post}
+          onDeletePost={handleDeletePost}
+          onDeletePostComment={handleDeletePostComment}
+          onToggleLike={() => handleToggleLike(post.id)}
+          onCreateComment={handleCreateComment}
+        />
+      ))}
+      <div className="row" style={{ display: "flex", justifyContent: "center" }}>
+        <div className="col-6 col-12-medium" style={{ maxWidth: 500, width: "100%", padding: 20, textAlign: "center" }}>
+          <ul className="pagination">
+            <li>
+              <button
+                type="button"
+                disabled={currentPage === 0}
+                onClick={() => dispatch(findAllPosts(currentPage - 1))}
+              >
+                Prev
+              </button>
+            </li>
+            {paginationItems.map((item, index) =>
+              item === "ellipsis" ? (
+                <li key={`ellipsis-${index}`}>
+                  <span>…</span>
+                </li>
+              ) : (
+                <li key={item}>
+                  <button
+                    type="button"
+                    className={`page ${currentPage === item ? "active" : ""}`}
+                    onClick={() => dispatch(findAllPosts(item))}
+                  >
+                    {item + 1}
+                  </button>
+                </li>
+              )
+            )}
+            <li>
+              <button
+                type="button"
+                disabled={currentPage === totalPages - 1}
+                onClick={() => dispatch(findAllPosts(currentPage + 1))}
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </PageTemplate>
+  );
 }
