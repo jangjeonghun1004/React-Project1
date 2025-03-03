@@ -24,13 +24,13 @@ export default function ToDoPage() {
     };
 
     const handleDeleteTodo = (id: number) => {
-        dispatch(deleteTodo({id}));
+        dispatch(deleteTodo({ id }));
     };
 
     const handleCreateTodo = (formData: FormData) => {
         if (validateFormData(formData)) {
             const title = formData.get("title") as string;
-            dispatch(createTodo({title}));
+            dispatch(createTodo({ title }));
         } else {
             if (titleRef.current) { titleRef.current.focus(); }
         }
@@ -70,12 +70,10 @@ export default function ToDoPage() {
                         </header>
 
                         <div className="table-wrapper">
-
                             <table >
                                 <tbody>
                                     {status === 'loading' && <tr><td colSpan={2} style={{ textAlign: "center" }}><Loader1 /></td></tr>}
                                     {error && <tr><td colSpan={2} style={{ textAlign: "center" }}>{error}</td></tr>}
-
                                     {todos.map((todo, index) => {
                                         return (
                                             <tr key={index}>

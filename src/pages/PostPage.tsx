@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState } from "react";
 import PageTemplate from "./PageTemplate";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
@@ -10,16 +10,13 @@ import {
   deletePostComment,
   deletePost,
 } from "../store/slices/postSlice";
-import { Post, PostComment } from "../models/PostModel";
-import LikeToggle from "../shared/toggle/LikeToggle";
+import { Post } from "../models/PostModel";
+import PostItemPage from "./PostItmPage";
 
 /**
  * 페이지네이션 아이템 생성 함수
  */
-const getPaginationItems = (
-  totalPages: number,
-  currentPage: number
-): (number | "ellipsis")[] => {
+const getPaginationItems = (totalPages: number, currentPage: number): (number | "ellipsis")[] => {
   const items: (number | "ellipsis")[] = [];
   if (totalPages <= 7) {
     for (let i = 0; i < totalPages; i++) {
@@ -43,123 +40,9 @@ const getPaginationItems = (
   return items;
 };
 
-/**
- * 개별 게시글 렌더링 컴포넌트
- */
-function PostItem({
-  post,
-  onDeletePost,
-  onDeletePostComment,
-  onToggleLike,
-  onCreateComment,
-}: {
-  post: Post;
-  onDeletePost: (id: number) => void;
-  onDeletePostComment: (id: number) => void;
-  onToggleLike: () => void;
-  onCreateComment: (formData: FormData) => void;
-}) {
-  // 각 게시글마다 댓글 표시 여부를 로컬 상태로 관리
-  const [showComments, setShowComments] = useState(false);
-
-  return (
-    <div key={post.id} className="box">
-      <h3>{post.title}</h3>
-      <h5 style={{ color: "silver" }}>
-        Nicname(
-        <span style={{ fontSize: "10px" }}>
-          {new Date(post.createdAt).toLocaleString()}
-        </span>
-        )
-        <a
-          onClick={() => onDeletePost(post.id)}
-          style={{
-            marginLeft: "10px",
-            display: post.isEnabledDelete ? "inline" : "none",
-          }}
-        >
-          삭제
-        </a>
-      </h5>
-      <p>{post.content}</p>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <ul className="actions">
-          <li>
-            <LikeToggle
-              initialLiked={post.likedByUser}
-              initialCount={post.likeCount}
-              onToggle={onToggleLike}
-            />
-          </li>
-          <li>
-            <button
-              type="button"
-              onClick={() => setShowComments(!showComments)}
-              className="icon solid fa-spell-check small"
-            >
-              comment({post.postComments.length})
-            </button>
-          </li>
-        </ul>
-      </div>
-      <form
-        onSubmit={(e: FormEvent<HTMLFormElement>) => {
-          e.preventDefault();
-          const formData = new FormData(e.currentTarget);
-          onCreateComment(formData);
-          setShowComments(true);
-          e.currentTarget.reset();
-        }}
-      >
-        <input type="hidden" name="postId" value={post.id} />
-        <div className="row">
-          <div className="col-10 col-12-xsmall" style={{ marginBottom: "10px" }}>
-            <input type="text" name="comment" placeholder="댓글을 작성해 주세요." />
-          </div>
-          <div className="col-2 col-12-xsmall">
-            <button type="submit" className="icon fa-pen solid fit">
-              save
-            </button>
-          </div>
-        </div>
-      </form>
-      <div style={{ display: showComments ? "block" : "none" }}>
-        {post.postComments.map((postComment: PostComment) => (
-          <div key={postComment.id}>
-            <hr className="major" />
-            <div style={{ paddingLeft: "20px" }}>
-              <h4 style={{ display: "inline-block", paddingRight: "10px" }}>
-                {postComment.memberEmail}
-              </h4>
-              <span>{new Date(postComment.createdAt).toLocaleString()}</span>
-              <a
-                onClick={() => onDeletePostComment(postComment.id)}
-                style={{
-                  marginLeft: "10px",
-                  display: postComment.isEnabledDelete ? "inline" : "none",
-                }}
-              >
-                삭제
-              </a>
-              <p>{postComment.content}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function PostPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { postWithPaging } = useSelector((state: RootState) => state.post);
-
   const [isNewPostShow, setIsNewPostShow] = useState(true);
 
   useEffect(() => {
@@ -193,22 +76,23 @@ export default function PostPage() {
 
   /* [삭제 핸들러 - 낙관적 UI 구현] */
   const handleDeletePost = async (postId: number) => {
-    // Redux slice의 pending 단계에서 해당 게시글을 미리 제거하도록 구현되어 있습니다.
     try {
-        const response = await dispatch(deletePost(postId)).unwrap();
-        if (!response) throw new Error("게시글 삭제 실패");
+        await dispatch(deletePost({postId})).unwrap();
+
         // 현재 페이지 번호와 게시글 수를 가져옵니다.
         let currentPage = postWithPaging.currentPageNumber;
         const postsOnPage = postWithPaging.posts.length;
+
         // 만약 현재 페이지의 게시글이 삭제되어 0개가 된다면(즉, 삭제한 게시글이 유일한 항목)
         // 그리고 현재 페이지가 0보다 크다면, 이전 페이지로 이동합니다.
         if (postsOnPage === 1 && currentPage > 0) {
           currentPage = currentPage - 1;
         }
+
         // 삭제 후 해당 페이지를 재조회하여 paginationItems도 업데이트되도록 합니다.
         await dispatch(findAllPosts(currentPage));
-      } catch (error) {
-        alert(error);
+      } catch (rejectValue) {
+        alert(rejectValue);
         // 삭제 실패 시 현재 페이지를 재조회하여 UI를 복구합니다.
         dispatch(findAllPosts(postWithPaging.currentPageNumber));
       }
@@ -217,8 +101,7 @@ export default function PostPage() {
   const handleDeletePostComment = async (postCommentId: number) => {
     // Redux slice의 pending 단계에서 댓글 제거 로직(구현 가능)이 있다면 해당 부분이 실행됩니다.
     try {
-      const response = await dispatch(deletePostComment(postCommentId)).unwrap();
-      if (!response) throw new Error("댓글 삭제 실패");
+      await dispatch(deletePostComment({postCommentId})).unwrap();
     } catch (error) {
       alert(error);
       // 삭제 실패 시, 현재 페이지를 재조회하여 UI를 복구할 수 있습니다.
@@ -229,7 +112,7 @@ export default function PostPage() {
   /* [좋아요 및 토글 핸들러] */
   const handleToggleLike = async (postId: number) => {
     try {
-      const response = await dispatch(toggleLike(postId));
+      const response = await dispatch(toggleLike({postId}));
       if (!toggleLike.fulfilled.match(response)) {
         throw new Error("Toggle like failed");
       }
@@ -280,8 +163,9 @@ export default function PostPage() {
           </form>
         </div>
       </div>
+
       {postWithPaging.posts.map((post: Post) => (
-        <PostItem
+        <PostItemPage
           key={post.id}
           post={post}
           onDeletePost={handleDeletePost}
@@ -290,6 +174,7 @@ export default function PostPage() {
           onCreateComment={handleCreateComment}
         />
       ))}
+
       <div className="row" style={{ display: "flex", justifyContent: "center" }}>
         <div className="col-6 col-12-medium" style={{ maxWidth: 500, width: "100%", padding: 20, textAlign: "center" }}>
           <ul className="pagination">

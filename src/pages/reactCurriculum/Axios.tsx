@@ -17,7 +17,7 @@ export default function Axios() {
                 <li>HTTP 요청과 응답을 Promise 기반으로 처리하는 기능</li>
             </ul>
 
-            <h2>axios 특징</h2>
+            <h2>axios 특징 1. Restful 프로토콜이 잘 정의 되어 있다. 2. 인터셉터 기능을 통해 프로토콜 통신시 일관된 설정을 할 수 있다. 3. 응답 타입을 지정할 수 있다.</h2>
             <dl>
                 <dt>범용성</dt>
                 <blockquote>

@@ -2,7 +2,7 @@ import Header from "../../widgets/header/Header";
 import Sidebar from "../Sidebar";
 import { useState } from "react";
 
-function UseState() {
+export default function UseStatePage() {
     const [count, setCount] = useState<number>(0);
     const increment = () => setCount(count + 1); 
     const decrement = () => setCount(count - 1);
@@ -80,5 +80,3 @@ export default Counter;
         </div>
     );
 }
-
-export default UseState

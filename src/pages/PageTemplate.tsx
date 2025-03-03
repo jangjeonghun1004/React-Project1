@@ -16,12 +16,10 @@ export default function PageTemplate({ title, subTitle, imageSrc, children }: Pr
           <Header title={title} />
 
           <section>
-            <header className="main">
-              <h1>{subTitle}</h1>
-            </header>
-
+            {subTitle && <header className="main"><h1>{subTitle}</h1></header>}
+            
             <span className="image main">
-              {imageSrc && <img src={`${import.meta.env.BASE_URL}images/${imageSrc}`} style={{ height: 300 }} alt="section image" />} 
+              {imageSrc && <img src={`${import.meta.env.BASE_URL}images/${imageSrc}`} style={{ width: "100%" }} alt="section image" />} 
             </span>
 
             {children}

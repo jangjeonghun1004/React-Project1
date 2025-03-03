@@ -1,12 +1,18 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import axiosClient from '../axiosClient'; // 공통 설정(인터셉터, 기본 URL 등)이 적용된 axios 인스턴스
-import { Todo } from '../../models/TodoModel';
-import { PostWithPaging, Post, CreatePostRequest, PostComment } from '../../models/PostModel';
+import { PostWithPaging, Post, PostComment } from '../../models/PostModel';
+import { ApiResult } from '../../models/ApiResultModel';
 
 /* ============================================================================
    유틸리티 함수: Axios 에러 메시지 추출
 ============================================================================ */
+/**
+ * Axios 에러 객체에서 메시지를 추출합니다.
+ * @param ex - 에러 객체
+ * @param defaultMessage - 기본 메시지
+ * @returns 에러 메시지 문자열
+ */
 const getErrorMessage = (ex: unknown, defaultMessage: string): string => {
   if (axios.isAxiosError(ex) && ex.response) {
     return ex.response.data?.message || defaultMessage;
@@ -39,13 +45,14 @@ const initialState: PostState = {
 /**
  * Post 목록 조회
  * @param pageNumber - 요청할 페이지 번호
- * @returns Paginated Post 데이터
+ * @returns Paginated Post 데이터를 반환합니다.
+ * @throws API 호출 실패 시 rejectValue로 에러 메시지를 반환합니다.
  */
 export const findAllPosts = createAsyncThunk<PostWithPaging, number, { rejectValue: string }>(
   'post/findAllPosts',
   async (pageNumber, thunkAPI) => {
     try {
-      const response = await axiosClient.get(`post?pageNumber=${pageNumber}`);
+      const response = await axiosClient.get<ApiResult<PostWithPaging>>(`post?pageNumber=${pageNumber}`);
       if (response.data.result) {
         return response.data.contents;
       }
@@ -58,14 +65,15 @@ export const findAllPosts = createAsyncThunk<PostWithPaging, number, { rejectVal
 
 /**
  * Post 추가
- * @param createPostRequest - 생성할 Post 데이터
- * @returns 생성된 Post 객체
+ * @param createPostRequest - 생성할 Post 데이터 ({ title, content })
+ * @returns 생성된 Post 객체를 반환합니다.
+ * @throws API 호출 실패 시 rejectValue로 에러 메시지를 반환합니다.
  */
-export const createPost = createAsyncThunk<Post, CreatePostRequest, { rejectValue: string }>(
+export const createPost = createAsyncThunk<Post, { title: string; content: string }, { rejectValue: string }>(
   'post/createPost',
   async (createPostRequest, thunkAPI) => {
     try {
-      const response = await axiosClient.post('post', createPostRequest);
+      const response = await axiosClient.post<ApiResult<Post>>('post', createPostRequest);
       if (response.data.result) {
         return response.data.contents;
       }
@@ -78,15 +86,18 @@ export const createPost = createAsyncThunk<Post, CreatePostRequest, { rejectValu
 
 /**
  * Post 삭제
- * @param id - 삭제할 Post의 id
- * @returns 삭제 성공 시 true 반환
+ * @param deletePostRequest - 삭제할 Post의 id를 포함한 객체 ({ postId: number })
+ * @returns 삭제 성공 시 void를 반환합니다.
+ * @throws API 호출 실패 시 rejectValue로 에러 메시지를 반환합니다.
  */
-export const deletePost = createAsyncThunk<boolean, number, { rejectValue: string }>(
+export const deletePost = createAsyncThunk<void, { postId: number }, { rejectValue: string }>(
   'post/deletePost',
-  async (id, thunkAPI) => {
+  async (deletePostRequest, thunkAPI) => {
     try {
-      await axiosClient.delete(`post/${id}`);
-      return true;
+      const response = await axiosClient.delete<ApiResult<number>>(`post/${deletePostRequest.postId}`);
+      if (!response.data.result) {
+        return thunkAPI.rejectWithValue(response.data.message);
+      }
     } catch (ex) {
       return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Post 삭제에 실패했습니다.'));
     }
@@ -94,15 +105,16 @@ export const deletePost = createAsyncThunk<boolean, number, { rejectValue: strin
 );
 
 /**
- * Post Comment 추가
- * @param request - { postId, content } 형식의 요청 데이터
- * @returns 생성된 Post Comment 객체
+ * Post Comment 추가 (낙관적 UI 적용)
+ * @param createPostCommentRequest - { postId, content } 형식의 요청 데이터
+ * @returns 생성된 Post Comment 객체를 반환합니다.
+ * @throws API 호출 실패 시 rejectValue로 에러 메시지를 반환합니다.
  */
 export const createPostComment = createAsyncThunk<PostComment, { postId: number; content: string }, { rejectValue: string }>(
   'postComment/createPostComment',
-  async (request, thunkAPI) => {
+  async (createPostCommentRequest, thunkAPI) => {
     try {
-      const response = await axiosClient.post('postComment', request);
+      const response = await axiosClient.post<ApiResult<PostComment>>('postComment', createPostCommentRequest);
       if (response.data.result) {
         return response.data.contents;
       }
@@ -114,16 +126,19 @@ export const createPostComment = createAsyncThunk<PostComment, { postId: number;
 );
 
 /**
- * Post Comment 삭제
- * @param id - 삭제할 Post Comment의 id
- * @returns 삭제 성공 시 true 반환
+ * Post Comment 삭제 (낙관적 UI 적용)
+ * @param deletePostCommentRequest - 삭제할 Post Comment의 id를 포함한 객체 ({ postCommentId: number })
+ * @returns 삭제 성공 시 void를 반환합니다.
+ * @throws API 호출 실패 시 rejectValue로 에러 메시지를 반환합니다.
  */
-export const deletePostComment = createAsyncThunk<boolean, number, { rejectValue: string }>(
+export const deletePostComment = createAsyncThunk<void, { postCommentId: number }, { rejectValue: string }>(
   'postComment/deletePostComment',
-  async (id, thunkAPI) => {
+  async (deletePostCommentRequest, thunkAPI) => {
     try {
-      await axiosClient.delete(`postComment/${id}`);
-      return true;
+      const response = await axiosClient.delete<ApiResult<number>>(`postComment/${deletePostCommentRequest.postCommentId}`);
+      if (!response.data.result) {
+        return thunkAPI.rejectWithValue(response.data.message);
+      }
     } catch (ex) {
       return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Post Comment 삭제에 실패했습니다.'));
     }
@@ -132,75 +147,20 @@ export const deletePostComment = createAsyncThunk<boolean, number, { rejectValue
 
 /**
  * Post 좋아요 토글
- * @param id - 좋아요 토글할 Post의 id
+ * @param toggleLikeRequest - 좋아요 토글할 Post의 id를 포함한 객체 ({ postId: number })
+ * @returns void를 반환합니다.
+ * @throws API 호출 실패 시 rejectValue로 에러 메시지를 반환합니다.
  */
-export const toggleLike = createAsyncThunk<void, number, { rejectValue: string }>(
+export const toggleLike = createAsyncThunk<void, { postId: number }, { rejectValue: string }>(
   'post/toggleLike',
-  async (id, thunkAPI) => {
+  async (toggleLikeRequest, thunkAPI) => {
     try {
-      await axiosClient.post(`post/${id}/like`);
+      const response = await axiosClient.post<ApiResult<null>>(`post/${toggleLikeRequest.postId}/like`);
+      if (!response.data.result) {
+        return thunkAPI.rejectWithValue(response.data.message);
+      }
     } catch (ex) {
       return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Like 업데이트에 실패했습니다.'));
-    }
-  }
-);
-
-/* ============================================================================
-   [Todo 관련 Async Actions]
-   (Post Slice에서 사용하지 않는다면 별도 Slice로 분리하는 것을 고려)
-============================================================================ */
-
-/**
- * Todo 제목 업데이트
- * @param todo - 업데이트할 Todo 객체
- * @returns 업데이트된 Todo 객체
- */
-export const updateTodoTitle = createAsyncThunk<Todo, Todo, { rejectValue: string }>(
-  'todo/updateTitle',
-  async (todo, thunkAPI) => {
-    try {
-      const response = await axiosClient.patch('todo/updateTitle', {
-        id: todo.id,
-        title: todo.title,
-        completed: todo.completed,
-      });
-      return response.data.contents;
-    } catch (ex) {
-      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Todo 업데이트에 실패했습니다.'));
-    }
-  }
-);
-
-/**
- * Todo 삭제
- * @param id - 삭제할 Todo의 id
- * @returns 삭제된 Todo의 id
- */
-export const deleteTodo = createAsyncThunk<number, number, { rejectValue: string }>(
-  'todo/delete',
-  async (id, thunkAPI) => {
-    try {
-      await axiosClient.delete(`todo/delete/${id}`);
-      return id;
-    } catch (ex) {
-      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Todo 삭제에 실패했습니다.'));
-    }
-  }
-);
-
-/**
- * Todo 완료 상태 업데이트
- * @param param0 - { id, completed } 형식의 요청 데이터
- * @returns 업데이트된 Todo 객체
- */
-export const updateTodoCompleted = createAsyncThunk<Todo, { id: number; completed: boolean }, { rejectValue: string }>(
-  'todo/updateCompleted',
-  async ({ id, completed }, thunkAPI) => {
-    try {
-      const response = await axiosClient.patch('todo/updateCompleted', { id, completed });
-      return response.data.contents;
-    } catch (ex) {
-      return thunkAPI.rejectWithValue(getErrorMessage(ex, 'Todo 업데이트에 실패했습니다.'));
     }
   }
 );
@@ -212,11 +172,11 @@ const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
-    // 필요한 동기 액션 추가 가능 (예: 상태 초기화 등)
+    // 필요에 따라 동기 액션(예: 상태 초기화 등)을 추가할 수 있습니다.
   },
   extraReducers: (builder) => {
     builder
-      // findAllPosts
+      /* ===== findAllPosts ===== */
       .addCase(findAllPosts.pending, (state) => {
         state.status = 'loading';
         state.error = null;
@@ -230,7 +190,7 @@ const postSlice = createSlice({
         state.error = action.payload || action.error.message || 'Post 목록 불러오기 실패';
       })
 
-      // createPost
+      /* ===== createPost ===== */
       .addCase(createPost.pending, (state) => {
         state.status = 'loading';
         state.error = null;
@@ -243,8 +203,8 @@ const postSlice = createSlice({
         state.error = action.payload || action.error.message || 'Post 추가 실패';
       })
 
-        /* ===== createPostComment ===== */
-      // pending 단계: 임시 댓글을 추가하여 UI에 즉시 반영
+      /* ===== createPostComment ===== */
+      // pending 단계: 임시 댓글을 추가하여 UI에 즉시 반영 (낙관적 업데이트)
       .addCase(createPostComment.pending, (state) => {
         state.status = 'loading';
         state.error = null;
@@ -253,8 +213,7 @@ const postSlice = createSlice({
       .addCase(createPostComment.fulfilled, (state, action: PayloadAction<PostComment>) => {
         state.status = 'succeeded';
         state.error = null;
-        let actualComment = action.payload;
-        // 실제 댓글이 추가될 Post를 찾습니다.
+        const actualComment = action.payload;
         const post = state.postWithPaging.posts.find((p) => p.id === actualComment.postId);
         if (post && post.postComments) {
           // 임시 댓글(음수 id)을 제거하고, 실제 댓글을 추가합니다.
@@ -264,16 +223,13 @@ const postSlice = createSlice({
           ];
         }
       })
-      // rejected 단계: 삭제한 임시 댓글을 복구하는 등 추가 복구 로직 구현 가능
       .addCase(createPostComment.rejected, (state, action) => {
         state.status = 'failed';
-        state.error =
-          action.payload || action.error.message || 'Post Comment 추가 실패';
-        // 삭제 실패 시, 임시 댓글 제거 혹은 전체 댓글 재조회 로직을 추가할 수 있습니다.
-        // 예시로 현재 페이지를 재조회하도록 처리할 수 있습니다.
+        state.error = action.payload || action.error.message || 'Post Comment 추가 실패';
+        // 실패 시, 필요에 따라 임시 댓글을 제거하거나 전체 댓글 재조회 로직 추가 가능
       })
 
-      // toggleLike
+      /* ===== toggleLike ===== */
       .addCase(toggleLike.pending, (state) => {
         state.status = 'loading';
         state.error = null;
@@ -285,50 +241,49 @@ const postSlice = createSlice({
         state.error = action.payload || action.error.message || 'Like 업데이트 실패';
       })
 
-
-      // deletePost (이미 낙관적 UI 적용)
+      /* ===== deletePost ===== */
       .addCase(deletePost.pending, (state, action) => {
         state.status = 'loading';
         state.error = null;
+        // 낙관적 UI: 삭제 요청이 pending 상태일 때, 해당 Post를 미리 제거합니다.
+        const { postId } = action.meta.arg;
         state.postWithPaging.posts = state.postWithPaging.posts.filter(
-          (post) => post.id !== action.meta.arg
+          (post) => post.id !== postId
         );
       })
       .addCase(deletePost.fulfilled, (state) => {
         state.status = 'succeeded';
+        state.error = null;
       })
       .addCase(deletePost.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || action.error.message || 'Post 삭제 실패';
-        // 삭제 실패 시, 현재 페이지를 재조회하여 UI 복구를 고려할 수 있음
+        // 실패 시, 현재 페이지를 재조회하여 UI 복구를 고려할 수 있음
       })
 
-      // deletePostComment: 낙관적 UI 구현
+      /* ===== deletePostComment ===== */
       .addCase(deletePostComment.pending, (state, action) => {
         state.status = 'loading';
         state.error = null;
-        const commentId = action.meta.arg;
-        // 각 게시글에서 해당 댓글을 제거합니다.
+        // 낙관적 UI: 해당 댓글을 미리 제거합니다.
+        const { postCommentId } = action.meta.arg;
         state.postWithPaging.posts.forEach((post) => {
           if (post.postComments) {
             post.postComments = post.postComments.filter(
-              (comment) => comment.id !== commentId
+              (comment) => comment.id !== postCommentId
             );
           }
         });
       })
       .addCase(deletePostComment.fulfilled, (state) => {
         state.status = 'succeeded';
+        state.error = null;
       })
       .addCase(deletePostComment.rejected, (state, action) => {
         state.status = 'failed';
-        state.error =
-          action.payload || action.error.message || 'Post Comment 삭제 실패';
-        // 삭제 실패 시, 현재 페이지를 재조회하여 UI 복구를 고려할 수 있음
+        state.error = action.payload || action.error.message || 'Post Comment 삭제 실패';
+        // 실패 시, 현재 페이지를 재조회하여 UI 복구를 고려할 수 있음
       });
-
-
-
   },
 });
 

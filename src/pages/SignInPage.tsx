@@ -24,14 +24,14 @@ export default function SignInPage() {
         try {
             // dispatch 시 .unwrap()을 사용하면, 성공 시에는 객체(SignInResponse)를 반환하고
             // 실패 시에는 rejectWithValue로 전달한 에러 메시지가 throw됩니다.
-            const {token} = await dispatch(signIn({ email, password })).unwrap();
+            const { token } = await dispatch(signIn({ email, password })).unwrap();
             if (token) {
                 localStorage.setItem(STORAGE_KEYS.JWT_TOKEN, token);
             }
             setSignInSuccessMessage(`로그인 성공 및 JWT 토큰이 설정되었습니다.`);
-        } catch (rejectWithValueMessage) { // dispatch(signIn())에서 rejectWithValue로 전달한 에러 메시지
+        } catch (rejectWithValue) { // dispatch(signIn())에서 rejectWithValue로 전달한 에러 메시지
             localStorage.removeItem(STORAGE_KEYS.JWT_TOKEN)
-            console.error('로그인 실패:', rejectWithValueMessage);
+            console.error('로그인 실패:', rejectWithValue);
         }
     };
 

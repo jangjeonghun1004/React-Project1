@@ -11,16 +11,16 @@ function CurriculumVitae() {
                 <p>
                     안녕하세요.
                     웹 개발 17년 차 정훈입니다.
-                    저는 주로 .NET MVC & MS-SQL을 기반으로 웹 개발 활동을 하였습니다.<br/><br/>
+                    저는 주로 <u style={{ color: "#f56a6a" }}>.NET MVC & MS-SQL</u>을 기반으로 웹 개발 활동을 하였습니다.<br /><br />
                     현재는 String Boot & React를 기반으로 웹 개발 역량을 확장 중이며
-                    이 사이트는 저의 첫번째 String Boot & React 포트폴리오입니다.
+                    이 사이트는 저의 첫번째 <u style={{ color: "#f56a6a" }}>String Boot & React</u> 프로젝트입니다.
                 </p>
                 <ul className="actions">
                     <li><Link to={`${import.meta.env.BASE_URL}career`} className="button primary large icon solid fa-search">이력서 연람하기</Link></li>
                 </ul>
             </div>
             <span className="image object">
-                <img src={`${import.meta.env.BASE_URL}images/rvt.png`} />
+                <img src={`${import.meta.env.BASE_URL}images/Group-5.png`} />
             </span>
         </section>
     );

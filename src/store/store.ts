@@ -15,7 +15,6 @@ const preloadedState: { auth: AuthState } = {
     status: 'idle',                         // 초기 상태는 'idle'
     error: null,                            // 에러 메시지 초기값 null
     token: localStorage.getItem(STORAGE_KEYS.JWT_TOKEN), // localStorage에서 JWT 토큰 불러오기
-    signUpResponse: null,                   // 회원가입 응답 초기값 null
   },
 };
 
@@ -28,7 +27,7 @@ export const store = configureStore({
   reducer: {
     todos: todoReducer, // Todo 관련 상태 관리
     auth: authReducer,  // 인증 관련 상태 관리
-    post: postReducer, // Post 관련 상태 관리
+    post: postReducer,  // Post 관련 상태 관리
   },
   preloadedState,       // 앱 시작 시 preloadedState로 초기 상태 반영
 });

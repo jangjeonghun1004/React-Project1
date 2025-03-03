@@ -12,7 +12,6 @@ import { ScreenSizeProvider } from "./app/ScreenSizeProvider";
 import Home from "./pages/Home";
 import NotFound404 from "./widgets/pageError/NotFound404";
 import Career from "./pages/Career";
-import UseState from "./pages/reactCurriculum/UseState";
 import UseRef from "./pages/reactCurriculum/UseRef";
 import UseReducer from "./pages/reactCurriculum/UseReducer";
 import UseContext from "./pages/reactCurriculum/UseContext";
@@ -45,6 +44,7 @@ import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import {ProtectedRoute} from "./app/ProtectedRoute";
 import PostPage from "./pages/PostPage";
+import UseStatePage from "./pages/reactStudyRoadMap/UseStatePage";
 
 const basePath = import.meta.env.BASE_URL;
 
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "career", element: <Career /> },
-      { path: "useState", element: <UseState /> },
+      { path: "useState", element: <UseStatePage /> },
       { path: "useRef", element: <UseRef /> },
       { path: "useReducer", element: <UseReducer /> },
       { path: "useContext", element: <UseContext /> },

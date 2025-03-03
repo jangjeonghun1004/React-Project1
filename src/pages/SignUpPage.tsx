@@ -21,12 +21,12 @@ export default function SignUpPage() {
         const password = formData.get("password") as string;
 
         try {
-            // dispatch 시 .unwrap()을 사용하면, 성공 시에는 객체(SignUpResponse)를 반환하고
+            // dispatch 시 .unwrap()을 사용하면, 성공 시에는 객체를 반환하고
             // 실패 시에는 rejectWithValue로 전달한 에러 메시지가 throw됩니다.
-            await dispatch(signUp({ email, password })).unwrap();
-            setSignUpSuccessMessage(`회원가입 성공`);
-        } catch (rejectWithValueMessage) { // dispatch(signUp)에서 rejectWithValue로 전달한 에러 메시지
-            console.error('회원가입 실패:', rejectWithValueMessage);
+            const response = await dispatch(signUp({ email, password })).unwrap();
+            if (response) { setSignUpSuccessMessage(`회원가입 성공`); }
+        } catch (rejectWithValue) { // dispatch(signUp)에서 rejectWithValue로 전달한 에러 메시지
+            console.error('회원가입 실패:', rejectWithValue);
             setSignUpSuccessMessage('');
         }
     };

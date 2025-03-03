@@ -34,8 +34,3 @@ export interface PostWithPaging {
   currentPageNumber: number; // 현재 페이지 번호
 }
 
-export interface CreatePostRequest {
-  title: string;
-  content: string;
-}
-

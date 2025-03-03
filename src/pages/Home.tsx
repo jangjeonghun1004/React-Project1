@@ -4,6 +4,8 @@ import Sidebar from "./Sidebar";
 import CardStyle3 from "../shared/card/CardStyle3";
 import CardStyle2 from "../shared/card/CardStyle2";
 import ScrollAnimation from "../widgets/scrollAnimation/ScrollAnimation";
+import { Link } from "react-router-dom";
+import StateManagementMap from "./reactStudyRoadMap/StateManagementMap";
 
 function Home() {
     return (
@@ -13,10 +15,24 @@ function Home() {
                     <Header />
                     <CurriculumVitae />
 
+
+                    <section>
+                        <header className="major">
+                            <h2>React 학습 로드맵</h2>
+                        </header>
+                        <StateManagementMap />
+                        <ScrollAnimation>
+                            <Link to={""}><img src="/images/react-feature.png" style={{ width: "100%" }} alt="react" /></Link>
+                        </ScrollAnimation>
+                        <ScrollAnimation>
+                            <Link to={""}><img src="/images/react-helper.png" style={{ width: "100%" }} alt="react" /></Link>
+                        </ScrollAnimation>
+                    </section>
+
                     <ScrollAnimation alwaysVisible>
                         <section>
                             <header className="major">
-                                <h2>React 학습 내역</h2>
+                                <h2>React 학습 로드맵</h2>
                             </header>
                             <div className="features">
                                 <CardStyle3

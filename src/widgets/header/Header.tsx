@@ -18,9 +18,9 @@ function Header({ title = "React + Vite + TypeScript" }: Props) {
         try {
             await dispatch(signOut()).unwrap();
             localStorage.removeItem(STORAGE_KEYS.JWT_TOKEN);
-            navigate("/");
-        } catch (error) {
-            console.error("로그 아웃 실패:", error);
+            navigate(`${import.meta.env.BASE_URL}`);
+        } catch (rejectWithValue) {
+            console.error("로그 아웃 실패:", rejectWithValue);
         }
     }, [dispatch, navigate]);
 
