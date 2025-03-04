@@ -49,6 +49,7 @@ export default function CareerPage() {
                             </header>
                             <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/developments1.svg`} alt="" /></span>
                             <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/developments2.svg`} alt="" /></span>
+                            <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/developments-etc.svg`} alt="" /></span>
                         </ScrollAnimation>
                     </section>
                 </div>
