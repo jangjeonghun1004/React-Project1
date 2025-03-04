@@ -11,7 +11,6 @@ import { ScreenSizeProvider } from "./app/ScreenSizeProvider";
 // 페이지 및 위젯 import
 import Home from "./pages/Home";
 import NotFound404 from "./widgets/pageError/NotFound404";
-import Career from "./pages/Career";
 import Lombok from "./pages/springBootCurriculum/Lombok";
 import SpringMvc from "./pages/springBootCurriculum/SpringMvc";
 import SpringRest from "./pages/springBootCurriculum/SpringRest";
@@ -45,6 +44,7 @@ import UseContextPage from "./pages/reactStudyRoadMap/UseContextPage";
 import ReduxToolKitPage from "./pages/reactStudyRoadMap/ReduxToolKitPage";
 import BrowserRoutePage from "./pages/reactStudyRoadMap/BrowserRoutePage";
 import AxiosPage from "./pages/reactStudyRoadMap/AxiosPage";
+import CareerPage from "./pages/CareerPage";
 
 const basePath = import.meta.env.BASE_URL;
 
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "career", element: <Career /> },
+      { path: "career", element: <CareerPage /> },
       { path: "useState", element: <UseStatePage /> },
       { path: "useRef", element: <UseRefPage /> },
       { path: "useReducer", element: <UseReducerPage /> },

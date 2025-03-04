@@ -9,7 +9,7 @@ type Props = {
     title?: string;
 };
 
-function Header({ title = "Next AI" }: Props) {
+function Header({ title = "Jeong Hun's Web" }: Props) {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const token = useSelector((state: RootState) => state.auth.token);

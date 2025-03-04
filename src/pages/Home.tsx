@@ -15,8 +15,7 @@ function Home() {
                 <div className="inner">
                     <Header />
                     <CurriculumVitae />
-
-
+                    
                     <section>
                         <header className="major">
                             <h2>React 학습 로드맵</h2>
