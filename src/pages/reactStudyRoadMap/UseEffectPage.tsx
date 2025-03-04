@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../../widgets/header/Header";
 import Sidebar from "../Sidebar";
 
-export default function UseEffect() {
+export default function UseEffectPage() {
     const [data, setData] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [recall, setRecall] = useState(false);

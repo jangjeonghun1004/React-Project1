@@ -1,6 +1,6 @@
 import PageTemplate from "../PageTemplate";
 
-export default function ReduxToolKit() {
+export default function ReduxToolKitPage() {
     return (
         <PageTemplate title="React" subTitle="Redux Toolkit" imageSrc="img01.jpeg">
             <h2>Redux Toolkit란?</h2>

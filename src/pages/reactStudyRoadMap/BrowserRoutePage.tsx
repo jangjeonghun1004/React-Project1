@@ -1,7 +1,7 @@
 import Header from "../../widgets/header/Header";
 import Sidebar from "../Sidebar";
 
-export default function BrowserRoute() {
+export default function BrowserRoutePage() {
     return (
         <div id="wrapper">
         <div id="main">

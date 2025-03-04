@@ -6,6 +6,8 @@ import CardStyle2 from "../shared/card/CardStyle2";
 import ScrollAnimation from "../widgets/scrollAnimation/ScrollAnimation";
 import { Link } from "react-router-dom";
 import StateManagementMap from "./reactStudyRoadMap/StateManagementMap";
+import FeatureManagementMap from "./reactStudyRoadMap/FeatureManagementMap";
+import HelperManagementMap from "./reactStudyRoadMap/HelperManagementMap";
 
 function Home() {
     return (
@@ -21,11 +23,16 @@ function Home() {
                             <h2>React 학습 로드맵</h2>
                         </header>
                         <StateManagementMap />
+                        <hr className="major" />
+
                         <ScrollAnimation>
-                            <Link to={""}><img src="/images/react-feature.png" style={{ width: "100%" }} alt="react" /></Link>
+                            <FeatureManagementMap />
+                            <hr className="major" />
                         </ScrollAnimation>
+                        
                         <ScrollAnimation>
-                            <Link to={""}><img src="/images/react-helper.png" style={{ width: "100%" }} alt="react" /></Link>
+                            <HelperManagementMap />
+                            <hr className="major" />
                         </ScrollAnimation>
                     </section>
 

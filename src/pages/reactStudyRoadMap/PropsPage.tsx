@@ -2,7 +2,7 @@ import ComponentD from "../../shared/useContextExample/ComponentD";
 import Header from "../../widgets/header/Header";
 import Sidebar from "../Sidebar";
 
-export default function Props() {
+export default function PropsPage() {
     return (
         <div id="wrapper">
         <div id="main">

@@ -2,7 +2,7 @@ import ComponentA from "../../shared/useContextExample/ComponentA";
 import Header from "../../widgets/header/Header";
 import Sidebar from "../Sidebar";
 
-export default function UseContext() {
+export default function UseContextPage() {
     return (
         <div id="wrapper">
         <div id="main">

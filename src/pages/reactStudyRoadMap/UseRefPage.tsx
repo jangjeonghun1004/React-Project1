@@ -2,7 +2,7 @@ import Header from "../../widgets/header/Header";
 import Sidebar from "../Sidebar";
 import { useRef, useState } from "react";
 
-export default function UseRef() {
+export default function UseRefPage() {
     const inputRef = useRef<HTMLInputElement>(null);
     const handleFocus = () => {
         if(inputRef.current) {

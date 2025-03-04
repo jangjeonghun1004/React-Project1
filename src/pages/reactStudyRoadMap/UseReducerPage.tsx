@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import Header from "../../widgets/header/Header";
 import Sidebar from "../Sidebar";
 
-export default function UseReducer() {
+export default function UseReducerPage() {
     const initialState = {count: 0};
     const [state, dispatch] = useReducer((state: typeof initialState, action: {type:string}) => {
         switch (action.type) {

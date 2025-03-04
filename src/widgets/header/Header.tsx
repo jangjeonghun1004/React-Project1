@@ -9,7 +9,7 @@ type Props = {
     title?: string;
 };
 
-function Header({ title = "React + Vite + TypeScript" }: Props) {
+function Header({ title = "Next AI" }: Props) {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const token = useSelector((state: RootState) => state.auth.token);

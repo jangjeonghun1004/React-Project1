@@ -1,6 +1,6 @@
 import PageTemplate from "../PageTemplate";
 
-export default function Axios() {
+export default function AxiosPage() {
     return (
         <PageTemplate title="React" subTitle="Axios" imageSrc="img01.jpeg">
             <h2>Axios란?</h2>

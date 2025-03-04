@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import Header from "../../widgets/header/Header";
 import Sidebar from "../Sidebar";
 
-export default function UseMemo() {
+export default function UseMemoPage() {
     const [items, _] = useState<string[]>(['Apple', 'Banana', 'Cherry', 'Date']);
     const [query, setQuery] = useState<string>('');
 

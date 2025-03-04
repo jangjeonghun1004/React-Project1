@@ -12,15 +12,6 @@ import { ScreenSizeProvider } from "./app/ScreenSizeProvider";
 import Home from "./pages/Home";
 import NotFound404 from "./widgets/pageError/NotFound404";
 import Career from "./pages/Career";
-import UseRef from "./pages/reactCurriculum/UseRef";
-import UseReducer from "./pages/reactCurriculum/UseReducer";
-import UseContext from "./pages/reactCurriculum/UseContext";
-import Props from "./pages/reactCurriculum/Props";
-import UseEffect from "./pages/reactCurriculum/UseEffect";
-import BrowserRoute from "./pages/reactCurriculum/BrowserRoute";
-import ReduxToolKit from "./pages/reactCurriculum/ReduxToolKit";
-import UseMemo from "./pages/reactCurriculum/UseMemo";
-import Axios from "./pages/reactCurriculum/Axios";
 import Lombok from "./pages/springBootCurriculum/Lombok";
 import SpringMvc from "./pages/springBootCurriculum/SpringMvc";
 import SpringRest from "./pages/springBootCurriculum/SpringRest";
@@ -45,6 +36,15 @@ import SignInPage from "./pages/SignInPage";
 import {ProtectedRoute} from "./app/ProtectedRoute";
 import PostPage from "./pages/PostPage";
 import UseStatePage from "./pages/reactStudyRoadMap/UseStatePage";
+import UseReducerPage from "./pages/reactStudyRoadMap/UseReducerPage";
+import UseRefPage from "./pages/reactStudyRoadMap/UseRefPage";
+import UseMemoPage from "./pages/reactStudyRoadMap/UseMemoPage";
+import PropsPage from "./pages/reactStudyRoadMap/PropsPage";
+import UseEffectPage from "./pages/reactStudyRoadMap/UseEffectPage";
+import UseContextPage from "./pages/reactStudyRoadMap/UseContextPage";
+import ReduxToolKitPage from "./pages/reactStudyRoadMap/ReduxToolKitPage";
+import BrowserRoutePage from "./pages/reactStudyRoadMap/BrowserRoutePage";
+import AxiosPage from "./pages/reactStudyRoadMap/AxiosPage";
 
 const basePath = import.meta.env.BASE_URL;
 
@@ -64,15 +64,15 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "career", element: <Career /> },
       { path: "useState", element: <UseStatePage /> },
-      { path: "useRef", element: <UseRef /> },
-      { path: "useReducer", element: <UseReducer /> },
-      { path: "useContext", element: <UseContext /> },
-      { path: "props", element: <Props /> },
-      { path: "useEffect", element: <UseEffect /> },
-      { path: "browserRouter", element: <BrowserRoute /> },
-      { path: "reduxToolkit", element: <ReduxToolKit /> },
-      { path: "useMemo", element: <UseMemo /> },
-      { path: "axios", element: <Axios /> },
+      { path: "useRef", element: <UseRefPage /> },
+      { path: "useReducer", element: <UseReducerPage /> },
+      { path: "useContext", element: <UseContextPage /> },
+      { path: "props", element: <PropsPage /> },
+      { path: "useEffect", element: <UseEffectPage /> },
+      { path: "browserRouter", element: <BrowserRoutePage /> },
+      { path: "reduxToolkit", element: <ReduxToolKitPage /> },
+      { path: "useMemo", element: <UseMemoPage /> },
+      { path: "axios", element: <AxiosPage /> },
       { path: "lombok", element: <Lombok /> },
       { path: "springMvc", element: <SpringMvc /> },
       { path: "springRest", element: <SpringRest /> },
