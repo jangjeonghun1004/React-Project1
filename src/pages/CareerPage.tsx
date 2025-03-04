@@ -11,9 +11,9 @@ export default function CareerPage() {
 
                     <section>
                         <header className="main">
-                            <h2>✅ 2018. 04 ~ 2024. 08(6년 5개월)</h2>
+                            <h2>✅ 2018 ~ 2024 (6년 5개월)</h2>
                         </header>
-                        <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/qexpress-1.png`} alt="" /></span>
+                        <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/qexpress-1.svg`} alt="" /></span>
                         <ScrollAnimation>
                             <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/qexpress-2.svg`} alt="" /></span>
                         </ScrollAnimation>
@@ -21,7 +21,7 @@ export default function CareerPage() {
 
                         <ScrollAnimation>
                             <header className="main">
-                                <h2>✅  2017. 03 ~ 2018. 04 (1년 2개월)</h2>
+                                <h2>✅  2017 ~ 2018 (1년 2개월)</h2>
                             </header>
                             <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/study-english.svg`} alt="" /></span>
                             <hr />
@@ -29,7 +29,7 @@ export default function CareerPage() {
 
                         <ScrollAnimation>
                             <header className="main">
-                                <h2>✅ 2013. 07 ~ 2016. 07 (3년 1개월)</h2>
+                                <h2>✅ 2013 ~ 2016 (3년 1개월)</h2>
                             </header>
                             <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/totorosa.svg`} alt="" /></span>
                             <hr />
@@ -37,9 +37,18 @@ export default function CareerPage() {
 
                         <ScrollAnimation>
                             <header className="main">
-                                <h2>✅ 2006. 12 ~ 2013. 06 (6년 7개월)</h2>
+                                <h2>✅ 2006 ~ 2013 (6년 7개월)</h2>
                             </header>
                             <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/tendr.svg`} alt="" /></span>
+                            <hr />
+                        </ScrollAnimation>
+
+                        <ScrollAnimation>
+                            <header className="main">
+                                <h2>✅ 개발 기술 및 능력</h2>
+                            </header>
+                            <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/developments.svg`} alt="" /></span>
+                            <span className="image fit"><img src={`${import.meta.env.BASE_URL}images/developments-etc.svg`} alt="" /></span>
                         </ScrollAnimation>
                     </section>
                 </div>
