@@ -4,7 +4,6 @@ import Sidebar from "./Sidebar";
 import CardStyle3 from "../shared/card/CardStyle3";
 import CardStyle2 from "../shared/card/CardStyle2";
 import ScrollAnimation from "../widgets/scrollAnimation/ScrollAnimation";
-import { Link } from "react-router-dom";
 import StateManagementMap from "./reactStudyRoadMap/StateManagementMap";
 import FeatureManagementMap from "./reactStudyRoadMap/FeatureManagementMap";
 import HelperManagementMap from "./reactStudyRoadMap/HelperManagementMap";
