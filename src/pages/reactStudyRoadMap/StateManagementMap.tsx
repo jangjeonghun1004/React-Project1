@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const StateManagementMap = () => {
     const [positions, setPositions] = useState({
         useState: { top: "30%", left: "1%", width: "37%", height: "25%" },
-        useReducer: { top: "32%", left: "70%", width: "20%", height: "15%" },
-        useRef: { top: "66%", left: "61%", width: "37%", height: "27%" },
+        useReducer: { top: "36%", left: "61%", width: "37%", height: "23%" },
+        useRef: { top: "65%", left: "34%", width: "31%", height: "25%" },
     });
 
     // ✅ 화면 크기 변경 시 클릭 영역 크기 & 위치 조정
@@ -17,15 +17,15 @@ const StateManagementMap = () => {
                 // 📌 모바일 화면 (작은 화면)
                 setPositions({
                     useState: { top: "33%", left: "1%", width: "37%", height: "20%" },
-                    useReducer: { top: "50%", left: "60%", width: "30%", height: "12%" },
-                    useRef: { top: "66%", left: "61%", width: "37%", height: "27%" },
+                    useReducer: { top: "36%", left: "61%", width: "37%", height: "23%" },
+                    useRef: { top: "65%", left: "34%", width: "31%", height: "25%" },
                 });
             } else {
                 // 📌 기본 (데스크톱 화면)
                 setPositions({
                     useState: { top: "33%", left: "1%", width: "37%", height: "20%" },
-                    useReducer: { top: "40%", left: "70%", width: "20%", height: "15%" },
-                    useRef: { top: "66%", left: "61%", width: "37%", height: "27%" },
+                    useReducer: { top: "36%", left: "61%", width: "37%", height: "23%" },
+                    useRef: { top: "65%", left: "34%", width: "31%", height: "25%" },
                 });
             }
         };
@@ -42,7 +42,7 @@ const StateManagementMap = () => {
         <div style={{ position: "relative", width: "100%", maxWidth: "1000px", margin: "0 auto" }}>
             {/* 배경 이미지 */}
             <img
-                src="/images/react-state.png"
+                src={`${import.meta.env.BASE_URL}images/react-state.png`}
                 alt="React 상태 관리 훅"
                 style={{ width: "100%", height: "auto" }}
             />
