@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const StateManagementMap = () => {
     const [positions, setPositions] = useState({
-        useState: { top: "30%", left: "1%", width: "37%", height: "25%" },
-        useReducer: { top: "36%", left: "61%", width: "37%", height: "23%" },
+        useState: { top: "33%", left: "1%", width: "29%", height: "20%" },
+        useReducer: { top: "31%", left: "68%", width: "30%", height: "23%" },
         useRef: { top: "65%", left: "34%", width: "31%", height: "25%" },
     });
 
@@ -16,15 +16,15 @@ const StateManagementMap = () => {
             if (screenWidth < 768) {
                 // 📌 모바일 화면 (작은 화면)
                 setPositions({
-                    useState: { top: "33%", left: "1%", width: "37%", height: "20%" },
-                    useReducer: { top: "36%", left: "61%", width: "37%", height: "23%" },
+                    useState: { top: "33%", left: "1%", width: "29%", height: "20%" },
+                    useReducer: { top: "31%", left: "68%", width: "30%", height: "23%" },
                     useRef: { top: "65%", left: "34%", width: "31%", height: "25%" },
                 });
             } else {
                 // 📌 기본 (데스크톱 화면)
                 setPositions({
-                    useState: { top: "33%", left: "1%", width: "37%", height: "20%" },
-                    useReducer: { top: "36%", left: "61%", width: "37%", height: "23%" },
+                    useState: { top: "33%", left: "1%", width: "29%", height: "20%" },
+                    useReducer: { top: "31%", left: "68%", width: "30%", height: "23%" },
                     useRef: { top: "65%", left: "34%", width: "31%", height: "25%" },
                 });
             }
@@ -42,7 +42,7 @@ const StateManagementMap = () => {
         <div style={{ position: "relative", width: "100%", maxWidth: "1000px", margin: "0 auto" }}>
             {/* 배경 이미지 */}
             <img
-                src={`${import.meta.env.BASE_URL}images/react-state.png`}
+                src={`${import.meta.env.BASE_URL}images/react-state.svg`}
                 alt="React 상태 관리 훅"
                 style={{ width: "100%", height: "auto" }}
             />

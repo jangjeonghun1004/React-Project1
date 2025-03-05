@@ -8,6 +8,10 @@ import StateManagementMap from "./reactStudyRoadMap/StateManagementMap";
 import FeatureManagementMap from "./reactStudyRoadMap/FeatureManagementMap";
 import HelperManagementMap from "./reactStudyRoadMap/HelperManagementMap";
 import { PortfolioManagementMap } from "./portfolio/PortfolioManagementMap";
+import { WebManagementMap } from "./springBootCurriculum/WebManagementMap";
+import { SecurityManagementMap } from "./springBootCurriculum/SecurityManagementMap";
+import { SqlManagementMap } from "./springBootCurriculum/SqlManagementMap";
+import { CodeManagementMap } from "./springBootCurriculum/CodeManagementMap copy";
 
 function Home() {
     return (
@@ -28,21 +32,51 @@ function Home() {
                         <header className="major">
                             <h2>React 학습 로드맵</h2>
                         </header>
-                        <StateManagementMap />
-                        <hr className="major" />
-
                         <ScrollAnimation>
-                            <FeatureManagementMap />
-                            <hr className="major" />
+                            <StateManagementMap />
                         </ScrollAnimation>
 
                         <ScrollAnimation>
-                            <HelperManagementMap />
                             <hr className="major" />
+                            <FeatureManagementMap />
+                        </ScrollAnimation>
+
+                        <ScrollAnimation>
+                            <hr className="major" />
+                            <HelperManagementMap />
                         </ScrollAnimation>
                     </section>
 
-                    <ScrollAnimation alwaysVisible>
+                    <section>
+                        <header className="major">
+                            <h2>Spring Boot 학습 로드맵</h2>
+                        </header>
+                        <ScrollAnimation>
+                            <WebManagementMap />
+                        </ScrollAnimation>
+
+                        <ScrollAnimation>
+                            <hr className="major" />
+                            <SecurityManagementMap />
+                        </ScrollAnimation>
+
+                        <ScrollAnimation>
+                            <hr className="major" />
+                            <SqlManagementMap />
+                        </ScrollAnimation>
+                        
+                        <ScrollAnimation>
+                            <hr className="major" />
+                            <CodeManagementMap />
+                        </ScrollAnimation>
+                    </section>
+
+
+
+
+
+
+                    <ScrollAnimation>
                         <section>
                             <header className="major">
                                 <h2>React 학습 로드맵</h2>
