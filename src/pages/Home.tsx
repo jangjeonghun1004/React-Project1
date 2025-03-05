@@ -7,6 +7,7 @@ import ScrollAnimation from "../widgets/scrollAnimation/ScrollAnimation";
 import StateManagementMap from "./reactStudyRoadMap/StateManagementMap";
 import FeatureManagementMap from "./reactStudyRoadMap/FeatureManagementMap";
 import HelperManagementMap from "./reactStudyRoadMap/HelperManagementMap";
+import { PortfolioManagementMap } from "./portfolio/PortfolioManagementMap";
 
 function Home() {
     return (
@@ -15,7 +16,14 @@ function Home() {
                 <div className="inner">
                     <Header />
                     <CurriculumVitae />
-                    
+
+                    <section>
+                        <header className="major">
+                            <h2>주요 기능</h2>
+                        </header>
+                        <PortfolioManagementMap />
+                    </section>
+
                     <section>
                         <header className="major">
                             <h2>React 학습 로드맵</h2>
@@ -27,7 +35,7 @@ function Home() {
                             <FeatureManagementMap />
                             <hr className="major" />
                         </ScrollAnimation>
-                        
+
                         <ScrollAnimation>
                             <HelperManagementMap />
                             <hr className="major" />

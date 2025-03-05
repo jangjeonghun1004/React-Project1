@@ -20,7 +20,7 @@ function CurriculumVitae() {
                 </ul>
             </div>
             <span className="image object">
-                <img src={`${import.meta.env.BASE_URL}images/Group-5.png`} style={{marginTop: "-15px"}} />
+                <img src={`${import.meta.env.BASE_URL}images/Group-7.svg`} style={{marginTop: "-15px"}} />
             </span>
         </section>
     );
