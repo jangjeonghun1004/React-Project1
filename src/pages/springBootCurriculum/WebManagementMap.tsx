@@ -54,7 +54,7 @@ export const WebManagementMap = () => {
                     height: positions.map1.height,
                     cursor: "pointer",
                     borderBottom: "0px",
-                    backgroundColor: "red" // 테스트용 배경 (확인 후 제거 가능)
+                    // backgroundColor: "red" // 테스트용 배경 (확인 후 제거 가능)
                 }}
             />
 
