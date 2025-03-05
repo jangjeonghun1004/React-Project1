@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export const PortfolioManagementMap = () => {
     const [positions, setPositions] = useState({
-        todoMap: { top: "25%", left: "9%", width: "21%", height: "20%" },
-        authMap: { top: "23%", left: "69%", width: "21%", height: "20%" },
-        postMap: { top: "74%", left: "9%", width: "21%", height: "20%" },
+        todoMap: { top: "41%", left: "8%", width: "24%", height: "46%" },
+        authMap: { top: "41%", left: "38%", width: "24%", height: "46%" },
+        postMap: { top: "41%", left: "68%", width: "24%", height: "46%" },
     });
 
     // ✅ 화면 크기 변경 시 클릭 영역 크기 & 위치 조정
@@ -16,9 +16,9 @@ export const PortfolioManagementMap = () => {
             if (screenWidth < 768) {
                 // 📌 모바일 화면 (작은 화면)
                 setPositions({
-                    todoMap: { top: "25%", left: "9%", width: "21%", height: "20%" },
-                    authMap: { top: "23%", left: "69%", width: "21%", height: "20%" },
-                    postMap: { top: "74%", left: "9%", width: "21%", height: "20%" },
+                    todoMap: { top: "41%", left: "8%", width: "24%", height: "46%" },
+                    authMap: { top: "41%", left: "38%", width: "24%", height: "46%" },
+                    postMap: { top: "41%", left: "68%", width: "24%", height: "46%" },
                 });
             } else {
                 // 📌 기본 (데스크톱 화면)
