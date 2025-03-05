@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 export const WebManagementMap = () => {
     const [positions, setPositions] = useState({
-        map1: { top: "41%", left: "8%", width: "24%", height: "46%" },
-        map2: { top: "41%", left: "38%", width: "24%", height: "46%" },
+        map1: { top: "32%", left: "46%", width: "41%", height: "20%" },
+        map2: { top: "60%", left: "46%", width: "41%", height: "24%" },
     });
 
     // ✅ 화면 크기 변경 시 클릭 영역 크기 & 위치 조정
@@ -15,8 +15,8 @@ export const WebManagementMap = () => {
             if (screenWidth < 768) {
                 // 📌 모바일 화면 (작은 화면)
                 setPositions({
-                    map1: { top: "41%", left: "8%", width: "24%", height: "46%" },
-                    map2: { top: "41%", left: "38%", width: "24%", height: "46%" },
+                    map1: { top: "32%", left: "46%", width: "41%", height: "20%" },
+                    map2: { top: "60%", left: "46%", width: "41%", height: "24%" },
                 });
             } else {
                 // 📌 기본 (데스크톱 화면)
@@ -54,7 +54,7 @@ export const WebManagementMap = () => {
                     height: positions.map1.height,
                     cursor: "pointer",
                     borderBottom: "0px",
-                    // backgroundColor: "red" // 테스트용 배경 (확인 후 제거 가능)
+                    backgroundColor: "red" // 테스트용 배경 (확인 후 제거 가능)
                 }}
             />
 

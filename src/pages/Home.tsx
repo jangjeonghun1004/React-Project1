@@ -11,7 +11,7 @@ import { PortfolioManagementMap } from "./portfolio/PortfolioManagementMap";
 import { WebManagementMap } from "./springBootCurriculum/WebManagementMap";
 import { SecurityManagementMap } from "./springBootCurriculum/SecurityManagementMap";
 import { SqlManagementMap } from "./springBootCurriculum/SqlManagementMap";
-import { CodeManagementMap } from "./springBootCurriculum/CodeManagementMap copy";
+import { CodeManagementMap } from "./springBootCurriculum/CodeManagementMap";
 
 function Home() {
     return (
@@ -64,7 +64,7 @@ function Home() {
                             <hr className="major" />
                             <SqlManagementMap />
                         </ScrollAnimation>
-                        
+
                         <ScrollAnimation>
                             <hr className="major" />
                             <CodeManagementMap />

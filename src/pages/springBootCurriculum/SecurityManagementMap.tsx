@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export const SecurityManagementMap = () => {
     const [positions, setPositions] = useState({
-        map1: { top: "41%", left: "8%", width: "24%", height: "46%" },
-        map2: { top: "41%", left: "38%", width: "24%", height: "46%" },
-        map3: { top: "41%", left: "68%", width: "24%", height: "46%" },
+        map1: { top: "19%", left: "10%", width: "23%", height: "14%" },
+        map2: { top: "19%", left: "39%", width: "23%", height: "14%" },
+        map3: { top: "19%", left: "66%", width: "23%", height: "14%" },
     });
 
     // ✅ 화면 크기 변경 시 클릭 영역 크기 & 위치 조정
@@ -16,9 +16,9 @@ export const SecurityManagementMap = () => {
             if (screenWidth < 768) {
                 // 📌 모바일 화면 (작은 화면)
                 setPositions({
-                    map1: { top: "41%", left: "8%", width: "24%", height: "46%" },
-                    map2: { top: "41%", left: "38%", width: "24%", height: "46%" },
-                    map3: { top: "41%", left: "68%", width: "24%", height: "46%" },
+                    map1: { top: "19%", left: "10%", width: "23%", height: "14%" },
+                    map2: { top: "19%", left: "39%", width: "23%", height: "14%" },
+                    map3: { top: "19%", left: "66%", width: "23%", height: "14%" },
                 });
             } else {
                 // 📌 기본 (데스크톱 화면)

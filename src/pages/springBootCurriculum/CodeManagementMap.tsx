@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 export const CodeManagementMap = () => {
     const [positions, setPositions] = useState({
-        map1: { top: "41%", left: "8%", width: "24%", height: "46%" },
-        map2: { top: "41%", left: "38%", width: "24%", height: "46%" },
+        map1: { top: "47%", left: "14%", width: "29%", height: "34%" },
+        map2: { top: "47%", left: "58%", width: "29%", height: "34%" },
     });
 
     // ✅ 화면 크기 변경 시 클릭 영역 크기 & 위치 조정
@@ -15,8 +15,8 @@ export const CodeManagementMap = () => {
             if (screenWidth < 768) {
                 // 📌 모바일 화면 (작은 화면)
                 setPositions({
-                    map1: { top: "41%", left: "8%", width: "24%", height: "46%" },
-                    map2: { top: "41%", left: "38%", width: "24%", height: "46%" },
+                    map1: { top: "47%", left: "14%", width: "29%", height: "34%" },
+                    map2: { top: "47%", left: "58%", width: "29%", height: "34%" },
                 });
             } else {
                 // 📌 기본 (데스크톱 화면)
