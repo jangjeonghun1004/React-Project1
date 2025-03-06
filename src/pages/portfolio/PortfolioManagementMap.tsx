@@ -42,7 +42,7 @@ export const PortfolioManagementMap = () => {
         <div style={{ position: "relative", width: "100%", maxWidth: "1000px", margin: "0 auto" }}>
             {/* 배경 이미지 */}
             <img
-                src={`${import.meta.env.BASE_URL}images/portfolio.svg`}
+                src={`${import.meta.env.BASE_URL}images/portfolio.png`}
                 alt=""
                 style={{ width: "100%", height: "auto" }}
             />
