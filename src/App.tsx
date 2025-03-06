@@ -45,7 +45,9 @@ import ReduxToolKitPage from "./pages/reactStudyRoadMap/ReduxToolKitPage";
 import BrowserRoutePage from "./pages/reactStudyRoadMap/BrowserRoutePage";
 import AxiosPage from "./pages/reactStudyRoadMap/AxiosPage";
 import CareerPage from "./pages/CareerPage";
-import ReactPage from "./pages/reactStudyRoadMap/ReactPage";
+import ReactPage from "./pages/reactStudyRoadMap/ReactRoadMapPage";
+import SpringBootRoadMapPage from "./pages/springBootCurriculum/SpringBootRoadMapPage";
+import DeployingRoadMap from "./pages/amazonEC2/DeployingRoadMap";
 
 const basePath = import.meta.env.BASE_URL;
 
@@ -95,7 +97,11 @@ const router = createBrowserRouter([
       { path: "signUp", element: <SignUpPage /> },
       { path: "signIn", element: <SignInPage /> },
       { path: "post", element: <PostPage />},
-      { path:"react", element:<ReactPage/>},
+
+      { path: "reactMap", element: <ReactPage />},
+      { path: "springBootMap", element: <SpringBootRoadMapPage />},
+      { path: "deployingMap", element: <DeployingRoadMap />},
+      
       {// 보호가 필요한 페이지
         path: "toDo",
         element: (
