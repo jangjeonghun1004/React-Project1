@@ -7,21 +7,36 @@ function AnteInterdum() {
             </header>
             <div className="mini-posts">
                 <article>
-                    <a href="https://visualstudio.microsoft.com/ko/" target="blank" className="image"><img src="/images/visualstudio.jpeg" alt="" /></a>
-                    <p>Visual Studio</p>
+                    <a href="https://www.jetbrains.com/idea/" target="blank" className="image">
+                        <img src={`${import.meta.env.BASE_URL}images/intellij.jpeg`} style={{ height: "141px" }} alt="" />
+                    </a>
+                    <p style={{textAlign:"center"}}>IntelliJ</p>
                 </article>
                 <article>
-                <a href="https://visualstudio.microsoft.com/ko/" target="blank" className="image"><img src="/images/visualstudiocode.jpeg" alt="" /></a>
-                    <p>Visual Studio Code</p>
+                    <a href="https://visualstudio.microsoft.com/ko/" target="blank" className="image">
+                        <img src={`${import.meta.env.BASE_URL}images/visualstudio.jpeg`} style={{ height: "141px" }} alt="" />
+                    </a>
+                    <p style={{textAlign:"center"}}>Visual Studio</p>
                 </article>
                 <article>
-                    <a href="#" className="image"><img src="https://html5up.net/uploads/demos/editorial/images/pic09.jpg" alt="" /></a>
-                    <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+                    <a href="https://visualstudio.microsoft.com/ko/" target="blank" className="image">
+                        <img src={`${import.meta.env.BASE_URL}images/visualstudiocode.jpeg`} style={{ height: "141px" }} alt="" />
+                    </a>
+                    <p style={{textAlign:"center"}}>Visual Studio Code</p>
+                </article>
+                <article>
+                    <a href="https://www.docker.com/" target="blank" className="image">
+                        <img src={`${import.meta.env.BASE_URL}images/docker.jpeg`} style={{ height: "141px" }} alt="" />
+                    </a>
+                    <p style={{textAlign:"center"}}>Docker</p>
+                </article>
+                <article>
+                    <a href="https://github.com/" target="blank" className="image">
+                        <img src={`${import.meta.env.BASE_URL}images/github.png`} style={{ height: "141px" }} alt="" />
+                    </a>
+                    <p style={{textAlign:"center"}}>Github</p>
                 </article>
             </div>
-            <ul className="actions">
-                <li><a href="#" className="button">More</a></li>
-            </ul>
         </section>
     );
 }

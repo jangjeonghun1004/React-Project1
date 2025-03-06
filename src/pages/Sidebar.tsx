@@ -23,8 +23,8 @@ function Sidebar() {
             <div className="inner">
                 <Search />
                 <Menu />
-                <AnteInterdum />
                 <GetInTouch />
+                <AnteInterdum />
                 <CopyRight />
             </div>
             <a href="#sidebar" className="toggle" onClick={handleToggleMenu}>Toggle</a>
