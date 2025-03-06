@@ -1,8 +1,6 @@
 import CurriculumVitae from "../widgets/curriculumVitae/CurriculumVitae";
 import Header from "../widgets/header/Header";
 import Sidebar from "./Sidebar";
-import CardStyle3 from "../shared/card/CardStyle3";
-import CardStyle2 from "../shared/card/CardStyle2";
 import ScrollAnimation from "../widgets/scrollAnimation/ScrollAnimation";
 import StateManagementMap from "./reactStudyRoadMap/StateManagementMap";
 import FeatureManagementMap from "./reactStudyRoadMap/FeatureManagementMap";
@@ -92,39 +90,6 @@ function Home() {
                             <GithubManagementMap />
                         </ScrollAnimation>
                     </section>
-
-
-
-
-
-
-                    <ScrollAnimation>
-                        <section>
-                            <header className="major">
-                                <h2>포트폴리오 주요 기능</h2>
-                            </header>
-                            <div className="posts">
-                                <CardStyle2
-                                    image="./images/todo-screenshot.png"
-                                    title="TO DO"
-                                    text="할 일을 추가, 관리, 수정 및 삭제 기능을 테스트 할 수 있는 React 기반 애플리케이션입니다."
-                                    linkPath="toDo"
-                                />
-                                <CardStyle2
-                                    image="./images/signIn.png"
-                                    title="회원 인증"
-                                    text="회원 가입, 로그 인 및 로그 아웃 기능을 테스트 할 수 있는 React 기반 애플리케이션입니다."
-                                    linkPath="signIn"
-                                />
-                                <CardStyle2
-                                    image="./images/post.png"
-                                    title="자유 게시판"
-                                    text="게시물 작성, 수정, 삭제, 댓글 작성, 삭제 및 좋아요 기능을 테스트 할 수 있는 React 기반 애플리케이션입니다."
-                                    linkPath="post"
-                                />
-                            </div>
-                        </section>
-                    </ScrollAnimation>
                 </div>
             </div>
 
