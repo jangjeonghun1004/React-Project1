@@ -12,6 +12,9 @@ import { WebManagementMap } from "./springBootCurriculum/WebManagementMap";
 import { SecurityManagementMap } from "./springBootCurriculum/SecurityManagementMap";
 import { SqlManagementMap } from "./springBootCurriculum/SqlManagementMap";
 import { CodeManagementMap } from "./springBootCurriculum/CodeManagementMap";
+import { ServerManagementMap } from "./amazonEC2/ServerManagementMap";
+import { DockerManagementMap } from "./docker/DockerManagementMap";
+import { GithubManagementMap } from "./github/GithubManagementMap";
 
 function Home() {
     return (
@@ -30,7 +33,7 @@ function Home() {
 
                     <section>
                         <header className="major">
-                            <h2>React 학습 로드맵</h2>
+                            <h2>React 학습 내역</h2>
                         </header>
                         <ScrollAnimation>
                             <StateManagementMap />
@@ -49,7 +52,7 @@ function Home() {
 
                     <section>
                         <header className="major">
-                            <h2>Spring Boot 학습 로드맵</h2>
+                            <h2>Spring Boot 학습 내역</h2>
                         </header>
                         <ScrollAnimation>
                             <WebManagementMap />
@@ -71,6 +74,24 @@ function Home() {
                         </ScrollAnimation>
                     </section>
 
+                    <section>
+                        <header className="major">
+                            <h2>Deploying 학습 내역</h2>
+                        </header>
+                        <ScrollAnimation>
+                            <ServerManagementMap />
+                        </ScrollAnimation>
+
+                        <ScrollAnimation>
+                            <hr className="major" />
+                            <DockerManagementMap />
+                        </ScrollAnimation>
+
+                        <ScrollAnimation>
+                            <hr className="major" />
+                            <GithubManagementMap />
+                        </ScrollAnimation>
+                    </section>
 
 
 
