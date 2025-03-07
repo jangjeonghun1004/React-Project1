@@ -32,7 +32,7 @@ export default function SignUpPage() {
     };
 
     return (
-        <PageTemplate title="Authentication" subTitle="" imageSrc="">
+        <PageTemplate>
             <>
                 <div className="row" style={{ display: 'flex', justifyContent: 'center' }}>
                     <div className="col-6 col-12-medium" style={{ maxWidth: 500, width: '100%', padding: 20 }}>

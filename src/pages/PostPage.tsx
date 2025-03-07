@@ -52,9 +52,10 @@ export default function PostPage() {
   /* [게시글 추가 및 폼 토글] */
   const handlePostFormToggle = () => setIsNewPostShow(!isNewPostShow);
   const handleCancel = () => setIsNewPostShow(!isNewPostShow);
-  const handleNewPostSave = async (formData: FormData) => {
+  const handleCreatePost = async (formData: FormData) => {
     const title = formData.get("title") as string;
     const content = formData.get("contents") as string;
+
     const resultAction = await dispatch(createPost({ title, content }));
     if (createPost.fulfilled.match(resultAction)) {
       dispatch(findAllPosts(0));
@@ -127,7 +128,7 @@ export default function PostPage() {
   const paginationItems = getPaginationItems(totalPages, currentPage);
 
   return (
-    <PageTemplate title="포트포리오" subTitle="" imageSrc="">
+    <PageTemplate>
       <div style={{ textAlign: "right", display: isNewPostShow ? "block" : "none" }}>
         <button type="button" onClick={handlePostFormToggle} className="primary icon solid fa-pen">
           new post
@@ -140,7 +141,7 @@ export default function PostPage() {
             onSubmit={(e) => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
-              handleNewPostSave(formData);
+              handleCreatePost(formData);
               e.currentTarget.reset();
             }}
           >
@@ -164,6 +165,7 @@ export default function PostPage() {
         </div>
       </div>
 
+      {postWithPaging.posts.length === 0 && <div style={{ textAlign: "center" }}>등록된 글이 없습니다.</div>}
       {postWithPaging.posts.map((post: Post) => (
         <PostItemPage
           key={post.id}

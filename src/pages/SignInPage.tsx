@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { STORAGE_KEYS } from "../app/storageKeys";
+import { useNavigate } from "react-router-dom";
 
 export default function SignInPage() {
     const [signInSuccessMessage, setSignInSuccessMessage] = useState<string>(''); // 로그인 성공 시 메시지
@@ -35,14 +36,21 @@ export default function SignInPage() {
         }
     };
 
+    const navigate = useNavigate();
+    const handleGoBack = () => {
+        navigate(-1); // 이전 페이지로 이동
+    };
+
+
     return (
-        <PageTemplate title="Authentication" subTitle="" imageSrc="">
+        <PageTemplate>
             <div className="row" style={{ display: 'flex', justifyContent: 'center' }}>
                 <div className="col-6 col-12-medium" style={{ maxWidth: 500, width: '100%', padding: 20 }}>
                     <h2 style={{ textAlign: "center" }}>Sign In</h2>
 
                     <div>
                         {signInSuccessMessage && <p style={{ color: 'green', textAlign: 'center' }}>{signInSuccessMessage}</p>}
+                        {signInSuccessMessage && <p className="button fit" onClick={handleGoBack}>{`이전 페이지로 이동`}</p>}
                         {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
                     </div>
 
