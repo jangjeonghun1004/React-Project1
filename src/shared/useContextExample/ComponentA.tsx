@@ -6,14 +6,15 @@ function ComponentA() {
 
     return (
         <>
-            <div style={{ borderWidth: 2, borderStyle: "solid", borderColor: 'red', padding: 10 }}>
+            <div style={{ borderWidth: 2, borderStyle: "solid", borderColor: 'red', padding: 10, textAlign: 'center' }}>
+                <button onClick={() => { setUserName('james') }} className="primary">A → C 데이터 전달 버튼</button>
+                <br />
+
                 Component A
                 <UserNameContext.Provider value={userName}>
                     <ComponentB />
                 </UserNameContext.Provider>
                 <br />
-
-                <button onClick={() => {setUserName('james')}} className="primary">Component C에 데이터 전달 하기</button>
             </div>
         </>
     );

@@ -1,49 +1,36 @@
-import Header from "../../widgets/header/Header";
-import Sidebar from "../Sidebar";
+import PageTemplate from "../PageTemplate";
 
 export default function SpringSecurityJwt() {
     return (
-        <div id="wrapper">
-            <div id="main">
-                <div className="inner">
-                    <Header />
+        <PageTemplate>
+            <h2>Spring Security JWT</h2>
+            <p className="box">
+                Spring Security JWT는 JSON Web Token(JWT)을 활용한 인증 및 권한 부여를 처리하는 데 사용됩니다.
+                JWT는 클라이언트와 서버 간에 보안을 유지하며 인증 정보를 전송하는 데 널리 사용됩니다.
+            </p>
 
-                    <section>
-                        <header className="main">
-                            <h1>Spring Security JWT</h1>
-                        </header>
+            <h2>Spring Security JWT 주요 기능</h2>
+            <ul>
+                <li>로그인 시 JWT 발급.</li>
+                <li>요청 헤더에 포함된 JWT 검증.</li>
+                <li>사용자 권한에 따른 요청 처리.</li>
+            </ul>
 
-                        <span className="image main"><img src={`${import.meta.env.BASE_URL}images/img01.jpeg`} style={{ height: 300 }} alt="image" /></span>
+            <h2>Spring Security JWT 발급 프로세스</h2>
+            <ol>
+                <li>회원 인증 요청: 클라이언트가 서버로 사용자 인증 정보를 보냅니다(예: 사용자 이름과 비밀번호).</li>
+                <li>사용자 정보 검증: 서버는 데이터베이스나 기타 저장소에서 사용자 정보를 조회하여 제공된 인증 정보가 올바른지 확인합니다.</li>
+                <li>JWT 생성 및 발급: 인증에 성공하면 서버는 JWT를 생성하여 클라이언트에 반환합니다. 이 토큰은 클라이언트가 서버에 다시 인증 정보를 보내지 않고도 인증 상태를 유지하도록 도와줍니다.</li>
+                <li>클라이언트 저장: 클라이언트는 이 토큰을 저장합니다(예: 브라우저의 localStorage, sessionStorage, 또는 쿠키).</li>
+                <li>인증된 요청: 클라이언트는 이후 요청 시 Authorization 헤더에 토큰을 포함하여 서버로 보냅니다.</li>
+                <li>서버에서 토큰 검증: 서버는 이 토큰을 검증하여 유효한지 확인하고, 필요한 경우 사용자 권한을 확인합니다.</li>
+            </ol>
 
-                        {/* contents */}
-                        <h2>Spring Security JWT란?</h2>
-                        <p>
-                            Spring Security JWT는 JSON Web Token(JWT)을 활용한 인증 및 권한 부여를 처리하는 데 사용됩니다. 
-                            JWT는 클라이언트와 서버 간에 보안을 유지하며 인증 정보를 전송하는 데 널리 사용됩니다.
-                        </p>
-
-                        <h2>주요 기능</h2>
-                        <ul>
-                            <li>로그인 시 JWT 발급.</li>
-                            <li>요청 헤더에 포함된 JWT 검증.</li>
-                            <li>사용자 권한에 따른 요청 처리.</li>
-                        </ul>
-
-                        <h2>JWT 발급 프로세스</h2>
-                        <ol>
-                            <li>회원 인증 요청: 클라이언트가 서버로 사용자 인증 정보를 보냅니다(예: 사용자 이름과 비밀번호).</li>
-                            <li>사용자 정보 검증: 서버는 데이터베이스나 기타 저장소에서 사용자 정보를 조회하여 제공된 인증 정보가 올바른지 확인합니다.</li>
-                            <li>JWT 생성 및 발급: 인증에 성공하면 서버는 JWT를 생성하여 클라이언트에 반환합니다. 이 토큰은 클라이언트가 서버에 다시 인증 정보를 보내지 않고도 인증 상태를 유지하도록 도와줍니다.</li>
-                            <li>클라이언트 저장: 클라이언트는 이 토큰을 저장합니다(예: 브라우저의 localStorage, sessionStorage, 또는 쿠키).</li>
-                            <li>인증된 요청: 클라이언트는 이후 요청 시 Authorization 헤더에 토큰을 포함하여 서버로 보냅니다.</li>
-                            <li>서버에서 토큰 검증: 서버는 이 토큰을 검증하여 유효한지 확인하고, 필요한 경우 사용자 권한을 확인합니다.</li>
-                        </ol>
-
-                        <div>
-                            <h3>1. 의존성 추가</h3>
-                            <pre>
-                                <code>
-{`
+            <div>
+                <h3>Spring Security JWT 의존성 추가</h3>
+                <pre>
+                    <code>
+                        {`
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-security</artifactId>
@@ -67,15 +54,15 @@ export default function SpringSecurityJwt() {
 </dependency>
 
 `}
-                                </code>
-                            </pre>
-                        </div>
+                    </code>
+                </pre>
+            </div>
 
-                        <div>
-                            <h3>2. JWT 유틸 클래스</h3>
-                            <pre>
-                                <code>
-{`
+            <div>
+                <h3>1. JWT 유틸 클래스</h3>
+                <pre>
+                    <code>
+                        {`
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -113,15 +100,15 @@ public class JwtUtil {
     }
 }
 `}
-                                </code>
-                            </pre>
-                        </div>
+                    </code>
+                </pre>
+            </div>
 
-                        <div>
-                            <h3>3. JWT 필터</h3>
-                            <pre>
-                                <code>
-{`
+            <div>
+                <h3>2. JWT 필터</h3>
+                <pre>
+                    <code>
+                        {`
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -171,15 +158,15 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 }
 `}
-                                </code>
-                            </pre>
-                        </div>
+                    </code>
+                </pre>
+            </div>
 
-                        <div>
-                            <h3>4. Spring Security 설정</h3>
-                            <pre>
-                                <code>
-{`
+            <div>
+                <h3>3. Spring Security 설정</h3>
+                <pre>
+                    <code>
+                        {`
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -232,15 +219,15 @@ public class SecurityConfig {
     }
 }
 `}
-                                </code>
-                            </pre>
-                        </div>
+                    </code>
+                </pre>
+            </div>
 
-                        <div>
-                            <h3>5. JWT 토큰 발급</h3>
-                            <pre>
-                                <code>
-{`
+            <div>
+                <h3>4. JWT 토큰 발급</h3>
+                <pre>
+                    <code>
+                        {`
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -271,14 +258,9 @@ class AuthRequest {
     // Getter, Setter
 }
 `}
-                                </code>
-                            </pre>
-                        </div>
-                    </section>
-                </div>
+                    </code>
+                </pre>
             </div>
-
-            <Sidebar />
-        </div>
+        </PageTemplate>
     );
 }

@@ -2,8 +2,8 @@ import PageTemplate from "../PageTemplate";
 
 export default function ReduxToolKitPage() {
     return (
-        <PageTemplate title="React" subTitle="Redux Toolkit" imageSrc="img01.jpeg">
-            <h2>Redux Toolkit란?</h2>
+        <PageTemplate>
+            <h2>Redux Toolkit</h2>
             <div className="box">
                 Redux Toolkit은 Redux를 사용하여 상태 관리를 효율적으로 처리하기 위한 라이브러리입니다.
                 기존 Redux의 복잡한 설정과 보일러 플레이트 코드를 대폭 줄여주며, Immer(불변성 관리), DevTools 통합, 자동 액션 생성 등의 강력한 기능을 제공합니다.
@@ -11,8 +11,9 @@ export default function ReduxToolKitPage() {
 
             <h2>Redux Toolkit 설치</h2>
             <pre>
-                <code>{`npm install @reduxjs/toolkit react-redux`}</code>
+                <code>{`% npm install @reduxjs/toolkit react-redux`}</code>
                 <br />
+
                 <code>{`
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -41,8 +42,7 @@ src/
                 `}</code>
             </pre>
 
-
-            <h2>Redux Toolkit Basic Process</h2>
+            <h2>Redux Toolkit 실행 흐름</h2>
             <img src={`${import.meta.env.BASE_URL}images/reduxToolKitProccess.png`} alt="Redux Toolkit 설치" style={{ width: "100%" }} />
             <blockquote>
                 <ol>
@@ -56,12 +56,7 @@ src/
                 </ol>
             </blockquote>
 
-            <h2>최상위 컴포넌트에 Provider 연결</h2>
-            <pre>
-
-            </pre>
-
-            <h2>Redux Toolkit Example(Slice)</h2>
+            <h2>Redux Toolkit 예제 코드(Slice)</h2>
             <pre>
                 <code>{`
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
@@ -146,7 +141,7 @@ export default todoSlice.reducer;
                 `}</code>
             </pre>
 
-            <h2>Redux Toolkit Example(Store)</h2>
+            <h2>Redux Toolkit 샘플 코드(Store)</h2>
             <pre>
                 <code>{`
 import { configureStore } from '@reduxjs/toolkit';

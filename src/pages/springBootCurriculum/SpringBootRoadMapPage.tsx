@@ -3,7 +3,7 @@ import CardStyle3 from "../../shared/card/CardStyle3";
 
 export default function SpringBootRoadMapPage() {
     return (
-        <PageTemplate title="Spring Boot-학습 로드 맵" subTitle="" imageSrc="">
+        <PageTemplate>
             <section>
                 <dl>
                     <dt>DEVELOPER TOOLS</dt>

@@ -1,50 +1,37 @@
 import ComponentA from "../../shared/useContextExample/ComponentA";
-import Header from "../../widgets/header/Header";
-import Sidebar from "../Sidebar";
+import PageTemplate from "../PageTemplate";
 
 export default function UseContextPage() {
     return (
-        <div id="wrapper">
-        <div id="main">
-            <div className="inner">
-                <Header />
+        <PageTemplate>
+            <h2>useContext</h2>
+            <p className="box">
+                useContext는 React에서 **컨텍스트(Context)**를 사용하기 위해 제공되는 훅(Hook)입니다.
+                컨텍스트는 컴포넌트 트리 전체에서 데이터를 공유할 때 사용됩니다.<br />
+                데이터를 자식 컴포넌트에 전달하기 위해 prop drilling(여러 단계를 거쳐 props를 전달하는 것)을 피하고,
+                간단하게 상위 컴포넌트에서 하위 컴포넌트로 데이터를 전달할 수 있습니다.
+            </p>
 
-                <section>
-                    <header className="main">
-                        <h1>useContext</h1>
-                    </header>
+            <h2>useContext 주요 특징</h2>
+            <ul>
+                <li>데이터를 전역적으로 관리할 수 있습니다.</li>
+                <li>컴포넌트의 재사용성을 높일 수 있습니다.</li>
+                <li>여러 단계의 Props 전달을 피할 수 있습니다.</li>
+            </ul>
 
-                    <span className="image main"><img src={`${import.meta.env.BASE_URL}images/img01.jpeg`} style={{ height: 300 }} alt="useState" /></span>
+            <h2>useContext 언제 사용하나요?</h2>
+            <ol>
+                <li>사용자 인증 정보</li>
+                <li>테마</li>
+                <li>언어 설정</li>
+            </ol>
 
-                    {/* contents */}
-                    <h2 id="content">useContext란?</h2>
-                    <p>
-                        useContext는 React에서 **컨텍스트(Context)**를 사용하기 위해 제공되는 훅(Hook)입니다.
-                        컨텍스트는 컴포넌트 트리 전체에서 데이터를 공유할 때 사용됩니다.<br/> 
-                        데이터를 자식 컴포넌트에 전달하기 위해 prop drilling(여러 단계를 거쳐 props를 전달하는 것)을 피하고,
-                        간단하게 상위 컴포넌트에서 하위 컴포넌트로 데이터를 전달할 수 있습니다.
-                    </p>
-
-                    <h2 id="content">주요 특징</h2>
-                    <ol>
-                        <li>데이터를 전역적으로 관리할 수 있습니다.</li>
-                        <li>컴포넌트의 재사용성을 높일 수 있습니다.</li>
-                        <li>여러 단계의 props 전달을 피할 수 있습니다.</li>
-                    </ol>
-
-                    <h2 id="content">언제 사용하나요?</h2>
-                    <ul>
-                        <li>사용자 인증 정보</li>
-                        <li>테마</li>
-                        <li>언어 설정</li>
-                    </ul>
-
-                    <div className="row">
-                        <div className="col-6 col-12-small">
-                            <h3>예제 코드</h3>
-                            <pre>
-                                <code>
-{`
+            <div className="row">
+                <div className="col-6 col-12-small">
+                    <h2>useContext 예제 코드</h2>
+                    <pre>
+                        <code>
+                            {`
 import { useState, createContext } from "react";
 import ComponentB from "./ComponentB";
 
@@ -68,9 +55,11 @@ function ComponentA() {
 export default ComponentA
 export const UserNameContext = createContext<string>('');
 `}
-                                </code>
-                                <code>
-{`
+                        </code>
+                        <br />
+
+                        <code>
+                            {`
 import ComponentC from "./ComponentC";
 
 function ComponentB() {
@@ -84,9 +73,11 @@ function ComponentB() {
 
 export default ComponentB
 `}
-                                </code>
-                                <code>
-{`
+                        </code>
+                        <br />
+
+                        <code>
+                            {`
 import { UserNameContext } from "./ComponentA";
 import { useContext } from "react";
 
@@ -103,21 +94,17 @@ function ComponentC() {
 
 export default ComponentC
 `}
-                                </code>
-                            </pre>
-                        </div>
-                        <div className="col-6 col-12-small">
-                            <h3>예제 코드 테스트</h3>
-                            <div className="box">
-                               <ComponentA />
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
+                        </code>
+                    </pre>
+                </div>
 
-        <Sidebar />
-    </div>
+                <div className="col-6 col-12-small">
+                    <h2>실행 결과</h2>
+                    <div className="box">
+                        <ComponentA />
+                    </div>
+                </div>
+            </div>
+        </PageTemplate>
     );
 }

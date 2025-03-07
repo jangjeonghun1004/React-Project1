@@ -1,41 +1,28 @@
-import Header from "../../widgets/header/Header";
-import Sidebar from "../Sidebar";
+import PageTemplate from "../PageTemplate";
 
 export default function SpringRest() {
     return (
-        <div id="wrapper">
-            <div id="main">
-                <div className="inner">
-                    <Header />
+        <PageTemplate>
+            <h2>Spring REST</h2>
+            <p className="box">
+                Spring REST는 Spring Framework에서 제공하는 RESTful 웹 서비스를 개발하기 위한 강력한 도구입니다.
+                REST(Representational State Transfer)는 HTTP를 기반으로 리소스를 관리하고 조작하는 아키텍처 스타일입니다.
+                REST API는 주로 클라이언트와 서버 간의 데이터 교환에 사용됩니다.
+            </p>
 
-                    <section>
-                        <header className="main">
-                            <h1>Spring REST</h1>
-                        </header>
+            <h2>REST API</h2>
+            <ul>
+                <li>RESTful 엔드포인트 개발: @RestController와 @RequestMapping을 사용합니다.</li>
+                <li>JSON 요청/응답: 기본적으로 Jackson을 사용해 객체를 JSON으로 직렬화/역직렬화 합니다.</li>
+                <li>HTTP 메서드: GET, POST, PUT, DELETE 등 다양한 HTTP 메서드를 지원합니다.</li>
+            </ul>
 
-                        <span className="image main"><img src={`${import.meta.env.BASE_URL}images/img01.jpeg`} style={{ height: 300 }} alt="image" /></span>
-
-                        {/* contents */}
-                        <h2 id="content">Spring REST란?</h2>
-                        <p>
-                            Spring REST는 Spring Framework에서 제공하는 RESTful 웹 서비스를 개발하기 위한 강력한 도구입니다. 
-                            REST(Representational State Transfer)는 HTTP를 기반으로 리소스를 관리하고 조작하는 아키텍처 스타일입니다. 
-                            REST API는 주로 클라이언트와 서버 간의 데이터 교환에 사용됩니다.
-                        </p>
-
-                        <h2 id="content">REST API</h2>
-                        <ol>
-                            <li>RESTful 엔드포인트 개발: @RestController와 @RequestMapping을 사용합니다.</li>
-                            <li>JSON 요청/응답: 기본적으로 Jackson을 사용해 객체를 JSON으로 직렬화/역직렬화 합니다.</li>
-                            <li>HTTP 메서드: GET, POST, PUT, DELETE 등 다양한 HTTP 메서드를 지원합니다.</li>
-                        </ol>
-
-                        <div className="row">
-                            <div className="col-6 col-12-small">
-                                <h3>예제 코드(@GetMapping)</h3>
-                                <pre>
-                                    <code>
-{`
+            <div className="row">
+                <div className="col-6 col-12-small">
+                    <h3>예제 코드(@GetMapping)</h3>
+                    <pre>
+                        <code>
+                            {`
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,29 +35,29 @@ public class GetMappingExampleController {
     }
 }
 `}
-                                    </code>
-                                </pre>
-                            </div>
-                            <div className="col-6 col-12-small">
-                                <h3>사용 예시</h3>
-                                <pre>
-                                    <code>
-{`
+                        </code>
+                    </pre>
+                </div>
+                <div className="col-6 col-12-small">
+                    <h3>사용 예시</h3>
+                    <pre>
+                        <code>
+                            {`
 GET /hello
 Response: "Hello, GET request!"
 `}
-                                    </code>
-                                </pre>
-                                <p></p>
-                            </div>
-                        </div>
+                        </code>
+                    </pre>
+                    <p></p>
+                </div>
+            </div>
 
-                        <div className="row">
-                            <div className="col-6 col-12-small">
-                                <h3>예제 코드(@PostMapping)</h3>
-                                <pre>
-                                    <code>
-{`
+            <div className="row">
+                <div className="col-6 col-12-small">
+                    <h3>예제 코드(@PostMapping)</h3>
+                    <pre>
+                        <code>
+                            {`
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -84,30 +71,30 @@ public class PostMappingExampleController {
     }
 }
 `}
-                                    </code>
-                                </pre>
-                            </div>
-                            <div className="col-6 col-12-small">
-                                <h3>사용 예시</h3>
-                                <pre>
-                                    <code>
-{`
+                        </code>
+                    </pre>
+                </div>
+                <div className="col-6 col-12-small">
+                    <h3>사용 예시</h3>
+                    <pre>
+                        <code>
+                            {`
 POST /submit
 Content-Type: application/x-www-form-urlencoded
 Body: 
 Response: "Received POST data:"
 `}
-                                    </code>
-                                </pre>
-                            </div>
-                        </div>
+                        </code>
+                    </pre>
+                </div>
+            </div>
 
-                        <div className="row">
-                            <div className="col-6 col-12-small">
-                                <h3>예제 코드(@RequestParam)</h3>
-                                <pre>
-                                    <code>
-{`
+            <div className="row">
+                <div className="col-6 col-12-small">
+                    <h3>예제 코드(@RequestParam)</h3>
+                    <pre>
+                        <code>
+                            {`
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -122,28 +109,28 @@ public class RequestParamExampleController {
     }
 }
 `}
-                                    </code>
-                                </pre>
-                            </div>
-                            <div className="col-6 col-12-small">
-                                <h3>사용 예시</h3>
-                                <pre>
-                                    <code>
-{`
+                        </code>
+                    </pre>
+                </div>
+                <div className="col-6 col-12-small">
+                    <h3>사용 예시</h3>
+                    <pre>
+                        <code>
+                            {`
 GET /search?keyword=Alice
 Response: "Searching for: Alice, Limit: 10"
 `}
-                                    </code>
-                                </pre>
-                            </div>
-                        </div>
+                        </code>
+                    </pre>
+                </div>
+            </div>
 
-                        <div className="row">
-                            <div className="col-6 col-12-small">
-                                <h3>예제 코드(@RequestBody)</h3>
-                                <pre>
-                                    <code>
-{`
+            <div className="row">
+                <div className="col-6 col-12-small">
+                    <h3>예제 코드(@RequestBody)</h3>
+                    <pre>
+                        <code>
+                            {`
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -186,30 +173,30 @@ class User {
 }
 
 `}
-                                    </code>
-                                </pre>
-                            </div>
-                            <div className="col-6 col-12-small">
-                                <h3>사용 예시</h3>
-                                <pre>
-                                <code>
-{`
+                        </code>
+                    </pre>
+                </div>
+                <div className="col-6 col-12-small">
+                    <h3>사용 예시</h3>
+                    <pre>
+                        <code>
+                            {`
 POST /user
 Content-Type: application/x-www-form-urlencoded
 Body: age=25&name=james
 Response: "User created: User{name='james', age=25}"
 `}
-                                    </code>
-                                </pre>
-                            </div>
-                        </div>
+                        </code>
+                    </pre>
+                </div>
+            </div>
 
-                        <div className="row">
-                            <div className="col-6 col-12-small">
-                                <h3>예제 코드(@PathVariable)</h3>
-                                <pre>
-                                    <code>
-{`
+            <div className="row">
+                <div className="col-6 col-12-small">
+                    <h3>예제 코드(@PathVariable)</h3>
+                    <pre>
+                        <code>
+                            {`
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -223,26 +210,21 @@ public class PathVariableExampleController {
     }
 }
 `}
-                                    </code>
-                                </pre>
-                            </div>
-                            <div className="col-6 col-12-small">
-                                <h3>사용 예시</h3>
-                                <pre>
-                                <code>
-{`
+                        </code>
+                    </pre>
+                </div>
+                <div className="col-6 col-12-small">
+                    <h3>사용 예시</h3>
+                    <pre>
+                        <code>
+                            {`
 GET /user/myid
 Response: "User ID: myid"
 `}
-                                    </code>
-                                </pre>
-                            </div>
-                        </div>
-                    </section>
+                        </code>
+                    </pre>
                 </div>
             </div>
-
-            <Sidebar />
-        </div>
+        </PageTemplate>
     );
 }

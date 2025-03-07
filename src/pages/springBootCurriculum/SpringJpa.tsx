@@ -1,40 +1,27 @@
-import Header from "../../widgets/header/Header";
-import Sidebar from "../Sidebar";
+import PageTemplate from "../PageTemplate";
 
 export default function SpringJpa() {
     return (
-        <div id="wrapper">
-            <div id="main">
-                <div className="inner">
-                    <Header />
+        <PageTemplate>
+            <h2>Spring JPA</h2>
+            <p className="box">
+                Spring Data JPA는 JPA(Java Persistence API)를 기반으로 데이터베이스와의 상호작용을 간소화하기 위해 제공되는 Spring 프로젝트입니다.
+                개발자는 SQL을 직접 작성하지 않고도 객체 지향적으로 데이터를 관리하고 처리할 수 있습니다.
+            </p>
 
-                    <section>
-                        <header className="main">
-                            <h1>Spring JPA</h1>
-                        </header>
+            <h2>Spring JPA 주요 특징</h2>
+            <ul>
+                <li>CRUD 메서드 자동 생성: 기본적인 데이터베이스 연산을 위한 메서드 제공합니다.</li>
+                <li>Query Method: 메서드 이름으로 쿼리 생성할 수 있습니다.</li>
+                <li>JPQL 및 네이티브 쿼리: 복잡한 쿼리 작성이 가능합니다.</li>
+                <li>페이징 및 정렬 지원: 데이터를 페이지 단위로 처리하고 정렬 가능합니다.</li>
+            </ul>
 
-                        <span className="image main"><img src={`${import.meta.env.BASE_URL}images/img01.jpeg`} style={{ height: 300 }} alt="image" /></span>
-
-                        {/* contents */}
-                        <h2>Spring JPA란?</h2>
-                        <p>
-                            Spring Data JPA는 JPA(Java Persistence API)를 기반으로 데이터베이스와의 상호작용을 간소화하기 위해 제공되는 Spring 프로젝트입니다. 
-                            개발자는 SQL을 직접 작성하지 않고도 객체 지향적으로 데이터를 관리하고 처리할 수 있습니다.
-                        </p>
-
-                        <h2>주요 특징</h2>
-                        <ul>
-                            <li>CRUD 메서드 자동 생성: 기본적인 데이터베이스 연산을 위한 메서드 제공합니다.</li>
-                            <li>Query Method: 메서드 이름으로 쿼리 생성할 수 있습니다.</li>
-                            <li>JPQL 및 네이티브 쿼리: 복잡한 쿼리 작성이 가능합니다.</li>
-                            <li>페이징 및 정렬 지원: 데이터를 페이지 단위로 처리하고 정렬 가능합니다.</li>
-                        </ul>
-
-                        <div>
-                            <h3>1. 엔티티 클래스 정의</h3>
-                            <pre>
-                                <code>
-{`
+            <div>
+                <h3>1. 엔티티 클래스 정의</h3>
+                <pre>
+                    <code>
+                        {`
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -75,15 +62,15 @@ public class User {
     }
 }
 `}
-                                </code>
-                            </pre>
-                        </div>
+                    </code>
+                </pre>
+            </div>
 
-                        <div>
-                            <h3>2. Repository 인터페이스 정의</h3>
-                            <pre>
-                                <code>
-{`
+            <div>
+                <h3>2. Repository 인터페이스 정의</h3>
+                <pre>
+                    <code>
+                        {`
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -91,15 +78,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 }
 `}
-                                </code>
-                            </pre>
-                        </div>
+                    </code>
+                </pre>
+            </div>
 
-                        <div>
-                            <h3>3. 서비스 계층</h3>
-                            <pre>
-                                <code>
-{`
+            <div>
+                <h3>3. 서비스 계층</h3>
+                <pre>
+                    <code>
+                        {`
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -135,15 +122,15 @@ public class UserService {
     }
 }
 `}
-                                </code>
-                            </pre>
-                        </div>
+                    </code>
+                </pre>
+            </div>
 
-                        <div>
-                            <h3>4. 컨트롤러</h3>
-                            <pre>
-                                <code>
-{`
+            <div>
+                <h3>4. 컨트롤러</h3>
+                <pre>
+                    <code>
+                        {`
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -184,15 +171,9 @@ public class UserController {
     }
 }
 `}
-                                </code>
-                            </pre>
-                        </div>
-
-                    </section>
-                </div>
+                    </code>
+                </pre>
             </div>
-
-            <Sidebar />
-        </div>
+        </PageTemplate>
     );
 }

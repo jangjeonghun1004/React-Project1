@@ -1,21 +1,16 @@
-
-
-
 import ScrollAnimation from "../../widgets/scrollAnimation/ScrollAnimation";
 import PageTemplate from "../PageTemplate";
 
 export default function Ubuntu() {
     return (
-        <PageTemplate title="Deploying" subTitle="Ubunt Server" imageSrc="img01.jpeg">
-            <h2 id="content">Ubuntu Server란?</h2>
+        <PageTemplate>
+            <h2>Ubuntu Server</h2>
             <div className="box">
-                <p>
                     Ubuntu Server는 Canonical Ltd.에서 개발한 인기 있는 Linux 기반 운영 체제로, 서버 환경에 최적화된 버전입니다.
                     데스크톱 환경보다 가벼운 구조를 가지고 있으며, 서버 운영을 위한 다양한 기능과 도구를 제공합니다.
-                </p>
             </div>
 
-            <h3>Ubuntu Server 명령어</h3>
+            <h2>Ubuntu Server 명령어</h2>
             <pre>
                 <code>{`
 // EC2 접속(원격 서버에 접속합니다)
@@ -96,7 +91,7 @@ $ sudo su
             </pre>
 
             <ScrollAnimation>
-                <h3>주요 특징</h3>
+                <h2>Ubuntu Server 주요 특징</h2>
                 <dl>
                     <dt>경량화된 설계</dt>
                     <dd>
@@ -144,7 +139,7 @@ $ sudo su
             </ScrollAnimation>
 
             <ScrollAnimation>
-                <h3>활용 예</h3>
+                <h2>Ubuntu Server 활용 예</h2>
                 <ul>
                     <li>웹 서버</li>
                     <li>데이터베이스 서버</li>

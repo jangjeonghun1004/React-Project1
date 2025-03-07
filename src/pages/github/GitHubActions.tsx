@@ -1,57 +1,46 @@
-import ScrollAnimation from "../../widgets/scrollAnimation/ScrollAnimation";
 import PageTemplate from "../PageTemplate";
 
 export default function GitHubActions() {
     return (
-        <PageTemplate title="Deploying" subTitle="Git Hub Actions" imageSrc="img01.jpeg">
-            <h2>Git Hub Actions란?</h2>
+        <PageTemplate>
+            <h2>Git Hub Actions</h2>
             <div className="box">
-                <p>
-                    GitHub Actions는 GitHub 저장소에서 CI/CD(Continuous Integration/Continuous Deployment) 워크플로를 자동화할 수 있는 도구입니다.
-                    저장소 내의 코드를 테스트, 빌드, 배포 등의 작업을 실행하도록 YAML 파일 형식으로 워크플로를 정의할 수 있습니다.
-                </p>
+                GitHub Actions는 GitHub 저장소에서 CI/CD(Continuous Integration/Continuous Deployment) 워크플로를 자동화할 수 있는 도구입니다.
+                저장소 내의 코드를 테스트, 빌드, 배포 등의 작업을 실행하도록 YAML 파일 형식으로 워크플로를 정의할 수 있습니다.
             </div>
 
-            <ScrollAnimation alwaysVisible>
-                <h2>주요 특징</h2>
-                <dl>
-                    <dt>자동화</dt>
-                    <dd>
-                        <blockquote>
-                            코드 변경 이벤트(Push, PR 등)에 따라 스크립트를 실행.
-                        </blockquote>
-                    </dd>
-                    <dt>사용자 지정 워크플로</dt>
-                    <dd>
-                        <blockquote>
-                            다양한 작업을 순서대로 정의 가능.
-                        </blockquote>
-                    </dd>
-                    <dt>다양한 실행 환경</dt>
-                    <dd>
-                        <blockquote>
-                            Linux, macOS, Windows 지원.
-                        </blockquote>
-                    </dd>
-                    <dt>Marketplace</dt>
-                    <dd>
-                        <blockquote>
-                            커뮤니티에서 제공하는 액션(플러그인) 사용 가능.
-                        </blockquote>
-                    </dd>
-                    <dt>통합성</dt>
-                    <dd>
-                        <blockquote>
-                            GitHub와 완전히 통합되어 코드 관리 및 배포가 간편.
-                        </blockquote>
-                    </dd>
-                </dl>
-            </ScrollAnimation>
+            <h2>Git Hub Actions 주요 특징</h2>
+            <dl>
+                <dd>
+                    <blockquote>
+                        자동화<br />코드 변경 이벤트(Push, PR 등)에 따라 스크립트를 실행.
+                    </blockquote>
+                </dd>
+                <dd>
+                    <blockquote>
+                        사용자 지정 워크플로<br />다양한 작업을 순서대로 정의 가능.
+                    </blockquote>
+                </dd>
+                <dd>
+                    <blockquote>
+                        다양한 실행 환경<br />Linux, macOS, Windows 지원.
+                    </blockquote>
+                </dd>
+                <dd>
+                    <blockquote>
+                        Marketplace<br />커뮤니티에서 제공하는 액션(플러그인) 사용 가능.
+                    </blockquote>
+                </dd>
+                <dd>
+                    <blockquote>
+                        통합성<br />GitHub와 완전히 통합되어 코드 관리 및 배포가 간편.
+                    </blockquote>
+                </dd>
+            </dl>
 
-            <ScrollAnimation>
-                <h2>사용법</h2>
-                <pre>
-                    <code>{`
+            <h2>Git Hub Actions 사용법</h2>
+            <pre>
+                <code>{`
 name: Node.js CI/CD
 
 on:
@@ -104,8 +93,8 @@ jobs:
             cd /var/www/my-app
             pm2 restart my-app
                 `}</code>
-                    <br />
-                    <code>{`
+                <br />
+                <code>{`
 1. name: Node.js CI/CD: 워크플로우의 이름을 정의합니다. GitHub Actions 워크플로우 탭에 표시되는 이름입니다.
 
 2. on:: 워크플로우를 실행할 트리거를 정의합니다.
@@ -144,9 +133,7 @@ jobs:
     코드를 main 브랜치에 푸시하면 자동으로 워크플로우가 실행됩니다.
     Actions 탭에서 워크플로우 실행 결과를 확인할 수 있습니다.
                 `}</code>
-                </pre>
-            </ScrollAnimation>
-
+            </pre>
         </PageTemplate>
     );
 }

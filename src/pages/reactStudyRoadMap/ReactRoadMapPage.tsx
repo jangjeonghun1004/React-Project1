@@ -3,7 +3,7 @@ import CardStyle3 from "../../shared/card/CardStyle3";
 
 export default function ReactPage() {
     return (
-        <PageTemplate title="React-학습 로드 맵" subTitle="" imageSrc="">
+        <PageTemplate>
             <section>
                 <dl>
                     <dt>React Hook-리액트 훅</dt>
@@ -47,21 +47,26 @@ export default function ReactPage() {
                             />
                         </div>
                     </dd>
-                    <dt>others</dt>
+                    <dt>React Component-리액트 컴포넌트</dt>
                     <dd>
                         <div className="features">
-                            <CardStyle3
-                                icon="icon solid fa-rocket"
-                                title="Props"
-                                text="Props는 React에서 속성(properties)의 약자로, 컴포넌트 간에 데이터를 전달하는 데 사용됩니다."
-                                linkPath="props"
-                            />
                             <CardStyle3
                                 icon="icon solid fa-skating"
                                 title="BrowserRouter"
                                 text="BrowserRouter는 React Router에서 제공하는 컴포넌트로, HTML5의 History API를 활용하여 클라이언트 측 라우팅을 처리합니다."
                                 linkPath="browserRouter"
                             />
+                            <CardStyle3
+                                icon="icon solid fa-rocket"
+                                title="Props"
+                                text="Props는 React에서 속성(properties)의 약자로, 컴포넌트 간에 데이터를 전달하는 데 사용됩니다."
+                                linkPath="props"
+                            />
+                        </div>
+                    </dd>
+                    <dt>others</dt>
+                    <dd>
+                        <div className="features">
                             <CardStyle3
                                 icon="icon solid fa-signal"
                                 title="Redux ToolKit"

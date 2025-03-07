@@ -1,32 +1,26 @@
-import ScrollAnimation from "../../widgets/scrollAnimation/ScrollAnimation";
 import PageTemplate from "../PageTemplate";
 
 export default function GitHub() {
     return (
-        <PageTemplate title="Deploying" subTitle="Git Hub" imageSrc="img01.jpeg">
-            <h2>Git Hub란?</h2>
+        <PageTemplate>
+            <h2>Git Hub</h2>
             <div className="box">
-                <p>
-                    GitHub는 소프트웨어 개발 프로젝트를 관리하고 협업할 수 있는 플랫폼으로, 주로 Git 버전 관리 시스템을 기반으로 작동합니다.
-                    개발자들이 코드 저장소를 생성하고, 변경 사항을 추적하며, 협업 도구(예: Pull Request, Issues, Discussions 등)를 활용할 수 있도록 지원합니다.
-                </p>
+                GitHub는 소프트웨어 개발 프로젝트를 관리하고 협업할 수 있는 플랫폼으로, 주로 Git 버전 관리 시스템을 기반으로 작동합니다.
+                개발자들이 코드 저장소를 생성하고, 변경 사항을 추적하며, 협업 도구(예: Pull Request, Issues, Discussions 등)를 활용할 수 있도록 지원합니다.
             </div>
 
-            <ScrollAnimation alwaysVisible>
-                <h2>주요 기능</h2>
-                <ul>
-                    <li>코드 호스팅</li>
-                    <li>Git 버전 관리</li>
-                    <li>협업 도구 (Pull Request, Code Review)</li>
-                    <li>프로젝트 관리 (Issue Tracking, Kanban 보드)</li>
-                    <li>CI/CD 통합 (예: GitHub Actions)</li>
-                    <li>오픈소스 기여 환경 제공</li>
-                </ul>
-            </ScrollAnimation>
-            <ScrollAnimation>
-                <h2>명령어</h2>
-                <pre>
-                    <code>{`
+            <h2>Git Hub 주요 기능</h2>
+            <ul>
+                <li>코드 호스팅</li>
+                <li>Git 버전 관리</li>
+                <li>협업 도구 (Pull Request, Code Review)</li>
+                <li>프로젝트 관리 (Issue Tracking, Kanban 보드)</li>
+                <li>CI/CD 통합 (예: GitHub Actions)</li>
+                <li>오픈소스 기여 환경 제공</li>
+            </ul>
+            <h2>Git Hub 명령어</h2>
+            <pre>
+                <code>{`
 // 로컬 브랜치의 커밋을 원격 저장소(GitHub)에 업로드합니다.
 % git push <remote_name> <branch_name> 
   git push origin main: 로컬 main 브랜치를 origin 원격 저장소의 main 브랜치로 푸시합니다.
@@ -35,8 +29,8 @@ export default function GitHub() {
 % git pull <remote_name> <branch_name>
   git pull origin main: origin 원격 저장소의 main 브랜치 내용을 로컬 main 브랜치로 가져옵니다.
                     `}</code>
-                    <br />
-                    <code>{`
+                <br />
+                <code>{`
 // 새로운 Git 저장소를 현재 디렉토리에 생성합니다. (GitHub에 올릴 로컬 저장소를 만들 때 사용)
 % git init
 
@@ -79,8 +73,7 @@ export default function GitHub() {
 // origin이라는 이름으로 원격 저장소를 추가합니다.
 % git remote add origin <repository_url>
                     `}</code>
-                </pre>
-            </ScrollAnimation>
+            </pre>
         </PageTemplate>
     );
 }

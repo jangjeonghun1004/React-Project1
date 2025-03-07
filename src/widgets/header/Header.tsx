@@ -27,7 +27,7 @@ function Header({ title = "Jeong Hun's Web" }: Props) {
     return (
         <header id="header">
             <Link to={import.meta.env.BASE_URL} className="logo">
-                <strong>{title}</strong>
+                <strong className="icon solid fa-home"> {title}</strong>
             </Link>
             <ul className="icons">
                 {token ? (
