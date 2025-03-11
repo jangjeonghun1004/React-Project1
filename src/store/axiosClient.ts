@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { STORAGE_KEYS } from '../app/storageKeys';
 import { jwtDecode } from 'jwt-decode'; // jwt-decode 라이브러리 설치 필요: npm install jwt-decode
+import { useNavigate } from 'react-router-dom';
+
+const navigate = useNavigate();
 
 // 환경변수를 사용하여 민감 정보가 코드에 노출되지 않도록 관리합니다.
 // 예: .env 파일에 REACT_APP_AUTH_URL='https://newallsoft.shop/api/auth' 설정
@@ -46,7 +49,8 @@ axiosClient.interceptors.request.use(
 
         // 강제 로그아웃 또는 토큰 갱신 로직 추가 (예: dispatch(logoutAction()))
         alert('토큰이 만료되었습니다. 다시 로그인해주세요.'); // 사용자에게 알림 (선택 사항)
-        window.location.href = `${import.meta.env.BASE_URL}signIn`; // 로그인 페이지로 리다이렉트 (선택 사항)
+        navigate(`${import.meta.env.BASE_URL}signIn`);
+        //window.location.href = `${import.meta.env.BASE_URL}signIn`; // 로그인 페이지로 리다이렉트 (선택 사항)
 
         // return Promise.reject({ // 요청 거부 (선택 사항)
         //     response: {
@@ -78,7 +82,8 @@ axiosClient.interceptors.response.use(
 
       // 강제 로그아웃 또는 로그인 페이지 리다이렉트 처리 (예: dispatch(logoutAction()))
       alert('사용자 인증이 필요합니다. 다시 로그인해주세요.'); // 사용자에게 알림 (선택 사항)
-      window.location.href = `${import.meta.env.BASE_URL}signIn`; // 로그인 페이지로 리다이렉트 (선택 사항)
+      navigate(`${import.meta.env.BASE_URL}signIn`);
+      //window.location.href = `${import.meta.env.BASE_URL}signIn`; // 로그인 페이지로 리다이렉트 (선택 사항)
     }
     return Promise.reject(error);
   }

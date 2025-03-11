@@ -52,6 +52,7 @@ export default function PostPage() {
   /* [게시글 추가 및 폼 토글] */
   const handlePostFormToggle = () => setIsNewPostShow(!isNewPostShow);
   const handleCancel = () => setIsNewPostShow(!isNewPostShow);
+  
   const handleCreatePost = async (formData: FormData) => {
     const title = formData.get("title") as string;
     const content = formData.get("contents") as string;
