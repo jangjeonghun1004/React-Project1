@@ -1,5 +1,6 @@
 import {
-  createBrowserRouter,
+  //createBrowserRouter,
+  createHashRouter,
   RouterProvider,
   ScrollRestoration,
   Outlet,
@@ -32,7 +33,7 @@ import GitHub from "./pages/github/GitHub";
 import GitHubActions from "./pages/github/GitHubActions";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
-import {ProtectedRoute} from "./app/ProtectedRoute";
+import { ProtectedRoute } from "./app/ProtectedRoute";
 import PostPage from "./pages/PostPage";
 import UseStatePage from "./pages/reactStudyRoadMap/UseStatePage";
 import UseReducerPage from "./pages/reactStudyRoadMap/UseReducerPage";
@@ -59,7 +60,7 @@ const RootLayout = () => (
   </>
 );
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: basePath,
     element: <RootLayout />,
@@ -96,12 +97,12 @@ const router = createBrowserRouter([
       { path: "gitHubActions", element: <GitHubActions /> },
       { path: "signUp", element: <SignUpPage /> },
       { path: "signIn", element: <SignInPage /> },
-      { path: "post", element: <PostPage />},
+      { path: "post", element: <PostPage /> },
 
-      { path: "reactMap", element: <ReactPage />},
-      { path: "springBootMap", element: <SpringBootRoadMapPage />},
-      { path: "deployingMap", element: <DeployingRoadMap />},
-      
+      { path: "reactMap", element: <ReactPage /> },
+      { path: "springBootMap", element: <SpringBootRoadMapPage /> },
+      { path: "deployingMap", element: <DeployingRoadMap /> },
+
       {// 보호가 필요한 페이지
         path: "toDo",
         element: (
@@ -132,9 +133,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
-      <ScreenSizeProvider>
-        <RouterProvider router={router} />
-      </ScreenSizeProvider>
+        <ScreenSizeProvider>
+          <RouterProvider router={router} />
+        </ScreenSizeProvider>
     </Provider>
   );
 }
