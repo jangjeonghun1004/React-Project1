@@ -16,7 +16,7 @@ function CurriculumVitae() {
                     이 사이트는 저의 첫번째 <u style={{ color: "#f56a6a" }}>String Boot & React</u> 프로젝트입니다.
                 </p>
                 <ul className="actions fit">
-                    <li><Link to={`${import.meta.env.BASE_URL}career`} className="button primary large fit icon solid fa-search">이력서 연람하기</Link></li>
+                    <li><Link to={`${import.meta.env.BASE_URL}career`} className="button primary large fit icon solid fa-search">이력서 열람하기</Link></li>
                 </ul>
             </div>
             <span className="image object">
