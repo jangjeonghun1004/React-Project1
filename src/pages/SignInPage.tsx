@@ -57,10 +57,10 @@ export default function SignInPage() {
                     <form action={handleSignIn}>
                         <div className="row gtr-uniform">
                             <div className="col-12">
-                                <input type="email" name="email" placeholder="Email" />
+                                <input type="email" name="email" placeholder="Email" value={`guest@gmail.com`} />
                             </div>
                             <div className="col-12">
-                                <input type="password" name="password" placeholder="Password" />
+                                <input type="password" name="password" placeholder="Password" value={`12345678a`} />
                             </div>
                         </div>
                         <br />
