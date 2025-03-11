@@ -1,6 +1,5 @@
 import {
-  //createBrowserRouter,
-  createHashRouter,
+  createBrowserRouter,
   RouterProvider,
   ScrollRestoration,
   Outlet,
@@ -60,7 +59,7 @@ const RootLayout = () => (
   </>
 );
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: basePath,
     element: <RootLayout />,

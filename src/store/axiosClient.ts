@@ -46,7 +46,7 @@ axiosClient.interceptors.request.use(
 
         // 강제 로그아웃 또는 토큰 갱신 로직 추가 (예: dispatch(logoutAction()))
         alert('토큰이 만료되었습니다. 다시 로그인해주세요.'); // 사용자에게 알림 (선택 사항)
-        window.location.hash = `${import.meta.env.BASE_URL}signIn`; // 로그인 페이지로 리다이렉트 (선택 사항)
+        window.location.href = `${import.meta.env.BASE_URL}signIn`; // 로그인 페이지로 리다이렉트 (선택 사항)
 
         // return Promise.reject({ // 요청 거부 (선택 사항)
         //     response: {
@@ -78,7 +78,7 @@ axiosClient.interceptors.response.use(
 
       // 강제 로그아웃 또는 로그인 페이지 리다이렉트 처리 (예: dispatch(logoutAction()))
       alert('사용자 인증이 필요합니다. 다시 로그인해주세요.'); // 사용자에게 알림 (선택 사항)
-      window.location.hash = `${import.meta.env.BASE_URL}signIn`; // 로그인 페이지로 리다이렉트 (선택 사항)
+      window.location.href = `${import.meta.env.BASE_URL}signIn`; // 로그인 페이지로 리다이렉트 (선택 사항)
     }
     return Promise.reject(error);
   }
