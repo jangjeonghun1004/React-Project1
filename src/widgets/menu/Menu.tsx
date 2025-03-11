@@ -57,12 +57,12 @@ function Menu() {
                     <li><Link to={`${import.meta.env.BASE_URL}gitHub`}>Github</Link></li>
                     <li><Link to={`${import.meta.env.BASE_URL}gitHubActions`}>GithubActions</Link></li>
                 </SubMenu>
-                <SubMenu title="LLM-AI" icon="fa-robot">
+                {/* <SubMenu title="LLM-AI" icon="fa-robot">
                     <li><a href='https://chatgpt.com/' target="blank">ChatGPT</a></li>
                     <li><a href='https://grok.com/' target="blank">Grok</a></li>
                     <li><a href='https://claude.ai/' target="blank">Claude</a></li>
                     <li><a href='https://gemini.google.com/' target="blank">Gemini</a></li>
-                </SubMenu>
+                </SubMenu> */}
             </ul>
         </nav>
     );
